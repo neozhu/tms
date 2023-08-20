@@ -1,0 +1,92 @@
+﻿﻿@model WebApp.Models.StatusHistory
+<!-- begin master section -->
+<div  class="main-form">
+<!--begin statushistory form  -->
+<form id="statushistory_form" method="post" novalidate="novalidate" >
+@Html.AntiForgeryToken()
+   @Html.HiddenFor(x=>x.Id)
+ <fieldset>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--订单号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.ORDERKEY) </label>
+			@Html.EditorFor(x => x.ORDERKEY, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.ORDERKEY) } })
+      
+         </div>
+
+        <!--运单号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.SHIPORDERKEY) </label>
+			@Html.EditorFor(x => x.SHIPORDERKEY, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.SHIPORDERKEY) } })
+      
+         </div>
+
+        <!--状态-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.STATUS) </label>
+			@Html.EditorFor(x => x.STATUS, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.STATUS) } })
+      
+         </div>
+
+        <!--描述-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DESCRIPTION) </label>
+			@Html.EditorFor(x => x.DESCRIPTION, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.DESCRIPTION) } })
+      
+         </div>
+
+        <!--备注-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.REMARK) </label>
+			@Html.EditorFor(x => x.REMARK, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.REMARK) } })
+      
+         </div>
+
+       <!--时间-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.TRANSACTIONDATETIME)</span> </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.TRANSACTIONDATETIME, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.TRANSACTIONDATETIME ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--操作人-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.USER) </label>
+			@Html.EditorFor(x => x.USER, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.USER) } })
+      
+         </div>
+
+		<!--经度-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.LONGITUDE)</span> </label>
+            @Html.EditorFor(x => x.LONGITUDE, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.LONGITUDE) } })
+
+        </div>
+
+		<!--纬度-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.LATITUDE)</span> </label>
+            @Html.EditorFor(x => x.LATITUDE, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.LATITUDE) } })
+
+        </div>
+	    
+   </div>
+  </div>
+</fieldset>
+</form>
+<!-- end statushistory form  -->
+</div>
+
+<!-- end master section -->
+<!--========================================================================================-->
+

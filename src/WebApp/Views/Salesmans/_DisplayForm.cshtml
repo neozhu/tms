@@ -1,0 +1,88 @@
+﻿﻿@model WebApp.Models.Salesman
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin salesman form  -->
+<form id="salesman_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+ <fieldset>
+     <div class="row">
+			              <!--销售姓名-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Name)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Name)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--公司名称-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CompanyName) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CompanyName)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--职称-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Title) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Title)
+            </label>
+            </section>
+ 		 
+	    
+			  			  <!--是否推送消息-->
+              <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.IsPushNotification)</span> </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.IsPushNotification)
+            </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			              <!--推送手机号码-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.PhoneNumber)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.PhoneNumber)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--邮件地址-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Email) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Email)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--备注-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Notes) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Notes)
+            </label>
+            </section>
+ 		 
+	    
+   </div>
+	    
+</fieldset>
+</form>
+<!-- end salesman form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+
+

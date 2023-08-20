@@ -1,0 +1,113 @@
+﻿﻿@model WebApp.Models.Document
+<!-- begin master section -->
+<div  class="main-form">
+<!--begin document form  -->
+<form id="document_form" method="post" novalidate="novalidate" >
+@Html.AntiForgeryToken()
+   @Html.HiddenFor(x=>x.Id)
+ <fieldset>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--业务单号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.OrderKey)</span> </label>
+			@Html.EditorFor(x => x.OrderKey, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.OrderKey) } })
+      
+         </div>
+
+        <!--文件名-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.FileName)</span> </label>
+			@Html.EditorFor(x => x.FileName, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.FileName) } })
+      
+         </div>
+
+        <!--文件类型-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.FileType) </label>
+			@Html.EditorFor(x => x.FileType, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.FileType) } })
+      
+         </div>
+
+        <!--保存路径-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Path) </label>
+			@Html.EditorFor(x => x.Path, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Path) } })
+      
+         </div>
+
+        <!--URL-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Url) </label>
+			@Html.EditorFor(x => x.Url, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Url) } })
+      
+         </div>
+
+        <!--文件MD5-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.MD5) </label>
+			@Html.EditorFor(x => x.MD5, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.MD5) } })
+      
+         </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+		<!--文件大小-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Size)</span> </label>
+            @Html.EditorFor(x => x.Size, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.Size) } })
+
+        </div>
+
+		<!--图片宽度-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Width) </label>
+            @Html.EditorFor(x => x.Width, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.Width) } })
+
+        </div>
+
+		<!--图片高度-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Height) </label>
+            @Html.EditorFor(x => x.Height, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.Height) } })
+
+        </div>
+
+        <!--描述-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Description) </label>
+			@Html.EditorFor(x => x.Description, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Description) } })
+      
+         </div>
+
+        <!--上传用户-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.User) </label>
+			@Html.EditorFor(x => x.User, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.User) } })
+      
+         </div>
+
+       <!--上传时间-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.UploadDateTime)</span> </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.UploadDateTime, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.UploadDateTime ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+	   </div>
+    </div>
+	    
+</fieldset>
+</form>
+<!-- end document form  -->
+</div>
+
+<!-- end master section -->
+<!--========================================================================================-->
+

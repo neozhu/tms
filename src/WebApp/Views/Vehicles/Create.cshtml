@@ -1,0 +1,484 @@
+﻿@model WebApp.Models.Vehicle
+@{  ViewBag.Title = "车辆信息 | Create";}
+<!-- MAIN CONTENT -->
+<div id="content">
+    <!-- quick navigation bar -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-table fa-fw "></i>
+                主数据管理
+                <span>
+                    >
+                    车辆信息
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+        </div>
+    </div>
+     <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <!-- row -->
+        <div class="row">
+    <!-- NEW WIDGET START -->
+    <article class="col-sm-12 col-md-12 col-lg-12">
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-deletebutton="false">
+            <!-- widget options:
+            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+            data-widget-colorbutton="false"
+            data-widget-editbutton="false"
+            data-widget-togglebutton="false"
+            data-widget-deletebutton="false"
+            data-widget-fullscreenbutton="false"
+            data-widget-custombutton="false"
+            data-widget-collapsed="true"
+            data-widget-sortable="false"
+            -->
+            <header>
+                <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                <h2> 车辆信息 </h2>
+            </header>
+            <!-- widget div-->
+            <div>
+                <!-- widget edit box -->
+                <div class="jarviswidget-editbox">
+                    <!-- This area used as dropdown edit box -->
+                </div>
+                <!-- end widget edit box -->
+                <!-- widget content -->
+                <div class="widget-body">
+                    <div class="widget-body-toolbar">
+                        <div class="row">
+                            <div class="col-sm-8  ">
+                                <div class="btn-group">
+                                    <a href="javascript:saveitem()" class="btn btn-sm btn-primary"> <i class="fa fa-floppy-o"></i> @Html.L("Save") </a>
+                                </div>
+                                <div class="btn-group" style="display:none">
+                                    <a href="javascript:todo()" class="btn btn-sm btn-primary"> <i class="fa fa-print"></i> ToDo </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 text-align-right">
+                                <div class="btn-group">
+                                    <a href="/Vehicles/Index" class="btn btn-sm btn-success"> <i class="fa fa-chevron-left"></i> @Html.L("GoBack") </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="body-content">
+                         @Html.Partial("EditForm")
+                    </div>		 
+                 </div>
+                 <!-- end widget content -->
+                 </div>
+            <!-- end widget div -->
+        </div>
+        <!-- end widget -->
+    </article>
+    <!-- WIDGET END -->
+</div>
+ 
+</section>
+</div>
+<!-- END MAIN CONTENT -->
+@section Scripts {
+<script type="text/javascript">
+	    var vehicleid=@Model.Id;
+        var $editform = $('#vehicle_form');
+        //保存
+        function saveitem() {
+			  if ($editform.valid()) {
+                 var vehicle = $editform.serializeJSON();
+                 var token = $('input[name="__RequestVerificationToken"]', $editform).val();
+                 $.ajax({
+                    type: "POST",
+                    url: "/Vehicles/CreateAsync",
+                    data: {
+                        __RequestVerificationToken: token,
+                        vehicle:vehicle
+                    },
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                })
+                .done(response => {
+                    if (response.success) {
+                        toastr.success('保存成功'); 
+                        window.location.href = "/Vehicles/Index";
+                    } else {
+                        $.messager.alert("错误", response.err, "error");
+                    }
+                    })
+                .fail((jqXHR, textStatus, errorThrown) => {
+                        $.messager.alert("异常",  errorThrowne ,"error");
+                    });
+                  
+             }						
+        }
+        //ToDo
+        function todo() {
+        }
+      
+
+     /********************************
+     *
+     * pageSetUp() is needed whenever you load a page.
+     * It initializes and checks for all basic elements of the page
+     * and makes rendering easier.
+     *
+     */
+     //pageSetUp();
+     /********************************
+     *
+     * pagefunction() $editform 校验规则
+     *
+     */
+     var pagefunction = function () {
+            var errorClass = 'has-error';
+            var successClass = 'has-success';
+            var errorElement = 'em';
+            $editform.validate({
+                 errorElement: errorElement,
+      errorPlacement: function (error, element) {
+         // Add the `help-block` class to the error element
+         error.addClass("help-block no-margin");
+         if (element.prop("type") === "checkbox") {
+          error.insertAfter(element.parent("label"));
+         } else if (element.prop("type") === "date" || element.prop("type") === "datetime" ) {
+          error.insertAfter(element.parent(".input-group"));
+         } else {
+          error.insertAfter(element);
+         }
+       },
+       highlight: function (element, errorClass, validClass) {
+        $(element).parents("div").addClass("has-error").removeClass("has-success");
+       },
+       unhighlight: function (element, errorClass, validClass) {
+        $(element).parents("div").addClass("has-success").removeClass("has-error");
+       },
+                // Rules for form validation
+                rules: {
+                    PlateNumber:{
+                            required:true,
+                            rangelength: [7, 10],
+                    },
+                    ShipOrderNo:{
+                            required:false,
+                            rangelength: [0, 20],
+                    },
+                    InputUser:{
+                            required:false,
+                            rangelength: [0, 20],
+                    },
+                    Status:{
+                            required:true,
+                            rangelength: [0, 20],
+                    },
+                    CarType:{
+                            required:true,
+                            rangelength: [0, 20],
+                    },
+                    CarrierCode:{
+                            required:false,
+                            rangelength: [0, 20],
+                    },
+                    CarrierName:{
+                            required:false,
+                            rangelength: [0, 80],
+                    },
+                    VehLongSize:{
+                            required:true,
+                            number: true,
+                    },
+                    StdLoadWeight:{
+                            required:true,
+                            number: true,
+                    },
+                    FeeLoadWeight:{
+                            required:true,
+                            number: true,
+                    },
+                    StdLoadVolume:{
+                            required:true,
+                            number: true,
+                    },
+                    CarriageSize:{
+                            required:true,
+                            number: true,
+                    },
+                    GPSDeviceId:{
+                            required:true,
+                            rangelength: [0, 50],
+                    },
+                    Driver:{
+                            required:true,
+                            rangelength: [0, 20],
+                    },
+                    DriverPhone:{
+                            required:true,
+                            rangelength: [0, 50],
+                    },
+                    AssistantDriver:{
+                            required:false,
+                            rangelength: [0, 20],
+                    },
+                    AssistantDriverPhone:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    CustomsNo:{
+                            required:false,
+                            rangelength: [0, 20],
+                    },
+                    RoadKM:{
+                            required:false,
+                            number: true,
+                    },
+                    RoadHours:{
+                            required:false,
+                            number: true,
+                    },
+                    Owner:{
+                            required:false,
+                            rangelength: [0, 20],
+                    },
+                    OwnerContactPhone:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    Brand:{
+                            required:false,
+                            rangelength: [0, 20],
+                    },
+                    RPM:{
+                            required:false,
+                            digits: true,
+                    },
+                    PurchasedDate:{
+                            required:false,
+                            date: true,
+                    },
+                    PurchasedAmount:{
+                            required:false,
+                            number: true,
+                    },
+                    VehLong:{
+                            required:false,
+                            number: true,
+                    },
+                    VehWide:{
+                            required:false,
+                            number: true,
+                    },
+                    VehHigh:{
+                            required:false,
+                            number: true,
+                    },
+                    VIN:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    ServiceLife:{
+                            required:false,
+                            digits: true,
+                    },
+                    MaintainKM:{
+                            required:false,
+                            digits: true,
+                    },
+                    MaintainDate:{
+                            required:false,
+                            date: true,
+                    },
+                    MaintainMonth:{
+                            required:false,
+                            digits: true,
+                    },
+                    ExistVehTailBoard:{
+                            required:true,
+                    },
+                    VehTailBoardBrand:{
+                            required:false,
+                            rangelength: [0, 30],
+                    },
+                    VehTailBoardFactory:{
+                            required:false,
+                            rangelength: [0, 30],
+                    },
+                    VehTailBoardLife:{
+                            required:false,
+                            digits: true,
+                    },
+                    VehTailBoardAmount:{
+                            required:false,
+                            number: true,
+                    },
+                    VehTailBoardGPSDeviceId:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    DrLicenseModel:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    DrLicenseUseNature:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    DrLicenseBrand:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    DrLicenseDevId:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    DrLicenseEngineId:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    DrLicenseRegistrationDate:{
+                            required:false,
+                            date: true,
+                    },
+                    DrLicensePubDate:{
+                            required:false,
+                            date: true,
+                    },
+                    DrLicenseRatedUsers:{
+                            required:false,
+                            digits: true,
+                    },
+                    DrLicenseVehWeight:{
+                            required:false,
+                            number: true,
+                    },
+                    DrLicenseDevWeight:{
+                            required:false,
+                            number: true,
+                    },
+                    DrLicenseNetWeight:{
+                            required:false,
+                            number: true,
+                    },
+                    DrLicenseNetVolume:{
+                            required:false,
+                            number: true,
+                    },
+                    DrLicenseVehWide:{
+                            required:false,
+                            number: true,
+                    },
+                    DrLicenseVehHigh:{
+                            required:false,
+                            number: true,
+                    },
+                    DrLicenseVehLong:{
+                            required:false,
+                            number: true,
+                    },
+                    DrLicenseScrapedDate:{
+                            required:false,
+                            date: true,
+                    },
+                    LoLicenseManageId:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    LoLicenseId:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    LoLicenseBusinessScope:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    LoLicensePubDate:{
+                            required:false,
+                            date: true,
+                    },
+                    LoLicenseValidDate:{
+                            required:false,
+                            date: true,
+                    },
+                    LoLicenseCheckDate:{
+                            required:false,
+                            date: true,
+                    },
+                    LoLicensePlace:{
+                            required:false,
+                            rangelength: [0, 30],
+                    },
+                    InsTrafficPolicyId:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    InsTrafficPolicyCompany:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    InsTrafficPolicyVaildateDate:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    InsTrafficPolicyAmount:{
+                            required:false,
+                            number: true,
+                    },
+                    InsThirdPartyId:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    InsThirdPartyVaildateDate:{
+                            required:false,
+                            date: true,
+                    },
+                    InsThirdPartyAmount:{
+                            required:false,
+                            number: true,
+                    },
+                    InsThirdPartyLogisticsAmount:{
+                            required:false,
+                            number: true,
+                    },
+                    InsThirdPartyLogisticsVaildateDate:{
+                            required:false,
+                            date: true,
+                    },
+                },
+                // Messages for form validation
+                messages:{
+                
+                },
+                submitHandler:  (form) => {
+                      //调用保存方法
+                      saveitem();
+                      return false;
+                    //$(form).ajaxSubmit({
+                    //    success: function () {
+                    //        console.log('ajaxSubmit success');
+                    //   }
+                    //});
+                }
+            });
+        }
+        pagefunction();
+</script>
+
+ <!-- 初始化from -->
+ <script type="text/javascript">
+    
+    function initFormData(id) {
+            //$('#vehicle_form').form('load', data);
+            
+    }
+
+
+   var vehicleid=@Model.Id;
+    $(function(){
+        initFormData(vehicleid);
+    });
+ </script>
+
+}

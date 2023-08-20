@@ -1,0 +1,146 @@
+﻿﻿@model WebApp.Models.FreightRule
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin freightrule form  -->
+<form id="freightrule_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+ <fieldset>
+     <div class="row">
+			              <!--起始地-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.ORIGINAL)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.ORIGINAL)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--目的地-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.DESTINATION)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.DESTINATION)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--运输方式(整车/零担)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.SHPTYPE)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.SHPTYPE)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--计费方式(吨/立方/立方吨)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.CALTYPE)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CALTYPE)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--车辆吨位起-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.CARLWT1)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.CARLWT1)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--车辆吨位至-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.CARLWT2)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.CARLWT2)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--单价-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.PRICE)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.PRICE)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--最小收费-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.MINAMOUNT)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.MINAMOUNT)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--状态-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.STATUS)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.STATUS)
+			    </label>
+            </section>
+		 
+	    
+			              <!--说明-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DESCRIPTION) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.DESCRIPTION)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--LOTTABLE1-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LOTTABLE1) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.LOTTABLE1)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--LOTTABLE2-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LOTTABLE2) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.LOTTABLE2)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--LOTTABLE3-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.LOTTABLE3)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.LOTTABLE3)
+			    </label>
+            </section>
+		 
+	    
+   </div>
+	    
+</fieldset>
+</form>
+<!-- end freightrule form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+
+

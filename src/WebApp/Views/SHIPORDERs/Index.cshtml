@@ -1,0 +1,1961 @@
+﻿@model WebApp.Models.SHIPORDER
+@{
+  ViewBag.Title = "派车单信息";
+}
+<!-- MAIN CONTENT -->
+<div id="content">
+  <!-- quick navigation bar -->
+  <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+      <h1 class="page-title txt-color-blueDark">
+        <i class="fa fa-table fa-fw "></i>
+        业务操作
+        <span>
+          >
+          派车单信息
+        </span>
+      </h1>
+    </div>
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+
+    </div>
+  </div>
+  <!-- end quick navigation bar -->
+  <!-- widget grid -->
+  <section id="widget-grid" class="">
+    <!-- row -->
+    <div class="row">
+      <!-- NEW WIDGET START -->
+      <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false" data-widget-deletebutton="false">
+          <!-- widget options:
+          usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+          data-widget-colorbutton="false"
+          data-widget-editbutton="false"
+          data-widget-togglebutton="false"
+          data-widget-deletebutton="false"
+          data-widget-fullscreenbutton="false"
+          data-widget-custombutton="false"
+          data-widget-collapsed="true"
+          data-widget-sortable="false"
+          -->
+          <header>
+            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+            <h2>派车单信息</h2>
+          </header>
+
+          <!-- widget div-->
+          <div>
+            <!-- widget edit box -->
+            <div class="jarviswidget-editbox">
+              <!-- This area used as dropdown edit box -->
+            </div>
+            <!-- end widget edit box -->
+            <!-- widget content -->
+            <div class="widget-body no-padding">
+              <div class="sk-spinner sk-spinner-wave">
+                <div class="sk-rect1"></div>
+                <div class="sk-rect2"></div>
+                <div class="sk-rect3"></div>
+                <div class="sk-rect4"></div>
+                <div class="sk-rect5"></div>
+              </div>
+              <div class="widget-body-toolbar">
+                <div class="row">
+                  <div class="col-sm-8  ">
+                    <!-- 开启授权控制请参考 @@if (Html.IsAuthorize("Create") -->
+
+                    <div class="btn-group btn-group-sm">
+                      <button onclick="doshipping()" class="btn btn-default btn-success"> <i class="fa fa-train"></i> 发运 </button>
+                    </div>
+                    <div class="btn-group btn-group-sm">
+                      <button onclick="completechecked()" class="btn btn-default btn-success"> <i class="fa fa-check-square-o"></i> 配送完成 </button>
+                    </div>
+                    <div class="btn-group btn-group-sm">
+                      <button onclick="removeit()" class="btn btn-default btn-danger"> <i class="fa fa-trash-o"></i> 取消派车 </button>
+                    </div>
+
+                    <div class="btn-group btn-group-sm">
+                      <button onclick="reload()" class="btn btn-default"> <i class="fa fa-refresh"></i> @Html.L("Refresh") </button>
+                    </div>
+
+                    <div class="btn-group btn-group-sm hidden-xs hidden-md">
+                      <button onclick="exportexcel()" class="btn btn-default"> <i class="fa fa-file-excel-o"></i> 导出派车明细 </button>
+                    </div>
+
+
+                  </div>
+                  <div class="col-sm-4 text-align-right visible-lg-inline-block">
+                    <div class="btn-group btn-group-sm">
+                      <button onclick="window.history.back()" class="btn btn-sm btn-success"> <i class="fa fa-chevron-left"></i> @Html.L("GoBack") </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="alert alert-warning no-margin fade in">
+                <button class="close" data-dismiss="alert">
+                  ×
+                </button>
+                <i class="fa-fw fa fa-info"></i>
+                注意事项:
+              </div>
+              <!--begin datagrid-content -->
+              <div class="table-responsive">
+                <table id="shiporders_datagrid"></table>
+              </div>
+              <!--end datagrid-content -->
+            </div>
+            <!-- end widget content -->
+          </div>
+          <!-- end widget div -->
+        </div>
+        <!-- end widget -->
+      </article>
+      <!-- WIDGET END -->
+    </div>
+    <!-- end row -->
+  </section>
+  <!-- end widget grid -->
+  <!-- file upload partial view -->
+  <!-- RenderPartial() does exactly the same thing and is better for performance over Partial() -->
+  @{ Html.RenderPartial("_ImportWindow", new ViewDataDictionary { { "EntityName", "SHIPORDER" } }); }
+  <!-- end file upload partial view -->
+  <!-- detail popup window -->
+  @{ Html.RenderPartial("_PopupDetailFormView", new WebApp.Models.SHIPORDER()); }
+  <!-- end detail popup window -->
+
+</div>
+<!-- END MAIN CONTENT -->
+<div id="mapwindow" style="display:none">
+  <div style=" position: absolute;
+    top: 50px;
+    right: 15px;
+    z-index:1000;
+    -webkit-box-shadow: 0 0 0.5cm rgba(0,0,0,.5);
+    box-shadow: 0 0 0.5cm rgba(0,0,0,.5);">
+    <div class="jarviswidget no-margin" id="wid-id-6" role="widget">
+      <!-- widget options:
+      usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+      data-widget-colorbutton="false"
+      data-widget-editbutton="false"
+      data-widget-togglebutton="false"
+      data-widget-deletebutton="false"
+      data-widget-fullscreenbutton="false"
+      data-widget-custombutton="false"
+      data-widget-collapsed="true"
+      data-widget-sortable="false"
+
+      -->
+      <header role="heading">
+
+        <h2> 派车单信息 </h2>
+
+
+      </header>
+
+      <!-- widget div-->
+      <div role="content">
+
+        <!-- widget edit box -->
+        <div class="jarviswidget-editbox">
+          <!-- This area used as dropdown edit box -->
+
+        </div>
+        <!-- end widget edit box -->
+        <!-- widget content -->
+        <div class="widget-body">
+
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td>派车单号</td>
+                <td id="td_SHIPORDERKEY"></td>
+                <td>车牌号</td>
+                <td id="td_PLATENUMBER"></td>
+              </tr>
+              <tr>
+                <td>起始地</td>
+                <td id="td_ORIGINAL"></td>
+                <td>目的地</td>
+                <td id="td_DESTINATION"></td>
+              </tr>
+              <tr>
+                <td>司机</td>
+                <td id="td_DRIVERNAME"></td>
+                <td>电话</td>
+                <td id="td_DRIVERPHONE"></td>
+              </tr>
+              <tr>
+                <td>件数</td>
+                <td id="td_TOTALCASECNT"> </td>
+                <td>重量</td>
+                <td id="td_TOTALGROSSWGT"> </td>
+              </tr>
+              <tr>
+                <td>当前位置</td>
+                <td colspan="3" id="td_ADDRESS"> </td>
+              </tr>
+              <tr>
+                <td>当前状态</td>
+                <td id="td_STATUS"> </td>
+              </tr>
+              <tr>
+
+
+                <td colspan="2">
+                  <button onclick="notifytocustom()" class="btn btn-default">通知客户</button>
+                  <button onclick="showvideo()" class="btn btn-default">查看视频</button>
+                </td>
+                <td colspan="2"><button onclick="docompleted()" class="btn btn-default btn-success">运输完成</button> </td>
+
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+        <!-- end widget content -->
+
+      </div>
+      <!-- end widget div -->
+
+    </div>
+  </div>
+  <div id="allmap" style="width:100%;height:100%"></div>
+
+</div>
+<div class="modal fade" id="statushistory" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">运单历史记录</h4>
+      </div>
+      <div class="modal-body">
+        <div class="well well-sm">
+          <!-- Timeline Content -->
+          <div class="smart-timeline">
+            <ul class="smart-timeline-list"></ul>
+          </div>
+          <!-- END Timeline Content -->
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<div id="playvideowindow" style="display:none">
+  <div id="video_content">
+
+  </div>
+</div>
+
+<style>
+  #video_content {
+    display: grid;
+    margin: 0 auto;
+  }
+
+  #allmap {
+    height: 100%;
+    width: 100%;
+  }
+
+  .custom-input-card {
+    width: 20rem;
+  }
+
+    .custom-input-card .btn:last-child {
+      margin-left: 1rem;
+    }
+
+  .content-window-card {
+    position: relative;
+    min-width: 28rem;
+    min-height: 19rem;
+    padding: 0.75rem 0 0 1.25rem;
+    box-shadow: none;
+    bottom: 0;
+    left: 0;
+  }
+
+    .content-window-card p {
+      height: 1rem;
+    }
+</style>
+
+<link href="https://vjs.zencdn.net/7.6.6/video-js.css" rel="stylesheet" />
+@section Scripts {
+  <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+  <script src="https://vjs.zencdn.net/7.6.6/video.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/videojs-flash@2/dist/videojs-flash.min.js"></script>
+  <script src="https://webapi.amap.com/maps?v=1.4.15&key=@Settings.MapKey&plugin=AMap.Geocoder"></script>
+  <script type="text/javascript">
+     const username = '@Settings.GpsAccount';
+    const password = '@Settings.GpsPassword';
+    const GPSAPIURL = '@Settings.GpsApiURL';
+      //是否启用弹窗口模式新增编辑数据
+      const POPUPMODE = true;
+      //是否强制从后台取值
+      const REQUIRBACKEND = false;
+      //是否开启行内编辑
+      const EDITINLINE = false;
+      //上传导入参数设定
+    const entityname = "SHIPORDER";
+    var shiporderid = 0;
+    var shiporder = {};
+    var devid = "";
+    var platenumber=""
+    //显示历史记录
+    function showhistorywindow(id, index) {
+
+      const so = $dg.datagrid('getRows')[index];
+      $.get(`/StatusHistories/GetShipOrderHistory?shiporderkey=${so.SHIPORDERKEY}`).then(res => {
+        if (res.success) {
+          $('.smart-timeline-list').empty();
+          res.data.forEach(item => {
+            const li = `<li>
+                  <div class="smart-timeline-icon">
+                    <i class="fa fa-file-text"></i>
+                  </div>
+                  <div class="smart-timeline-time">
+                    <small>${item.TRANSACTIONDATETIME}</small>
+                  </div>
+                  <div class="smart-timeline-content">
+                    <p>
+                      <a href="javascript:void(0);"><strong>${item.DESCRIPTION}</strong></a>
+                    </p>
+                    <p>
+                      ${item.REMARK}
+                    </p>
+                    <p>
+
+                    </p>
+                  </div>
+                </li>`;
+            $('.smart-timeline-list').append(li);
+          });
+          $('#statushistory').modal('toggle');
+        } else {
+          $.messager.alert('提示', '没有找到历史记录');
+        }
+      });
+
+
+    }
+
+    function doshipping() {
+      const selected = $dg.datagrid('getChecked').filter(item => item.STATUS == '110').map(item => item.ID);
+      if (selected.length > 0) {
+        $.messager.progress({
+          title: '请等待',
+          msg: '正在发运...'
+        });
+        $.get('/SHIPORDERs/DoShippingALL/', $.param({ shiporderid: selected }, true)).done(res => {
+          $.messager.progress('close');
+          if (res.success) {
+            $dg.datagrid('reload');
+            $dg.datagrid('uncheckAll');
+            toastr.success(`[${selectd.length}]票派车单已发运完成!`);
+          } else {
+            $.messager.alert('错误', res.err, 'error');
+          }
+        }
+        );
+      } else {
+        $.messager.alert('提示', '请选择【待发运】的记录.', 'info');
+      }
+
+    }
+    //发短信通知客户
+    function notifytocustom() {
+      var loc = $('#td_ADDRESS').text();
+      $.get('/SHIPORDERs/NotifyLocToCustom/' + shiporderid + '?loc=' + loc).done(res => {
+        if (res.success) {
+          toastr.success('已成功发送短信通知客户!');
+        } else {
+          $.messager.alert('错误', res.err, 'error');
+        }
+      });
+    }
+    //查看车辆视频
+    function showvideo() {
+      $.messager.progress({
+        title: '请等待',
+        msg: '获取视频数据...'
+      });
+      $.get(`/Vehicles/GetRtmp?p=${platenumber}`).done(res => {
+        $.messager.progress('close');
+        console.log(res);
+        if (res.success == true) {
+          $('#playvideowindow').window({
+            title: `直播视频`,
+            width: 560,
+            height: 370,
+            modal: true,
+            collapsible:false,
+            maximizable: false,
+            minimizable: false,
+            onClose: function () {
+              var oldPlayer = document.getElementById('rtmp_video');
+              videojs(oldPlayer).dispose();
+            }
+          });
+          //const src = 'rtmp://cyberplayerplay.kaywang.cn/cyberplayer/demo201711-L1';
+          const src = res.src;
+          const videohtml = `<video id="rtmp_video" data-setup="{}"
+            preload="auto" controls="false"
+           class="video-js vjs-default-skin vjs-big-play-centered"
+           style="width:555px;height:325px">
+           <source autoplay  src="${src}" type="video/rtmp">
+      <p class="vjs-no-js">您的浏览器不支持H5或FLASH</p>
+    </video>`
+          $('#video_content').append(videohtml);
+          var options = {
+            controls: "true",
+            preload: "auto",
+            autoplay: true,
+            sources: [
+              {
+                type: 'video/rtmp',
+                src: src,
+              }
+            ]
+          };
+          var player = videojs('rtmp_video', options, function onPlayerReady() {
+            videojs.log('Your player is ready!');
+            //this.src({
+            //  type: 'video/rtmp',
+            //  src: src
+            //});
+
+            this.play();
+            this.on('ended', function () {
+              videojs.log('Awww...over so soon?!');
+            });
+          });
+        } else {
+          $.messager.alert('错误', res.err);
+        }
+
+
+
+
+
+      });
+    }
+    //完成运输
+    function docompleted() {
+      $.get('/SHIPORDERs/DoCompleted/' + shiporderid).done(res => {
+      if (res.success) {
+          $('#mapwindow').window('close');
+        $dg.datagrid('reload');
+        $dg.datagrid('uncheckAll');
+        toastr.success('派车单运输完成!');
+        } else {
+          $.messager.alert('错误', res.err, 'error');
+        }
+      });
+    }
+    //完成配送
+    function completechecked() {
+      const selected = $dg.datagrid('getChecked').filter(item => item.STATUS >= '120').map(item => item.ID);
+      if (selected.length > 0) {
+        $.get('/SHIPORDERs/DoCompletedALL/', $.param({ shiporderid: selected }, true)).done(res => {
+          if (res.success) {
+            $dg.datagrid('reload');
+            $dg.datagrid('uncheckAll');
+            toastr.success('派车单运输完成!');
+          } else {
+            $.messager.alert('错误', res.err, 'error');
+          }
+        }
+        );
+      } else {
+        $.messager.alert('提示', '请选择【在途】的记录.', 'info');
+      }
+    }
+    //跟踪派车单
+    function trackingshiporder(id, row, index) {
+      shiporderid = id;
+    $.messager.progress({
+      title: '请等待',
+      msg: '获取GSP定位...'
+    });
+    $.get('/SHIPORDERs/GetTracks/' + id).done(res => {
+      $.messager.progress('close');
+      console.log(res);
+      if (res.success) {
+        $('#mapwindow').window({
+          title: '派车单跟踪',
+          width: 1024,
+          height: 618,
+          modal: true
+        });
+        devid = res.tracks.devIdno;
+        platenumber = res.tracks.PLATENUMBER;
+        $('#td_SHIPORDERKEY').html(res.tracks.SHIPORDERKEY);
+        $('#td_PLATENUMBER').html(res.tracks.PLATENUMBER);
+        $('#td_DRIVERNAME').html(res.tracks.DRIVERNAME);
+        $('#td_DRIVERPHONE').html(res.tracks.DRIVERPHONE);
+        $('#td_ORIGINAL').html(res.tracks.ORIGINAL);
+        $('#td_DESTINATION').html(res.tracks.DESTINATION);
+        $('#td_STATUS').html(`<strong>${res.tracks.STATUS}</strong>`);
+        $('#td_TOTALCASECNT').html(res.tracks.TOTALCASECNT);
+        $('#td_TOTALGROSSWGT').html(res.tracks.TOTALGROSSWGT );
+        $('#td_ADDRESS').html(res.tracks.location);
+
+        if (res.tracks.LATITUDE > 0) {
+          var map = new AMap.Map('allmap', {
+            resizeEnable: true, //是否监控地图容器尺寸变化
+            zoom: 15, //初始化地图层级
+            center: [res.tracks.LONGITUDE, res.tracks.LATITUDE],//中心点坐标
+          });
+          var lnglat = [res.tracks.LONGITUDE, res.tracks.LATITUDE]
+          var viaMarker = new AMap.Marker({
+            position: new AMap.LngLat(res.tracks.LONGITUDE, res.tracks.LATITUDE),
+            // 将一张图片的地址设置为 icon
+            icon: '/content/img/marker.png',
+            // 设置了 icon 以后，设置 icon 的偏移量，以 icon 的 [center bottom] 为原点
+            offset: new AMap.Pixel(-13, -30),
+            clickable: true,
+            click: function () {
+              console.log('click');
+            }
+          });
+          map.add([viaMarker]);
+          AMap.event.addListener(viaMarker, "click", function () {
+            var info = [];
+            info.push("<div class='input-card content-window-card'><div><img style=\"float:left;\" src=\" https://webapi.amap.com/images/autonavi.png \"/></div> ");
+            info.push(`<div style="padding:7px 0px 0px 0px;"><h5>${res.tracks.PLATENUMBER}</h5>`);
+            info.push(`<p class='input-item'>司机 : ${res.tracks.DRIVERNAME} 电话 : ${res.tracks.DRIVERPHONE}  </p>`);
+            info.push(`<p class='input-item'>从 :  ${res.tracks.ORIGINAL} 到： ${res.tracks.DESTINATION}   </p>`);
+            info.push(`<p class='input-item'>状态 :   ${res.tracks.STATUS}    </p>`);
+            info.push(`<p class='input-item'>速度 : ${res.tracks.Speed}KM/H 当日里程 : ${res.tracks.dayMileage} KM  </p>`);
+            info.push(`<p class='input-item'>当前位置:   ${res.tracks.location}  </p></div></div>`);
+
+            infoWindow = new AMap.InfoWindow({
+              offset: 12,
+              anchor: 'top-right',
+              content: info.join("")  //使用默认信息窗体框样式，显示信息内容
+            });
+
+            infoWindow.open(map, viaMarker.getPosition());
+          });
+        } else {
+          $('#td_ADDRESS').html('<strong>车载GSP不在线</strong>');
+          var map = new AMap.Map('allmap', {
+            resizeEnable: true, //是否监控地图容器尺寸变化
+            zoom: 15 //初始化地图层级
+
+          });
+        }
+      } else {
+        $.messager.alert('错误', res.err, 'error');
+      }
+    });
+
+  }
+  //打印派车单
+  function printshiporder(id, row, index) {
+    var data = JSON.parse(row);
+    //console.log(data);
+    window.location = '/SHIPORDERs/Print/' +id;
+  }
+      //下载Excel导入模板
+      function downloadtemplate() {
+          //默认模板路径存放位置
+          const url = '/FileUpload/Download?file=/ExcelTemplate/SHIPORDER.xlsx';
+          $.fileDownload(url)
+           .done(() => {
+                    //console.log('file download a success!');
+                    toastr.success('模板下载完成!');
+                })
+           .fail(() => {
+               $.messager.alert('失败','没有下载到导入模板[SHIPORDER.xlsx]文件!','error');
+            });
+  }
+
+       //打印
+       function print() {
+            $dg.datagrid('print', 'DataGrid');
+       }
+        //打开Excel上传窗口
+	   function importexcel() {
+		    $('#importwindow').window('open');
+	   }
+	   //执行导出下载Excel
+	   function exportexcel() {
+				const filterRules = JSON.stringify($dg.datagrid('options').filterRules);
+				//console.log(filterRules);
+				$.messager.progress({ title: '正在执行导出!' });
+				let formData = new FormData();
+				formData.append('filterRules', filterRules);
+				formData.append('sort', 'ID');
+				formData.append('order', 'asc');
+				$.postDownload('/SHIPORDERDETAILs/ExportExcel', formData).then(res => {
+                    $.messager.progress('close');
+                    toastr.success('导出成功!');
+                }).catch(err => {
+                    //console.log(err);
+                    $.messager.progress('close');
+                    $.messager.alert('失败', err.statusText, 'error');
+                });
+
+		}
+        //显示帮助信息
+        function dohelp() {
+            toastr.info('有问题请联系管理员 <br><i class="fa fa-envelope-o" aria-hidden="true"></i> : demo@admin.com','帮助');
+        }
+       var editIndex = undefined;
+       //重新加载数据
+	   function reload() {
+			if (endEditing()) {
+			    $dg.datagrid('reload');
+		    }
+	   }
+      //关闭编辑状态
+	  function endEditing() {
+			if (editIndex === undefined) {
+                return true;
+            }
+			if ($dg.datagrid('validateRow', editIndex)) {
+				$dg.datagrid('endEdit', editIndex);
+				editIndex = undefined;
+                return true;
+			} else {
+				const invalidinput = $('input.validatebox-invalid','.datagrid');
+                const fieldnames = invalidinput.map((index, item) => {
+                  return $(item).attr('placeholder') || $(item).attr('id');
+                });
+                $.messager.alert('提示', `${Array.from(fieldnames)} 输入有误.`, 'error');
+				return false;
+			}
+		}
+    //单击列开启编辑功能
+  function onClickCell(index, field) {
+    shiporder = $dg.datagrid('getRows')[index];
+    const _operates = ['_operate1', 'ck'];
+    if (!EDITINLINE || $.inArray(field, _operates) >= 0) {
+      return;
+    }
+    if (editIndex !== index) {
+      if (endEditing()) {
+        $dg.datagrid('selectRow', index)
+          .datagrid('beginEdit', index);
+        hook = true;
+        editIndex = index;
+        const ed = $dg.datagrid('getEditor', { index: index, field: field });
+        if (ed) {
+          ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+        }
+      } else {
+        $dg.datagrid('selectRow', editIndex);
+      }
+    }
+  }
+    //新增记录
+	async function append() {
+    shiporder = {
+      SHIPORDERKEY: '00000001',
+      SHIPORDERDATE: moment().format('YYYY-MM-DD HH:mm:ss'),
+      STATUS: '110',
+      TYPE: '1',
+      ORIGINAL: '',
+      DESTINATION: '',
+      PLATENUMBER: '-',
+      DRIVERNAME: null,
+      DRIVERPHONE: null,
+      CARRIERCODE: null,
+      CARRIERNAME: null,
+      SHIPPERKEY: null,
+      SHIPPERNAME: null,
+      SHIPPERADDRESS: '-',
+      CONSIGNEEKEY: null,
+      CONSIGNEENAME: null,
+      CONSIGNEEADDRESS: '-',
+      REQUESTEDSHIPDATE: moment().format('YYYY-MM-DD HH:mm:ss'),
+      ACTUALSHIPDATE: null,
+      DELIVERYDATE: moment().format('YYYY-MM-DD HH:mm:ss'),
+      ACTUALDELIVERYDATE: null,
+      CLOSEDDATE: null,
+      STDKM: 0,
+      KM1: 0,
+      KM2: 0,
+      ACTKM: 0,
+      STDOIL: 0,
+      OIL1: 0,
+      OIL2: 0,
+      ACTOIL: 0,
+      STDLOADWEIGHT: 0,
+      STDLOADVOLUME: 0,
+      FEELOADWEIGHT: 0,
+      LOADFACTOR1: 0,
+      LOADFACTOR2: 0,
+      CHECKEDCOST1: false,
+      TOTALCOST1: 0,
+      CHECKEDCOST2: false,
+      TOTALCOST2: 0,
+      CHECKEDCOST3: false,
+      FLOOR: 0,
+      TOTALCOST3: 0,
+      CHECKEDCOST4: false,
+      TOTALCOST4: 0,
+      CHECKEDCOST5: false,
+      TOTALCOST5: 0,
+      CHECKEDCOST6: false,
+      TOTALCOST6: 0,
+      CHECKEDCOST7: false,
+      TOTALCOST7: 0,
+      CHECKEDCOST8: false,
+      TOTALCOST8: 0,
+      FLAG1: false,
+      FLAG2: false,
+      COMPANYCODE: '000001',
+      LOTTABLE1: $.getUserName(),
+      LOTTABLE6: null,
+      LOTTABLE7: null,
+      LOTTABLE8: null,
+    };
+        //需要后台创建对象
+       if (REQUIRBACKEND) {
+         shiporder = await $.get('/SHIPORDERs/NewItemAsync');
+       }
+        if (POPUPMODE) {
+           //弹出新增窗口
+           opendetailwindow(shiporder, 'Added');
+        } else {
+			if (endEditing()) {
+				//对必填字段进行默认值初始化
+				$dg.datagrid('insertRow',
+                              {
+                                  index: 0,
+                                  row: shiporder
+                               });
+				editIndex = 0;
+				$dg.datagrid('selectRow', editIndex)
+					.datagrid('beginEdit', editIndex);
+                hook = true;
+			}
+        }
+	}
+    //删除编辑的行
+    function removeit() {
+
+      if ($dg.datagrid('getChecked').filter(item => { return item.STATUS == '110' }).length > 0) {
+        deletechecked();
+      }
+      else {
+        $.messager.alert('提示', '请选中【等待发运】记录.', 'info');
+      }
+
+    }
+    //删除该行
+    function deleteshiporder(id, row, index) {
+      var data = JSON.parse(row);
+      if (data.STATUS == '110') {
+        $.messager.confirm('确认', '你确定要删除该记录?', result => {
+          if (result) {
+            $.post('/SHIPORDERs/DeleteCheckedAsync', { id: [id] })
+              .done(response => {
+                if (response.success) {
+                  toastr.success('删除成功');
+                  $dg.datagrid('uncheckAll');
+                  $dg.datagrid('reload');
+                } else {
+                  $.messager.alert('错误', response.err, 'error');
+                }
+              })
+              .fail((jqXHR, textStatus, errorThrown) => {
+                $.messager.alert('异常', `${jqXHR.status}: ${jqXHR.statusText} `, 'error');
+              });
+          }
+        });
+      } else {
+        $.messager.alert('提示', '只有【等待发运】记录才能删除.', 'info');
+      }
+
+     }
+    //删除选中的行
+    function deletechecked() {
+        const rows = $dg.datagrid('getChecked').filter(item=>item.ID!=null && item.ID!=0);
+        if (rows.length > 0) {
+            const id = rows.map(item => {
+                   return item.ID;
+                });
+            $.messager.confirm('确认', `你确定要取消这 <span class='badge bg-color-red'>${id.length} </span> 行派车记录?`, result => {
+                if (result) {
+                    $.post('/SHIPORDERs/DeleteCheckedAsynccdewxcAqwzezDSXCHBRCDFSX EazFHYWEHGYGHbyrx  ', { id: id })
+                         .done(response => {
+                                if (response.success) {
+                                    toastr.success('取消派车成功');
+                                    $dg.datagrid('uncheckAll');
+                                    $dg.datagrid('reload');
+                                } else {
+                                    $.messager.alert('错误', response.err,'error');
+                                }
+                          })
+                          .fail((jqXHR, textStatus, errorThrown) => {
+						     $.messager.alert('异常', `${jqXHR.status}: ${jqXHR.statusText} `, 'error');
+					      });
+                    }
+                });
+         } else {
+                $.messager.alert('提示', '请先选择要取消派车的记录!','question');
+         }
+     }
+    //提交保存后台数据库
+	function accept() {
+	  if (endEditing()) {
+		if ($dg.datagrid('getChanges').length > 0) {
+		  const inserted = $dg.datagrid('getChanges', 'inserted').map(item => {
+          item.TrackingState = 1;
+          return item;
+        });
+        const updated = $dg.datagrid('getChanges', 'updated').map(item => {
+          item.TrackingState = 2
+          return item;
+        });
+        const deleted = $dg.datagrid('getChanges', 'deleted').map(item => {
+          item.TrackingState = 3
+          return item;
+        });
+        //过滤已删除的重复项
+        const changed = inserted.concat(updated.filter(item => {
+            return !deleted.includes(item);
+          })).concat(deleted);
+        //console.table(changed);
+		$.post('/SHIPORDERs/SaveDataAsync', {shiporders:changed})
+                     .done(response => {
+						   //console.log(response);
+						   if (response.success) {
+							   toastr.success('保存成功');
+							   $dg.datagrid('acceptChanges');
+							   $dg.datagrid('reload');
+                               hook = false;
+						   } else {
+                               $.messager.alert('错误', response.err ,'error');
+                           }
+					    })
+                      .fail((jqXHR, textStatus, errorThrown) => {
+						$.messager.alert('异常', `${jqXHR.status}: ${jqXHR.statusText} `, 'error');
+					  });
+				}
+			}
+	}
+	function reject() {
+	    $dg.datagrid('rejectChanges');
+	    editIndex = undefined;
+        hook = false;
+	}
+	function getChanges() {
+	    const rows = $dg.datagrid('getChanges');
+		//console.log(rows.length + ' rows are changed!');
+	}
+    //弹出明细信息
+	async function showDetailsWindow(id,row,index) {
+        if (REQUIRBACKEND) {
+			//console.log(index, row);
+           shiporder = await $.get('/SHIPORDERs/GetItemAsync/' + id);
+        } else {
+            shiporder =  $dg.datagrid('getRows')[index];
+        }
+        opendetailwindow(shiporder,'Modified');
+	}
+
+    //初始化定义datagrid
+    var $dg = $('#shiporders_datagrid');
+    $(() => {
+      //定义datagrid结构
+      $dg.datagrid({
+        rownumbers: true,
+        checkOnSelect: false,
+        selectOnCheck: false,
+        idField: 'ID',
+        sortName: 'ID',
+        sortOrder: 'desc',
+        remoteFilter: true,
+        singleSelect: true,
+        url: '/SHIPORDERs/GetDataAsync',
+        method: 'get',
+        onClickCell: onClickCell,
+        pagination: true,
+        striped: true,
+        onHeaderContextMenu: function (e, field) {
+          e.preventDefault();
+          $(this).datagrid('columnMenu').menu('show', {
+            left: e.pageX,
+            top: e.pageY
+          });
+        },
+        rowStyler: function (index, row) {
+          switch (row.TYPE) {
+            case "2":
+              return 'background-color:#FF8F00;color:#fff;font-weight:bold;';
+            default:
+              return '';
+          }
+        },
+        onBeforeLoad: function () {
+          //datagrid resize when jarvisWidgets resized.
+          const that = $(this);
+          $(window).on("resize.jarvisWidgets", () => {
+            that.datagrid('resize');
+          })
+        },
+        onSelect: function (index, row) {
+          shiporder = row;
+        },
+        onBeginEdit: function (index, row) {
+
+        },
+        onEndEdit: function (index, row) {
+
+        },
+        onBeforeEdit: function (index, row) {
+          row.editing = true;
+          $(this).datagrid('refreshRow', index);
+        },
+        onAfterEdit: function (index, row) {
+          row.editing = false;
+          $(this).datagrid('refreshRow', index);
+        },
+        onCancelEdit: function (index, row) {
+          row.editing = false;
+          $(this).datagrid('refreshRow', index);
+        },
+        frozenColumns: [[
+          /*开启CheckBox选择功能*/
+          { field: 'ck', checkbox: true },
+          {
+            field: '_operate1',
+            title: '@Html.L("Command")',
+            width: 145,
+            sortable: false,
+            resizable: true,
+            formatter: function showdetailsformatter(value, row, index) {
+              if (!row.editing) {
+                if (row.STATUS == '110') {
+                  return '<div class="btn-group">\
+                           <button onclick="showDetailsWindow(\'' + row.ID + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="查看明细" ><i class="fa fa-pencil-square-o"></i> </button>\
+                           <button onclick="printshiporder(\'' + row.ID + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="打印派车单" ><i class="fa fa-print"></i> </button>\
+                           <button disabled onclick="trackingshiporder(\'' + row.ID + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="跟踪运单" ><i class="fa fa-location-arrow"></i> </button>\
+                           <button onclick="deleteshiporder(\'' + row.ID + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="取消派车" ><i class="fa fa-trash-o"></i> </button>\
+                  <button onclick="showhistorywindow(\'' + row.ID + '\',' +  index  +')" class="btn btn-default btn-xs" title="查看历史记录" ><i class="fa fa-history"></i> </button>\
+                      </div>';
+                } else if (row.STATUS == '120') {
+                  return '<div class="btn-group">\
+                           <button onclick="showDetailsWindow(\'' + row.ID + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="查看明细" ><i class="fa fa-pencil-square-o"></i> </button>\
+                           <button onclick="printshiporder(\'' + row.ID + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="打印派车单" ><i class="fa fa-print"></i> </button>\
+                           <button onclick="trackingshiporder(\'' + row.ID + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="跟踪运单" ><i class="fa fa-location-arrow"></i> </button>\
+                           <button disabled onclick="deleteshiporder(\'' + row.ID + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="取消派车" ><i class="fa fa-trash-o"></i> </button>\
+                  <button onclick="showhistorywindow(\'' + row.ID + '\',' +  index +')" class="btn btn-default btn-xs" title="查看历史记录" ><i class="fa fa-history"></i> </button>\
+                      </div>';
+                } else if (row.STATUS == '130' || row.STATUS == '140' || row.STATUS == '150') {
+                  return '<div class="btn-group">\
+                           <button onclick="showDetailsWindow(\'' + row.ID + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="查看明细" ><i class="fa fa-pencil-square-o"></i> </button>\
+                           <button disabled onclick="printshiporder(\'' + row.ID + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="打印派车单" ><i class="fa fa-print"></i> </button>\
+                           <button onclick="trackingshiporder(\'' + row.ID + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="跟踪运单" ><i class="fa fa-location-arrow"></i> </button>\
+                           <button disabled onclick="deleteshiporder(\'' + row.ID + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="取消派车" ><i class="fa fa-trash-o"></i> </button>\
+                  <button onclick="showhistorywindow(\'' + row.ID + '\',' +  index +')" class="btn btn-default btn-xs" title="查看历史记录" ><i class="fa fa-history"></i> </button>\
+                      </div>';
+                } else if (row.STATUS == '170') {
+                  return '<div class="btn-group">\
+                           <button onclick="showDetailsWindow(\'' + row.ID + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="查看明细" ><i class="fa fa-pencil-square-o"></i> </button>\
+                           <button disabled onclick="printshiporder(\'' + row.ID + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="打印派车单" ><i class="fa fa-print"></i> </button>\
+                           <button disabled onclick="trackingshiporder(\'' + row.ID + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="跟踪运单" ><i class="fa fa-location-arrow"></i> </button>\
+                           <button disabled onclick="deleteshiporder(\'' + row.ID + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="取消派车" ><i class="fa fa-trash-o"></i> </button>\
+                           <button onclick="showhistorywindow(\'' + row.ID + '\',' +  index +')" class="btn btn-default btn-xs" title="查看历史记录" ><i class="fa fa-history"></i> </button>\
+                      </div > ';
+                }
+              } else {
+                return `<div class="btn-group">\
+                           <button onclick="showdetailswindow('${row.Id}',  ${index})" class="btn btn-default btn-xs" title="查看明细" ><i class="fa fa-pencil-square-o"></i> </button>\
+                           <button onclick="showhistorywindow('${row.Id}',  ${index})" class="btn btn-default btn-xs" title="查看历史记录" ><i class="fa fa-history"></i> </button>\
+                      </div>`;
+              }
+            }
+          }
+        ]],
+        columns: [[
+          { /*ID*/
+            field: 'ID',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.ID)</span>',
+            width: 120,
+            sortable: true,
+            resizable: true,
+            hidden: true
+          },
+          {    /*运单号*/
+            field: 'SHIPORDERKEY',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.SHIPORDERKEY)</span>',
+            width: 100,
+            hidden: false,
+            sortable: true,
+            resizable: true
+          },
+          {    /*对账单号*/
+            field: 'EXTERNSHIPORDERKEY',
+            title: '@Html.DisplayNameFor(model => model.EXTERNSHIPORDERKEY)',
+            width: 110,
+            hidden: true,
+            sortable: true,
+            resizable: true
+          },
+          {   /*接单日期*/
+            field: 'SHIPORDERDATE',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.SHIPORDERDATE)</span>',
+            width: 110,
+            align: 'right',
+            hidden: false,
+            formatter: dateformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*状态*/
+            field: 'STATUS',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.STATUS)</span>',
+            width: 90,
+            hidden: false,
+            sortable: true,
+            resizable: true,
+            formatter: shipstatusformatter
+          },
+          {    /*运输方式(正常/加急/退运)*/
+            field: 'TYPE',
+            title: '@Html.DisplayNameFor(model => model.TYPE)',
+            width: 90,
+            hidden: false,
+            sortable: true,
+            resizable: true,
+            formatter: shiptypeformatter
+          },
+          {    /*起始地*/
+            field: 'ORIGINAL',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.ORIGINAL)</span>',
+            width: 100,
+            hidden: false,
+            sortable: true,
+            resizable: true
+          },
+          {    /*目的地*/
+            field: 'DESTINATION',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.DESTINATION)</span>',
+            width: 100,
+            hidden: false,
+            sortable: true,
+            resizable: true
+          },
+          {    /*运输车辆*/
+            field: 'PLATENUMBER',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.PLATENUMBER)</span>',
+            width: 100,
+            hidden: false,
+            sortable: true,
+            resizable: true
+          },
+          {    /*司机*/
+            field: 'DRIVERNAME',
+            title: '@Html.DisplayNameFor(model => model.DRIVERNAME)',
+            width: 100,
+            hidden: false,
+            sortable: true,
+            resizable: true
+          },
+          {    /*司机电话*/
+            field: 'DRIVERPHONE',
+            title: '@Html.DisplayNameFor(model => model.DRIVERPHONE)',
+            width: 110,
+            hidden: false,
+            sortable: true,
+            resizable: true
+          },
+          {    /*承运人代码*/
+            field: 'CARRIERCODE',
+            title: '@Html.DisplayNameFor(model => model.CARRIERCODE)',
+            width: 100,
+            hidden: true,
+            sortable: true,
+            resizable: true
+          },
+          {    /*承运人名称*/
+            field: 'CARRIERNAME',
+            title: '@Html.DisplayNameFor(model => model.CARRIERNAME)',
+            width: 150,
+            hidden: true,
+            sortable: true,
+            resizable: true
+          },
+          {    /*发货单位*/
+            field: 'SHIPPERKEY',
+            title: '@Html.DisplayNameFor(model => model.SHIPPERKEY)',
+            width: 130,
+            hidden: true,
+            sortable: true,
+            resizable: true
+          },
+          {    /*发货单位名称*/
+            field: 'SHIPPERNAME',
+            title: '@Html.DisplayNameFor(model => model.SHIPPERNAME)',
+            width: 260,
+            hidden: true,
+            sortable: true,
+            resizable: true
+          },
+          {    /*发货地址*/
+            field: 'SHIPPERADDRESS',
+            title: '@Html.DisplayNameFor(model => model.SHIPPERADDRESS)',
+            width: 300,
+            hidden: true,
+            sortable: true,
+            resizable: true
+          },
+          {    /*收货单位*/
+            field: 'CONSIGNEEKEY',
+            title: '@Html.DisplayNameFor(model => model.CONSIGNEEKEY)',
+            width: 130,
+            hidden: true,
+            sortable: true,
+            resizable: true
+          },
+          {    /*收货单位名称*/
+            field: 'CONSIGNEENAME',
+            title: '@Html.DisplayNameFor(model => model.CONSIGNEENAME)',
+            width: 260,
+            hidden: true,
+            sortable: true,
+            resizable: true
+          },
+          {    /*收货地址*/
+            field: 'CONSIGNEEADDRESS',
+            title: '@Html.DisplayNameFor(model => model.CONSIGNEEADDRESS)',
+            width: 300,
+            hidden: true,
+            sortable: true,
+            resizable: true
+          },
+
+          {    /*合计发运数量*/
+            field: 'TOTALQTY',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.TOTALQTY)</span>',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.TOTALQTY)',
+                required: true,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*合计确认数量*/
+            field: 'TOTALSHIPPEDQTY',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.TOTALSHIPPEDQTY)</span>',
+            width: 100,
+            align: 'right',
+            hidden: true,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.TOTALSHIPPEDQTY)',
+                required: true,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*合计件数*/
+            field: 'TOTALCASECNT',
+            title: '@Html.DisplayNameFor(model => model.TOTALCASECNT)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.TOTALCASECNT)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*合计毛重(KG)*/
+            field: 'TOTALGROSSWGT',
+            title: '@Html.DisplayNameFor(model => model.TOTALGROSSWGT)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.TOTALGROSSWGT)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*合计体积(M)*/
+            field: 'TOTALCUBE',
+            title: '@Html.DisplayNameFor(model => model.TOTALCUBE)',
+            width: 100,
+            align: 'right',
+            hidden: true,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.TOTALCUBE)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*标准里程(千米)*/
+            field: 'STDKM',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.STDKM)</span>',
+            width: 100,
+            align: 'right',
+            hidden: true,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.STDKM)',
+                required: true,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*起始里程数(千米)*/
+            field: 'KM1',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.KM1)</span>',
+            width: 100,
+            align: 'right',
+            hidden: true,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.KM1)',
+                required: true,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*结束里程数(千米)*/
+            field: 'KM2',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.KM2)</span>',
+            width: 100,
+            align: 'right',
+            hidden: true,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.KM2)',
+                required: true,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*实际里程(千米)*/
+            field: 'ACTKM',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.ACTKM)</span>',
+            width: 100,
+            align: 'right',
+            hidden: true,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.ACTKM)',
+                required: true,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*标准油耗(升)*/
+            field: 'STDOIL',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.STDOIL)</span>',
+            width: 100,
+            align: 'right',
+            hidden: true,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.STDOIL)',
+                required: true,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*起始油量(升)*/
+            field: 'OIL1',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.OIL1)</span>',
+            width: 100,
+            align: 'right',
+            hidden: true,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.OIL1)',
+                required: true,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*结束油量(升)*/
+            field: 'OIL2',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.OIL2)</span>',
+            width: 100,
+            align: 'right',
+            hidden: true,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.OIL2)',
+                required: true,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*油耗(升)*/
+            field: 'ACTOIL',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.ACTOIL)</span>',
+            width: 100,
+            align: 'right',
+            hidden: true,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.ACTOIL)',
+                required: true,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*额定载重(吨)*/
+            field: 'STDLOADWEIGHT',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.STDLOADWEIGHT)</span>',
+            width: 100,
+            align: 'right',
+            hidden: true,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.STDLOADWEIGHT)',
+                required: true,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*额定体积(立方米)*/
+            field: 'STDLOADVOLUME',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.STDLOADVOLUME)</span>',
+            width: 100,
+            align: 'right',
+            hidden: true,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.STDLOADVOLUME)',
+                required: true,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*收费吨位*/
+            field: 'FEELOADWEIGHT',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.FEELOADWEIGHT)</span>',
+            width: 100,
+            align: 'right',
+            hidden: true,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.FEELOADWEIGHT)',
+                required: true,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*重量装载率*/
+            field: 'LOADFACTOR1',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.LOADFACTOR1)</span>',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            formatter: function (v, row, i) {
+              var p = v;
+              if (v > 1) {
+                v = 1;
+                return `<div class="progress" style="margin-bottom:1px">
+  <div class="progress-bar progress-bar-danger" role="progressbar " aria-valuenow="${v * 100}" aria-valuemin="0" aria-valuemax="100" style="width: ${v * 100}%;">
+    ${p * 100}%
+  </div>
+</div>`;
+              }
+              return `<div class="progress" style="margin-bottom:1px">
+  <div class="progress-bar" role="progressbar" aria-valuenow="${v * 100}" aria-valuemin="0" aria-valuemax="100" style="width: ${v * 100}%;">
+    ${p * 100}%
+  </div>
+</div>`;
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*体积装载率*/
+            field: 'LOADFACTOR2',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.LOADFACTOR2)</span>',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            formatter: function (v, row, i) {
+            var p = v;
+            if (v > 1) {
+              v = 1;
+              return `<div class="progress" style="margin-bottom:1px">
+  <div class="progress-bar progress-bar-danger" role="progressbar " aria-valuenow="${v * 100}" aria-valuemin="0" aria-valuemax="100" style="width: ${v * 100}%;">
+    ${p * 100}%
+  </div>
+</div>`;
+            }
+            return `<div class="progress"  style="margin-bottom:1px">
+  <div class="progress-bar" role="progressbar" aria-valuenow="${v * 100}" aria-valuemin="0" aria-valuemax="100" style="width: ${v * 100}%;">
+    ${p * 100}%
+  </div>
+</div>`
+          },
+            sortable: true,
+            resizable: true
+          },
+
+          {    /*合计运费*/
+            field: 'TOTALCOST1',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.TOTALCOST1)</span>',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*搬运费(RMB)*/
+            field: 'TOTALCOST3',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.TOTALCOST3)</span>',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*其它服务费(RMB)*/
+            field: 'TOTALCOST6',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.TOTALCOST6)</span>',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*合计运费(RMB)*/
+            field: 'TOTALCOST8',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.TOTALCOST8)</span>',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+           {   /*要求配送日期*/
+            field: 'REQUESTEDSHIPDATE',
+            title: '@Html.DisplayNameFor(model => model.REQUESTEDSHIPDATE)',
+            width: 140,
+            align: 'right',
+            hidden: true,
+            formatter: datetimeformatter,
+            sortable: true,
+            resizable: true
+          },
+          {   /*实际配送日期*/
+            field: 'ACTUALSHIPDATE',
+            title: '@Html.DisplayNameFor(model => model.ACTUALSHIPDATE)',
+            width: 140,
+            align: 'right',
+            hidden: true,
+            editor: {
+              type: 'datebox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.ACTUALSHIPDATE)', required: false }
+            },
+            formatter: datetimeformatter,
+            sortable: true,
+            resizable: true
+          },
+          {   /*要求到货时间*/
+            field: 'DELIVERYDATE',
+            title: '@Html.DisplayNameFor(model => model.DELIVERYDATE)',
+            width: 140,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'datebox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.DELIVERYDATE)', required: false }
+            },
+            formatter: datetimeformatter,
+            sortable: true,
+            resizable: true
+          },
+          {   /*实际到货时间*/
+            field: 'ACTUALDELIVERYDATE',
+            title: '@Html.DisplayNameFor(model => model.ACTUALDELIVERYDATE)',
+            width: 140,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'datebox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.ACTUALDELIVERYDATE)', required: false }
+            },
+            formatter: datetimeformatter,
+            sortable: true,
+            resizable: true
+          },
+          {   /*结案日期*/
+            field: 'CLOSEDDATE',
+            title: '@Html.DisplayNameFor(model => model.CLOSEDDATE)',
+            width: 140,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'datebox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.CLOSEDDATE)', required: false }
+            },
+            formatter: datetimeformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*备注2*/
+            field: 'NOTES1',
+            title: '@Html.DisplayNameFor(model => model.NOTES1)',
+            width: 300,
+            hidden: true,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.NOTES1)', required: false, validType: 'length[0,180]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+
+          {    /*备注*/
+            field: 'NOTES',
+            title: '@Html.DisplayNameFor(model => model.NOTES)',
+            width: 300,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.NOTES)', required: false, validType: 'length[0,180]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+
+        ]]
+      }).datagrid('columnMoving')
+        .datagrid('resetColumns');;
+
+      $dg.datagrid('enableFilter', [
+        {    /*状态*/
+            field: 'STATUS',
+           type: 'shipstatusfilter'
+          },
+        {   /*合计发运数量*/
+          field: 'TOTALQTY',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*合计确认数量*/
+          field: 'TOTALSHIPPEDQTY',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*合计件数*/
+          field: 'TOTALCASECNT',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*合计毛重(KG)*/
+          field: 'TOTALGROSSWGT',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*合计体积(M)*/
+          field: 'TOTALCUBE',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*标准里程(千米)*/
+          field: 'STDKM',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*起始里程数(千米)*/
+          field: 'KM1',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*结束里程数(千米)*/
+          field: 'KM2',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*实际里程(千米)*/
+          field: 'ACTKM',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*标准油耗(升)*/
+          field: 'STDOIL',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*起始油量(升)*/
+          field: 'OIL1',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*结束油量(升)*/
+          field: 'OIL2',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*油耗(升)*/
+          field: 'ACTOIL',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*额定载重(吨)*/
+          field: 'STDLOADWEIGHT',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*额定体积(立方米)*/
+          field: 'STDLOADVOLUME',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*收费吨位*/
+          field: 'FEELOADWEIGHT',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*重量装载率*/
+          field: 'LOADFACTOR1',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*体积装载率*/
+          field: 'LOADFACTOR2',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*合计运费*/
+          field: 'TOTALCOST1',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*送货费(RMB)*/
+          field: 'TOTALCOST2',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*楼层*/
+          field: 'FLOOR',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*搬运费(RMB)*/
+          field: 'TOTALCOST3',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*加急费(RMB)*/
+          field: 'TOTALCOST4',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*专车费(RMB)*/
+          field: 'TOTALCOST5',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*其它服务费(RMB)*/
+          field: 'TOTALCOST6',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*其它服务费2(RMB)*/
+          field: 'TOTALCOST7',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*其它服务费3(RMB)*/
+          field: 'TOTALCOST8',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*LOTTABLE6*/
+          field: 'LOTTABLE6',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*LOTTABLE7*/
+          field: 'LOTTABLE7',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {     /*接单日期*/
+          field: 'SHIPORDERDATE',
+          type: 'dateRange',
+          options: {
+            onChange: value => {
+              $dg.datagrid('addFilterRule', {
+                field: 'SHIPORDERDATE',
+                op: 'between',
+                value: value
+              });
+
+              $dg.datagrid('doFilter');
+            }
+          }
+        },
+        {     /*要求配送日期*/
+          field: 'REQUESTEDSHIPDATE',
+          type: 'dateRange',
+          options: {
+            onChange: value => {
+              $dg.datagrid('addFilterRule', {
+                field: 'REQUESTEDSHIPDATE',
+                op: 'between',
+                value: value
+              });
+
+              $dg.datagrid('doFilter');
+            }
+          }
+        },
+        {     /*实际配送日期*/
+          field: 'ACTUALSHIPDATE',
+          type: 'dateRange',
+          options: {
+            onChange: value => {
+              $dg.datagrid('addFilterRule', {
+                field: 'ACTUALSHIPDATE',
+                op: 'between',
+                value: value
+              });
+
+              $dg.datagrid('doFilter');
+            }
+          }
+        },
+        {     /*要求到货时间*/
+          field: 'DELIVERYDATE',
+          type: 'dateRange',
+          options: {
+            onChange: value => {
+              $dg.datagrid('addFilterRule', {
+                field: 'DELIVERYDATE',
+                op: 'between',
+                value: value
+              });
+
+              $dg.datagrid('doFilter');
+            }
+          }
+        },
+        {     /*实际到货时间*/
+          field: 'ACTUALDELIVERYDATE',
+          type: 'dateRange',
+          options: {
+            onChange: value => {
+              $dg.datagrid('addFilterRule', {
+                field: 'ACTUALDELIVERYDATE',
+                op: 'between',
+                value: value
+              });
+
+              $dg.datagrid('doFilter');
+            }
+          }
+        },
+        {     /*结案日期*/
+          field: 'CLOSEDDATE',
+          type: 'dateRange',
+          options: {
+            onChange: value => {
+              $dg.datagrid('addFilterRule', {
+                field: 'CLOSEDDATE',
+                op: 'between',
+                value: value
+              });
+
+              $dg.datagrid('doFilter');
+            }
+          }
+        },
+        {     /*LOTTABLE8*/
+          field: 'LOTTABLE8',
+          type: 'dateRange',
+          options: {
+            onChange: value => {
+              $dg.datagrid('addFilterRule', {
+                field: 'LOTTABLE8',
+                op: 'between',
+                value: value
+              });
+
+              $dg.datagrid('doFilter');
+            }
+          }
+        },
+        {   /*是否计算运费*/
+          field: 'CHECKEDCOST1',
+          type: 'booleanfilter'
+        },
+        {   /*是否送货上门*/
+          field: 'CHECKEDCOST2',
+          type: 'booleanfilter'
+        },
+        {   /*是否上楼*/
+          field: 'CHECKEDCOST3',
+          type: 'booleanfilter'
+        },
+        {   /*是否加急*/
+          field: 'CHECKEDCOST4',
+          type: 'booleanfilter'
+        },
+        {   /*是否专车*/
+          field: 'CHECKEDCOST5',
+          type: 'booleanfilter'
+        },
+        {   /*是否其它服务*/
+          field: 'CHECKEDCOST6',
+          type: 'booleanfilter'
+        },
+        {   /*是否其它服务2*/
+          field: 'CHECKEDCOST7',
+          type: 'booleanfilter'
+        },
+        {   /*是否其它服务3*/
+          field: 'CHECKEDCOST8',
+          type: 'booleanfilter'
+        },
+        {   /*结算标志*/
+          field: 'FLAG1',
+          type: 'booleanfilter'
+        },
+        {   /*其它标志*/
+          field: 'FLAG2',
+          type: 'booleanfilter'
+        },
+      ]);
+    });
+
+  </script>
+
+
+
+  <!-- shiporderdetail datagrid  javascript block -->
+  @Html.Partial("_shiporderdetaildatagridjsview", new WebApp.Models.SHIPORDERDETAIL())
+  <!--end popup detailview javascript block -->
+
+  <script src="@Fingerprint.Tag("/Scripts/easyui/plugins/columns-reset.js")"></script>
+  <script src="@Fingerprint.Tag("/Scripts/plugin/jquery.fileuploader/jquery.fileuploader.dragdrop.min.js")"></script>
+}
+
+

@@ -1,0 +1,570 @@
+﻿
+
+@model WebApp.Models.ORDERDETAIL
+<div id="orderdetaildlg" hidden="hidden" class="easyui-dialog"
+     title="ORDERDETAIL" style="padding:15px"
+     data-options="
+                iconCls: 'icon-more',
+                modal:true,
+                closed:true,
+                cache: false,
+                resizable:true,
+                width:760,
+                height:420,
+                /*toolbar: [], 注解*/
+                onOpen:function(){
+                   $('#orderdetail_form').form('disableValidation');
+                },
+                buttons: [{
+                    text:'确认',
+                    iconCls:'icon-ok',
+                    handler:function(){
+                        confirm_orderdetailform();
+                    }
+                },{
+                    text:'取消',
+                    handler:function(){
+                        $('#orderdetaildlg').dialog('close');
+                    }
+                }]
+            ">
+ <div class="widget-body">
+    <form id="orderdetail_form" class="bv-form" novalidate="novalidate">
+        <fieldset>
+          <div class="form-group">
+            <div class="row">
+  <!--ID-->
+ @Html.HiddenFor(model=>model.ID)
+   <!--订单号-->
+ @Html.HiddenFor(model=>model.ORDERKEY)
+   <!--客户代码-->
+ @Html.HiddenFor(model=>model.SUPPLIERCODE)
+   <!--客户名称-->
+ @Html.HiddenFor(model=>model.SUPPLIERNAME)
+   <!--物料名称-->
+ @Html.HiddenFor(model=>model.SKUNAME)
+   <!--单位-->
+ @Html.HiddenFor(model=>model.UMO)
+   <!--包装-->
+ @Html.HiddenFor(model=>model.PACKKEY)
+   <!--净重(KG)-->
+ @Html.HiddenFor(model=>model.NETWGT)
+   <!--是否其它服务2-->
+ @Html.HiddenFor(model=>model.CHECKEDCOST7)
+   <!--其它服务费2(RMB)-->
+ @Html.HiddenFor(model=>model.COST7)
+   <!--是否其它服务3-->
+ @Html.HiddenFor(model=>model.CHECKEDCOST8)
+   <!--其它服务费3(RMB)-->
+ @Html.HiddenFor(model=>model.COST8)
+   <!--结算标志-->
+ @Html.HiddenFor(model=>model.FLAG1)
+   <!--其它标志-->
+ @Html.HiddenFor(model=>model.FLAG2)
+   <!--备注2-->
+ @Html.HiddenFor(model=>model.NOTES1)
+   <!--要求配送日期-->
+ @Html.HiddenFor(model=>model.REQUESTEDSHIPDATE)
+   <!--要求到货时间-->
+ @Html.HiddenFor(model=>model.DELIVERYDATE)
+   <!--实际配送日期-->
+ @Html.HiddenFor(model=>model.ACTUALSHIPDATE)
+   <!--实际到货时间-->
+ @Html.HiddenFor(model=>model.ACTUALDELIVERYDATE)
+   <!--仓库号-->
+ @Html.HiddenFor(model=>model.WHSEID)
+   <!--货主-->
+ @Html.HiddenFor(model=>model.STORERKEY)
+   <!--提货地址-->
+ @Html.HiddenFor(model=>model.LOTTABLE3)
+   <!--收货地址-->
+ @Html.HiddenFor(model=>model.CONSIGNEEADDRESS)
+   <!--上传用户-->
+ @Html.HiddenFor(model=>model.LOTTABLE1)
+   <!--外部行项号-->
+ @Html.HiddenFor(model=>model.EXTERNLINENO)
+   <!--订单类型(普通/急货/专车)-->
+ @Html.HiddenFor(model=>model.TYPE)
+   <!--起始地-->
+ @Html.HiddenFor(model=>model.ORIGINAL)
+   <!--目的地-->
+ @Html.HiddenFor(model=>model.DESTINATION)
+   <!--运输方式(整车/零担)-->
+ @Html.HiddenFor(model=>model.SHPTYPE)
+   <!--所属公司-->
+ @Html.HiddenFor(model=>model.COMPANYCODE)
+   <!--LOTTABLE4-->
+ @Html.HiddenFor(model=>model.LOTTABLE4)
+   <!--LOTTABLE5-->
+ @Html.HiddenFor(model=>model.LOTTABLE5)
+   <!--LOTTABLE6-->
+ @Html.HiddenFor(model=>model.LOTTABLE6)
+   <!--LOTTABLE7-->
+ @Html.HiddenFor(model=>model.LOTTABLE7)
+   <!--LOTTABLE7-->
+ @Html.HiddenFor(model=>model.LOTTABLE8)
+   <!--LOTTABLE9-->
+ @Html.HiddenFor(model=>model.LOTTABLE9)
+   <!--LOTTABLE10-->
+ @Html.HiddenFor(model=>model.LOTTABLE10)
+   <!--出货单ID-->
+ @Html.HiddenFor(model=>model.ORDERID)
+     <!--批次号-->
+    <div class="col-sm-12 col-md-4">
+        <label class="control-label">@Html.DisplayNameFor(model => model.LOTTABLE2)</label>
+		<input id="@Html.IdFor(model => model.LOTTABLE2)" 
+							name="@Html.NameFor(model => model.LOTTABLE2)" 
+							value="@Html.ValueFor(model => model.LOTTABLE2)"
+							tabindex="0" 
+			     			class="easyui-textbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.LOTTABLE2)',
+     						 required:false ,validType:'length[0,50]'" />
+    </div>
+             
+    <!--提货单号-->
+    <div class="col-sm-12 col-md-4">
+        <label class="control-label">@Html.DisplayNameFor(model => model.EXTERNORDERKEY)</label>
+		<input id="@Html.IdFor(model => model.EXTERNORDERKEY)" 
+							name="@Html.NameFor(model => model.EXTERNORDERKEY)" 
+							value="@Html.ValueFor(model => model.EXTERNORDERKEY)"
+							tabindex="1" 
+			     			class="easyui-textbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.EXTERNORDERKEY)',
+     						 required:false ,validType:'length[0,50]'" />
+    </div>
+             
+    <!--行号-->
+    <div class="col-sm-12 col-md-4">
+        <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.ORDERLINENUMBER)</span></label>
+		<input id="@Html.IdFor(model => model.ORDERLINENUMBER)" 
+							name="@Html.NameFor(model => model.ORDERLINENUMBER)" 
+							value="@Html.ValueFor(model => model.ORDERLINENUMBER)"
+							tabindex="2" 
+			     			class="easyui-textbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.ORDERLINENUMBER)',
+     						 required:true ,validType:'length[0,6]'" />
+    </div>
+             
+    <!--状态-->
+    <div class="col-sm-12 col-md-4">
+        <label class="control-label">@Html.DisplayNameFor(model => model.STATUS)</label>
+		<input id="@Html.IdFor(model => model.STATUS)" 
+							name="@Html.NameFor(model => model.STATUS)" 
+							value="@Html.ValueFor(model => model.STATUS)"
+							tabindex="3" 
+			     			class="easyui-textbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.STATUS)',
+     						 required:false ,validType:'length[0,3]'" />
+    </div>
+             
+    <!--物料编码-->
+    <div class="col-sm-12 col-md-4">
+        <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.SKU)</span></label>
+		<input id="@Html.IdFor(model => model.SKU)" 
+							name="@Html.NameFor(model => model.SKU)" 
+							value="@Html.ValueFor(model => model.SKU)"
+							tabindex="4" 
+			     			class="easyui-textbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.SKU)',
+     						 required:true ,validType:'length[6,30]'" />
+    </div>
+             
+    <!--物料类型(洁具/瓷砖)-->
+    <div class="col-sm-12 col-md-4">
+        <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.SKUTYPE)</span></label>
+		<input id="@Html.IdFor(model => model.SKUTYPE)" 
+							name="@Html.NameFor(model => model.SKUTYPE)" 
+							value="@Html.ValueFor(model => model.SKUTYPE)"
+							tabindex="5" 
+			     			class="easyui-textbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.SKUTYPE)',
+     						 required:true ,validType:'length[0,10]'" />
+    </div>
+             
+    <!--交货数量-->
+    <div class="col-sm-12 col-md-4">
+         <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.ORIGINALQTY)</span></label>
+         <input id="@Html.IdFor(model => model.ORIGINALQTY)"
+							name="@Html.NameFor(model => model.ORIGINALQTY)" 
+							value="@Html.ValueFor(model => model.ORIGINALQTY)"
+							tabindex="6" 
+							class="easyui-numberbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.ORIGINALQTY)',
+                                 precision:2,
+								 required:true,
+                                 validType:'decimal' 
+                                 " />
+    </div>
+             
+    <!--已发运数量-->
+    <div class="col-sm-12 col-md-4">
+         <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.SHIPPEDQTY)</span></label>
+         <input id="@Html.IdFor(model => model.SHIPPEDQTY)"
+							name="@Html.NameFor(model => model.SHIPPEDQTY)" 
+							value="@Html.ValueFor(model => model.SHIPPEDQTY)"
+							tabindex="7" 
+							class="easyui-numberbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.SHIPPEDQTY)',
+                                 precision:2,
+								 required:true,
+                                 validType:'decimal' 
+                                 " />
+    </div>
+             
+    <!--交货件数-->
+    <div class="col-sm-12 col-md-4">
+         <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.CASECNT)</span></label>
+         <input id="@Html.IdFor(model => model.CASECNT)"
+							name="@Html.NameFor(model => model.CASECNT)" 
+							value="@Html.ValueFor(model => model.CASECNT)"
+							tabindex="8" 
+							class="easyui-numberbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.CASECNT)',
+                                 precision:2,
+								 required:true,
+                                 validType:'decimal' 
+                                 " />
+    </div>
+             
+    <!--毛重(KG)-->
+    <div class="col-sm-12 col-md-4">
+         <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.GROSSWGT)</span></label>
+         <input id="@Html.IdFor(model => model.GROSSWGT)"
+							name="@Html.NameFor(model => model.GROSSWGT)" 
+							value="@Html.ValueFor(model => model.GROSSWGT)"
+							tabindex="9" 
+							class="easyui-numberbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.GROSSWGT)',
+                                 precision:2,
+								 required:true,
+                                 validType:'decimal' 
+                                 " />
+    </div>
+             
+    <!--体积(M)-->
+    <div class="col-sm-12 col-md-4">
+         <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.CUBE)</span></label>
+         <input id="@Html.IdFor(model => model.CUBE)"
+							name="@Html.NameFor(model => model.CUBE)" 
+							value="@Html.ValueFor(model => model.CUBE)"
+							tabindex="10" 
+							class="easyui-numberbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.CUBE)',
+                                 precision:2,
+								 required:true,
+                                 validType:'decimal' 
+                                 " />
+    </div>
+             
+    <!--销售雇员-->
+    <div class="col-sm-12 col-md-4">
+        <label class="control-label">@Html.DisplayNameFor(model => model.SALER)</label>
+		<input id="@Html.IdFor(model => model.SALER)" 
+							name="@Html.NameFor(model => model.SALER)" 
+							value="@Html.ValueFor(model => model.SALER)"
+							tabindex="11" 
+			     			class="easyui-textbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.SALER)',
+     						 required:false " />
+    </div>
+             
+    <!--销售组-->
+    <div class="col-sm-12 col-md-4">
+        <label class="control-label">@Html.DisplayNameFor(model => model.SALESORG)</label>
+		<input id="@Html.IdFor(model => model.SALESORG)" 
+							name="@Html.NameFor(model => model.SALESORG)" 
+							value="@Html.ValueFor(model => model.SALESORG)"
+							tabindex="12" 
+			     			class="easyui-textbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.SALESORG)',
+     						 required:false " />
+    </div>
+             
+    <!--运费(RMB)-->
+    <div class="col-sm-12 col-md-4">
+         <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.COST1)</span></label>
+         <input id="@Html.IdFor(model => model.COST1)"
+							name="@Html.NameFor(model => model.COST1)" 
+							value="@Html.ValueFor(model => model.COST1)"
+							tabindex="13" 
+							class="easyui-numberbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.COST1)',
+                                 precision:2,
+								 required:true,
+                                 validType:'decimal' 
+                                 " />
+    </div>
+             
+         
+        <!--是否送货上门-->
+        <div class="col-sm-12 col-md-4">
+           <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.CHECKEDCOST2)</span></label>
+           <div class="col-md-12" style="padding-left:0px" >
+                  <label class="checkbox-inline">
+                      <input id="@Html.IdFor(model => model.CHECKEDCOST2)"
+                                   name="@Html.NameFor(model => model.CHECKEDCOST2)"
+                                   value="true" @(Model.CHECKEDCOST2 ? "checked=\"checked\"" : "")
+                                   data-unchecked-value="false"
+                                   tabindex="14"
+                                   class="checkbox style-0"
+                                   type="checkbox" />
+                       <span>@Html.DisplayNameFor(model => model.CHECKEDCOST2)</span>
+                  </label>
+            </div>
+         </div>
+             
+    <!--送货费(RMB)-->
+    <div class="col-sm-12 col-md-4">
+         <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.COST2)</span></label>
+         <input id="@Html.IdFor(model => model.COST2)"
+							name="@Html.NameFor(model => model.COST2)" 
+							value="@Html.ValueFor(model => model.COST2)"
+							tabindex="15" 
+							class="easyui-numberbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.COST2)',
+                                 precision:2,
+								 required:true,
+                                 validType:'decimal' 
+                                 " />
+    </div>
+             
+         
+        <!--是否上楼-->
+        <div class="col-sm-12 col-md-4">
+           <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.CHECKEDCOST3)</span></label>
+           <div class="col-md-12" style="padding-left:0px" >
+                  <label class="checkbox-inline">
+                      <input id="@Html.IdFor(model => model.CHECKEDCOST3)"
+                                   name="@Html.NameFor(model => model.CHECKEDCOST3)"
+                                   value="true" @(Model.CHECKEDCOST3 ? "checked=\"checked\"" : "")
+                                   data-unchecked-value="false"
+                                   tabindex="16"
+                                   class="checkbox style-0"
+                                   type="checkbox" />
+                       <span>@Html.DisplayNameFor(model => model.CHECKEDCOST3)</span>
+                  </label>
+            </div>
+         </div>
+             
+    <!--楼层-->
+    <div class="col-sm-12 col-md-4">
+        <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.FLOOR)</span></label>
+		<input id="@Html.IdFor(model => model.FLOOR)"
+							name="@Html.NameFor(model => model.FLOOR)" 
+							value="@Html.ValueFor(model => model.FLOOR)"
+							tabindex="17" 
+							class="easyui-numberbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.FLOOR)',
+								 required:true,
+                                 validType:'mone' 
+                                 " />
+    </div>
+             
+    <!--搬运费(RMB)-->
+    <div class="col-sm-12 col-md-4">
+         <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.COST3)</span></label>
+         <input id="@Html.IdFor(model => model.COST3)"
+							name="@Html.NameFor(model => model.COST3)" 
+							value="@Html.ValueFor(model => model.COST3)"
+							tabindex="18" 
+							class="easyui-numberbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.COST3)',
+                                 precision:2,
+								 required:true,
+                                 validType:'decimal' 
+                                 " />
+    </div>
+             
+         
+        <!--是否加急-->
+        <div class="col-sm-12 col-md-4">
+           <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.CHECKEDCOST4)</span></label>
+           <div class="col-md-12" style="padding-left:0px" >
+                  <label class="checkbox-inline">
+                      <input id="@Html.IdFor(model => model.CHECKEDCOST4)"
+                                   name="@Html.NameFor(model => model.CHECKEDCOST4)"
+                                   value="true" @(Model.CHECKEDCOST4 ? "checked=\"checked\"" : "")
+                                   data-unchecked-value="false"
+                                   tabindex="19"
+                                   class="checkbox style-0"
+                                   type="checkbox" />
+                       <span>@Html.DisplayNameFor(model => model.CHECKEDCOST4)</span>
+                  </label>
+            </div>
+         </div>
+             
+    <!--加急费(RMB)-->
+    <div class="col-sm-12 col-md-4">
+         <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.COST4)</span></label>
+         <input id="@Html.IdFor(model => model.COST4)"
+							name="@Html.NameFor(model => model.COST4)" 
+							value="@Html.ValueFor(model => model.COST4)"
+							tabindex="20" 
+							class="easyui-numberbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.COST4)',
+                                 precision:2,
+								 required:true,
+                                 validType:'decimal' 
+                                 " />
+    </div>
+             
+         
+        <!--是否专车-->
+        <div class="col-sm-12 col-md-4">
+           <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.CHECKEDCOST5)</span></label>
+           <div class="col-md-12" style="padding-left:0px" >
+                  <label class="checkbox-inline">
+                      <input id="@Html.IdFor(model => model.CHECKEDCOST5)"
+                                   name="@Html.NameFor(model => model.CHECKEDCOST5)"
+                                   value="true" @(Model.CHECKEDCOST5 ? "checked=\"checked\"" : "")
+                                   data-unchecked-value="false"
+                                   tabindex="21"
+                                   class="checkbox style-0"
+                                   type="checkbox" />
+                       <span>@Html.DisplayNameFor(model => model.CHECKEDCOST5)</span>
+                  </label>
+            </div>
+         </div>
+             
+    <!--专车费(RMB)-->
+    <div class="col-sm-12 col-md-4">
+         <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.COST5)</span></label>
+         <input id="@Html.IdFor(model => model.COST5)"
+							name="@Html.NameFor(model => model.COST5)" 
+							value="@Html.ValueFor(model => model.COST5)"
+							tabindex="22" 
+							class="easyui-numberbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.COST5)',
+                                 precision:2,
+								 required:true,
+                                 validType:'decimal' 
+                                 " />
+    </div>
+             
+         
+        <!--是否其它服务1-->
+        <div class="col-sm-12 col-md-4">
+           <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.CHECKEDCOST6)</span></label>
+           <div class="col-md-12" style="padding-left:0px" >
+                  <label class="checkbox-inline">
+                      <input id="@Html.IdFor(model => model.CHECKEDCOST6)"
+                                   name="@Html.NameFor(model => model.CHECKEDCOST6)"
+                                   value="true" @(Model.CHECKEDCOST6 ? "checked=\"checked\"" : "")
+                                   data-unchecked-value="false"
+                                   tabindex="23"
+                                   class="checkbox style-0"
+                                   type="checkbox" />
+                       <span>@Html.DisplayNameFor(model => model.CHECKEDCOST6)</span>
+                  </label>
+            </div>
+         </div>
+             
+    <!--其它服务费1(RMB)-->
+    <div class="col-sm-12 col-md-4">
+         <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.COST6)</span></label>
+         <input id="@Html.IdFor(model => model.COST6)"
+							name="@Html.NameFor(model => model.COST6)" 
+							value="@Html.ValueFor(model => model.COST6)"
+							tabindex="24" 
+							class="easyui-numberbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.COST6)',
+                                 precision:2,
+								 required:true,
+                                 validType:'decimal' 
+                                 " />
+    </div>
+             
+    <!--备注-->
+    <div class="col-sm-12 col-md-4">
+        <label class="control-label">@Html.DisplayNameFor(model => model.NOTES)</label>
+		<input id="@Html.IdFor(model => model.NOTES)" 
+							name="@Html.NameFor(model => model.NOTES)" 
+							value="@Html.ValueFor(model => model.NOTES)"
+							tabindex="25" 
+			     			class="easyui-textbox" 
+							type="text" 
+                            style="width:100%"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.NOTES)',
+     						 required:false ,validType:'length[0,180]'" />
+    </div>
+             
+  
+           </div>
+         </div>
+       </fieldset>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">
+     var form_state = 'Added';
+     var current_index = -1;
+     var orderdetail = {};
+ 
+     function open_orderdetaildlg(index, row, state) {
+         form_state = state;
+         current_index = index;
+         orderdetail = row;
+         $('#orderdetaildlg').dialog('open');
+         if (form_state === 'Added') {
+             $('#orderdetaildlg').dialog('setTitle', '新增明细');
+         } else {
+             $('#orderdetaildlg').dialog('setTitle', '修改明细');
+         }
+         $('#orderdetail_form').form('reset');
+         $('#orderdetail_form').form('load', orderdetail);
+     }
+     function confirm_orderdetailform() {
+         $orderdetailform = $('#orderdetail_form');
+         if ($orderdetailform.form('enableValidation').form('validate')) {
+             orderdetail = $orderdetailform.serializeJSON();
+             if (form_state === 'Added') {
+                 $(document).trigger('orderdetail_form.add', [current_index, orderdetail])
+             } else {
+                 $(document).trigger('orderdetail_form.edit', [current_index, orderdetail])
+             }
+             $('#orderdetaildlg').dialog('close');
+         }
+     }
+ </script>
+
+ 

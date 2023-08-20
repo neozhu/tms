@@ -1,0 +1,1655 @@
+﻿﻿@model WebApp.Models.Vehicle
+<!-- 弹出窗体form表单 -->
+ <div id="detailswindow" hidden="hidden" class="easyui-window" 
+      title="明细数据" 
+      data-options="modal:true,
+                    closed:true,
+                    maximized:false,
+                    iconCls:'icon-more',
+                    footer:'#windowfooter',
+                    closeDuration:200,
+                    closeAnimation:'slide',
+                    openDuration:300,
+                    openAnimation:'slide',
+                    onBeforeClose:function(){
+                      var that = $(this);
+                      if(hasmodified()){
+                        $.messager.confirm('确认','你确定要放弃保存修改的记录?',function(r){
+                        if (r){
+                          var opts = that.panel('options');
+                          var onBeforeClose = opts.onBeforeClose;
+                          opts.onBeforeClose = function(){};
+                          that.panel('close');
+                          opts.onBeforeClose = onBeforeClose;
+                        }
+                        });
+                        return false;
+                      }
+                    },
+                    onOpen:function(){
+                       $(this).window('vcenter');
+                       $(this).window('hcenter');
+                    },
+                    onRestore:function(){
+                    },
+                    onMaximize:function(){
+                    }
+                    " style="width:1350px;height:520px">
+    <!-- begin toolbar -->
+    <div class="window-body-toolbar">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="btn-group btn-group-sm">
+                       <button onclick="saveitem()" class="btn btn-default"> 
+                          <i class="fa fa-floppy-o"></i> 保存 
+                       </button>
+                </div>
+                <div class="btn-group btn-group-sm" style="display:none">
+                    <button onclick="todo()" class="btn btn-default">
+                        <i class="fa fa-print"></i> ToDo
+                    </button>
+                </div>
+            </div>
+            <div class="col-sm-4 text-align-right">
+              <div class="btn-group btn-group-sm">
+                <button type="button" class="btn   btn-success" onclick="closedetailwindow()">
+                    <i class="fa fa-chevron-left"></i>
+                    关闭
+                </button>
+              </div>
+            </div>
+        </div>
+    </div>
+    <!-- end toolbar -->
+    <!-- begin window body -->
+    <div class="padding-10">
+    <!-- begin form表单界面-->
+        <div class="row">
+            <div class="col-md-12">
+          <form id="vehicle_form" 
+              class="easyui-form form-horizontal padding-10" 
+              method="post" 
+              data-options="novalidate:true,
+                            onChange: function(target){
+                              hasChanged = true;
+                             },
+                             onLoadSuccess:function(data){
+                               hasChanged = false;
+                             }">
+  @Html.AntiForgeryToken()
+   <!--Primary Key-->
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+  
+ <table class="table table-bordered"> 
+	    <tr>
+	   <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.PlateNumber)</span></td>
+	   <td> 
+            <!--车牌号-->
+			<input id="@Html.IdFor(model => model.PlateNumber)" 
+				   name="@Html.NameFor(model => model.PlateNumber)" 
+				   value="@Html.ValueFor(model => model.PlateNumber)"
+				   tabindex="0" required
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.PlateNumber)',
+								 label:'',
+                                 width:200,
+								 required:true,
+                                 validType: 'length[7,10]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.ShipOrderNo)</td>
+	   <td> 
+            <!--派车单号-->
+			<input id="@Html.IdFor(model => model.ShipOrderNo)" 
+				   name="@Html.NameFor(model => model.ShipOrderNo)" 
+				   value="@Html.ValueFor(model => model.ShipOrderNo)"
+				   tabindex="1" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.ShipOrderNo)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,20]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.InputUser)</td>
+	   <td> 
+            <!--调度人员-->
+			<input id="@Html.IdFor(model => model.InputUser)" 
+				   name="@Html.NameFor(model => model.InputUser)" 
+				   value="@Html.ValueFor(model => model.InputUser)"
+				   tabindex="2" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.InputUser)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,20]'
+                                 " />
+				   </td>
+	   	   <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Status)</span></td>
+	   <td> 
+            <!--车辆状态(停用/启用/维修/在途/预定)-->
+			<input id="@Html.IdFor(model => model.Status)" 
+				   name="@Html.NameFor(model => model.Status)" 
+				   value="@Html.ValueFor(model => model.Status)"
+				   tabindex="3" required
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.Status)',
+								 label:'',
+                                 width:200,
+								 required:true,
+                                 validType: 'length[0,20]'
+                                 " />
+				   </td>
+	   	   </tr>
+	   	    <tr>
+	   <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.CarType)</span></td>
+	   <td> 
+            <!--车辆类型(厢式车（默认）/平板车/轿车/面包车/高栏车/飞翼车等)-->
+			<input id="@Html.IdFor(model => model.CarType)" 
+				   name="@Html.NameFor(model => model.CarType)" 
+				   value="@Html.ValueFor(model => model.CarType)"
+				   tabindex="4" required
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.CarType)',
+								 label:'',
+                                 width:200,
+								 required:true,
+                                 validType: 'length[0,20]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.CarrierCode)</td>
+	   <td> 
+            <!--所属承运人代码-->
+			<input id="@Html.IdFor(model => model.CarrierCode)" 
+				   name="@Html.NameFor(model => model.CarrierCode)" 
+				   value="@Html.ValueFor(model => model.CarrierCode)"
+				   tabindex="5" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.CarrierCode)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,20]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.CarrierName)</td>
+	   <td> 
+            <!--所属承运人-->
+			<input id="@Html.IdFor(model => model.CarrierName)" 
+				   name="@Html.NameFor(model => model.CarrierName)" 
+				   value="@Html.ValueFor(model => model.CarrierName)"
+				   tabindex="6" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.CarrierName)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,80]'
+                                 " />
+				   </td>
+	   	   <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.VehLongSize)</span></td>
+	   <td> 
+             <!--车长(米)-->
+             <input id="@Html.IdFor(model => model.VehLongSize)"
+				   name="@Html.NameFor(model => model.VehLongSize)" 
+				   value="@Html.ValueFor(model => model.VehLongSize)"
+				   tabindex="7" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.VehLongSize)',
+								 label:'',
+                                 width:200,
+								 required:true,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   </tr>
+	   	    <tr>
+	   <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.StdLoadWeight)</span></td>
+	   <td> 
+             <!--额定载重(吨)-->
+             <input id="@Html.IdFor(model => model.StdLoadWeight)"
+				   name="@Html.NameFor(model => model.StdLoadWeight)" 
+				   value="@Html.ValueFor(model => model.StdLoadWeight)"
+				   tabindex="8" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.StdLoadWeight)',
+								 label:'',
+                                 width:200,
+								 required:true,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.FeeLoadWeight)</span></td>
+	   <td> 
+             <!--运输车型(吨,尺等等),收费吨位-->
+             <input id="@Html.IdFor(model => model.FeeLoadWeight)"
+				   name="@Html.NameFor(model => model.FeeLoadWeight)" 
+				   value="@Html.ValueFor(model => model.FeeLoadWeight)"
+				   tabindex="9" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.FeeLoadWeight)',
+								 label:'',
+                                 width:200,
+								 required:true,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.StdLoadVolume)</span></td>
+	   <td> 
+             <!--额定体积(立方米)-->
+             <input id="@Html.IdFor(model => model.StdLoadVolume)"
+				   name="@Html.NameFor(model => model.StdLoadVolume)" 
+				   value="@Html.ValueFor(model => model.StdLoadVolume)"
+				   tabindex="10" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.StdLoadVolume)',
+								 label:'',
+                                 width:200,
+								 required:true,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.CarriageSize)</span></td>
+	   <td> 
+             <!--车厢尺寸(尺)-->
+             <input id="@Html.IdFor(model => model.CarriageSize)"
+				   name="@Html.NameFor(model => model.CarriageSize)" 
+				   value="@Html.ValueFor(model => model.CarriageSize)"
+				   tabindex="11" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.CarriageSize)',
+								 label:'',
+                                 width:200,
+								 required:true,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   </tr>
+	   	    <tr>
+	   <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.GPSDeviceId)</span></td>
+	   <td> 
+            <!--GPS设备编号-->
+			<input id="@Html.IdFor(model => model.GPSDeviceId)" 
+				   name="@Html.NameFor(model => model.GPSDeviceId)" 
+				   value="@Html.ValueFor(model => model.GPSDeviceId)"
+				   tabindex="12" required
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.GPSDeviceId)',
+								 label:'',
+                                 width:200,
+								 required:true,
+                                 validType: 'length[0,50]'
+                                 " />
+				   </td>
+	   	   <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Driver)</span></td>
+	   <td> 
+            <!--主驾司机-->
+			<input id="@Html.IdFor(model => model.Driver)" 
+				   name="@Html.NameFor(model => model.Driver)" 
+				   value="@Html.ValueFor(model => model.Driver)"
+				   tabindex="13" required
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.Driver)',
+								 label:'',
+                                 width:200,
+								 required:true,
+                                 validType: 'length[0,20]'
+                                 " />
+				   </td>
+	   	   <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.DriverPhone)</span></td>
+	   <td> 
+            <!--主驾司机电话-->
+			<input id="@Html.IdFor(model => model.DriverPhone)" 
+				   name="@Html.NameFor(model => model.DriverPhone)" 
+				   value="@Html.ValueFor(model => model.DriverPhone)"
+				   tabindex="14" required
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.DriverPhone)',
+								 label:'',
+                                 width:200,
+								 required:true,
+                                 validType: 'length[0,50]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.AssistantDriver)</td>
+	   <td> 
+            <!--副驾司机-->
+			<input id="@Html.IdFor(model => model.AssistantDriver)" 
+				   name="@Html.NameFor(model => model.AssistantDriver)" 
+				   value="@Html.ValueFor(model => model.AssistantDriver)"
+				   tabindex="15" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.AssistantDriver)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,20]'
+                                 " />
+				   </td>
+	   	   </tr>
+	   	    <tr>
+	   <td class="control-label">@Html.DisplayNameFor(model => model.AssistantDriverPhone)</td>
+	   <td> 
+            <!--副驾司机电话-->
+			<input id="@Html.IdFor(model => model.AssistantDriverPhone)" 
+				   name="@Html.NameFor(model => model.AssistantDriverPhone)" 
+				   value="@Html.ValueFor(model => model.AssistantDriverPhone)"
+				   tabindex="16" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.AssistantDriverPhone)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,50]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.CustomsNo)</td>
+	   <td> 
+            <!--海关编号-->
+			<input id="@Html.IdFor(model => model.CustomsNo)" 
+				   name="@Html.NameFor(model => model.CustomsNo)" 
+				   value="@Html.ValueFor(model => model.CustomsNo)"
+				   tabindex="17" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.CustomsNo)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,20]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.RoadKM)</td>
+	   <td> 
+             <!--总行驶里程-->
+             <input id="@Html.IdFor(model => model.RoadKM)"
+				   name="@Html.NameFor(model => model.RoadKM)" 
+				   value="@Html.ValueFor(model => model.RoadKM)"
+				   tabindex="18" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.RoadKM)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.RoadHours)</td>
+	   <td> 
+             <!--行驶时间-->
+             <input id="@Html.IdFor(model => model.RoadHours)"
+				   name="@Html.NameFor(model => model.RoadHours)" 
+				   value="@Html.ValueFor(model => model.RoadHours)"
+				   tabindex="19" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.RoadHours)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   </tr>
+	   	    <tr>
+	   <td class="control-label">@Html.DisplayNameFor(model => model.Owner)</td>
+	   <td> 
+            <!--车主-->
+			<input id="@Html.IdFor(model => model.Owner)" 
+				   name="@Html.NameFor(model => model.Owner)" 
+				   value="@Html.ValueFor(model => model.Owner)"
+				   tabindex="20" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.Owner)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,20]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.OwnerContactPhone)</td>
+	   <td> 
+            <!--联系人电话-->
+			<input id="@Html.IdFor(model => model.OwnerContactPhone)" 
+				   name="@Html.NameFor(model => model.OwnerContactPhone)" 
+				   value="@Html.ValueFor(model => model.OwnerContactPhone)"
+				   tabindex="21" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.OwnerContactPhone)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,50]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.Brand)</td>
+	   <td> 
+            <!--品牌-->
+			<input id="@Html.IdFor(model => model.Brand)" 
+				   name="@Html.NameFor(model => model.Brand)" 
+				   value="@Html.ValueFor(model => model.Brand)"
+				   tabindex="22" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.Brand)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,20]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.RPM)</td>
+	   <td> 
+            <!--额定转速-->
+			<input id="@Html.IdFor(model => model.RPM)"
+				   name="@Html.NameFor(model => model.RPM)" 
+				   value="@Html.ValueFor(model => model.RPM)"
+				   tabindex="23" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.RPM)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType:'integer',
+                                 
+                                 " />
+				   </td>
+	   	   </tr>
+	   	    <tr>
+	   <td class="control-label">@Html.DisplayNameFor(model => model.PurchasedDate)</td>
+	   <td> 
+               <!--购买日期-->
+                <input id="@Html.IdFor(model => model.PurchasedDate)" 
+			       name="@Html.NameFor(model => model.PurchasedDate)"
+                   value="@Html.ValueFor(model => model.PurchasedDate)"
+           		   tabindex="24"  
+				   class="easyui-datebox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.PurchasedDate)',
+								 label:'',
+                                 width:200,
+								 required:false,
+								 formatter:dateformatter" />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.PurchasedAmount)</td>
+	   <td> 
+             <!--购买金额-->
+             <input id="@Html.IdFor(model => model.PurchasedAmount)"
+				   name="@Html.NameFor(model => model.PurchasedAmount)" 
+				   value="@Html.ValueFor(model => model.PurchasedAmount)"
+				   tabindex="25" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.PurchasedAmount)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.VehLong)</td>
+	   <td> 
+             <!--车厢长(米)-->
+             <input id="@Html.IdFor(model => model.VehLong)"
+				   name="@Html.NameFor(model => model.VehLong)" 
+				   value="@Html.ValueFor(model => model.VehLong)"
+				   tabindex="26" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.VehLong)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.VehWide)</td>
+	   <td> 
+             <!--车厢宽(米)-->
+             <input id="@Html.IdFor(model => model.VehWide)"
+				   name="@Html.NameFor(model => model.VehWide)" 
+				   value="@Html.ValueFor(model => model.VehWide)"
+				   tabindex="27" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.VehWide)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   </tr>
+	   	    <tr>
+	   <td class="control-label">@Html.DisplayNameFor(model => model.VehHigh)</td>
+	   <td> 
+             <!--车厢高(米)-->
+             <input id="@Html.IdFor(model => model.VehHigh)"
+				   name="@Html.NameFor(model => model.VehHigh)" 
+				   value="@Html.ValueFor(model => model.VehHigh)"
+				   tabindex="28" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.VehHigh)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.VIN)</td>
+	   <td> 
+            <!--车架号-->
+			<input id="@Html.IdFor(model => model.VIN)" 
+				   name="@Html.NameFor(model => model.VIN)" 
+				   value="@Html.ValueFor(model => model.VIN)"
+				   tabindex="29" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.VIN)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,50]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.ServiceLife)</td>
+	   <td> 
+            <!--使用年限-->
+			<input id="@Html.IdFor(model => model.ServiceLife)"
+				   name="@Html.NameFor(model => model.ServiceLife)" 
+				   value="@Html.ValueFor(model => model.ServiceLife)"
+				   tabindex="30" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.ServiceLife)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType:'integer',
+                                 
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.MaintainKM)</td>
+	   <td> 
+            <!--保养公里数-->
+			<input id="@Html.IdFor(model => model.MaintainKM)"
+				   name="@Html.NameFor(model => model.MaintainKM)" 
+				   value="@Html.ValueFor(model => model.MaintainKM)"
+				   tabindex="31" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.MaintainKM)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType:'integer',
+                                 
+                                 " />
+				   </td>
+	   	   </tr>
+	   	    <tr>
+	   <td class="control-label">@Html.DisplayNameFor(model => model.MaintainDate)</td>
+	   <td> 
+               <!--下次保养日期-->
+                <input id="@Html.IdFor(model => model.MaintainDate)" 
+			       name="@Html.NameFor(model => model.MaintainDate)"
+                   value="@Html.ValueFor(model => model.MaintainDate)"
+           		   tabindex="32"  
+				   class="easyui-datebox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.MaintainDate)',
+								 label:'',
+                                 width:200,
+								 required:false,
+								 formatter:dateformatter" />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.MaintainMonth)</td>
+	   <td> 
+            <!--保养周期(月)-->
+			<input id="@Html.IdFor(model => model.MaintainMonth)"
+				   name="@Html.NameFor(model => model.MaintainMonth)" 
+				   value="@Html.ValueFor(model => model.MaintainMonth)"
+				   tabindex="33" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.MaintainMonth)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType:'integer',
+                                 
+                                 " />
+				   </td>
+	   	   <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.ExistVehTailBoard)</span></td>
+	   <td> 
+            <!--车辆尾板-->
+            <div class="col-md-12" style="padding-left:0px" >
+                          <label class="checkbox-inline">
+                            <input id="@Html.IdFor(model => model.ExistVehTailBoard)"
+                                   name="@Html.NameFor(model => model.ExistVehTailBoard)"
+                                   value="true" @(Model.ExistVehTailBoard ? "checked=\"checked\"" : "")
+                                   data-unchecked-value="false"
+                                   tabindex="34"
+                                   class="checkbox style-0"
+                                   type="checkbox" />
+                            <span></span>
+                          </label>
+              </div>
+              				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.VehTailBoardBrand)</td>
+	   <td> 
+            <!--尾板品牌-->
+			<input id="@Html.IdFor(model => model.VehTailBoardBrand)" 
+				   name="@Html.NameFor(model => model.VehTailBoardBrand)" 
+				   value="@Html.ValueFor(model => model.VehTailBoardBrand)"
+				   tabindex="35" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.VehTailBoardBrand)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,30]'
+                                 " />
+				   </td>
+	   	   </tr>
+	   	    <tr>
+	   <td class="control-label">@Html.DisplayNameFor(model => model.VehTailBoardFactory)</td>
+	   <td> 
+            <!--尾板厂家-->
+			<input id="@Html.IdFor(model => model.VehTailBoardFactory)" 
+				   name="@Html.NameFor(model => model.VehTailBoardFactory)" 
+				   value="@Html.ValueFor(model => model.VehTailBoardFactory)"
+				   tabindex="36" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.VehTailBoardFactory)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,30]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.VehTailBoardLife)</td>
+	   <td> 
+            <!--尾板使用年限-->
+			<input id="@Html.IdFor(model => model.VehTailBoardLife)"
+				   name="@Html.NameFor(model => model.VehTailBoardLife)" 
+				   value="@Html.ValueFor(model => model.VehTailBoardLife)"
+				   tabindex="37" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.VehTailBoardLife)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType:'integer',
+                                 
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.VehTailBoardAmount)</td>
+	   <td> 
+             <!--尾板价值-->
+             <input id="@Html.IdFor(model => model.VehTailBoardAmount)"
+				   name="@Html.NameFor(model => model.VehTailBoardAmount)" 
+				   value="@Html.ValueFor(model => model.VehTailBoardAmount)"
+				   tabindex="38" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.VehTailBoardAmount)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.VehTailBoardGPSDeviceId)</td>
+	   <td> 
+            <!--尾板GPS设备编号-->
+			<input id="@Html.IdFor(model => model.VehTailBoardGPSDeviceId)" 
+				   name="@Html.NameFor(model => model.VehTailBoardGPSDeviceId)" 
+				   value="@Html.ValueFor(model => model.VehTailBoardGPSDeviceId)"
+				   tabindex="39" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.VehTailBoardGPSDeviceId)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,50]'
+                                 " />
+				   </td>
+	   	   </tr>
+	   	    <tr>
+	   <td class="control-label">@Html.DisplayNameFor(model => model.DrLicenseModel)</td>
+	   <td> 
+            <!--型号代码-->
+			<input id="@Html.IdFor(model => model.DrLicenseModel)" 
+				   name="@Html.NameFor(model => model.DrLicenseModel)" 
+				   value="@Html.ValueFor(model => model.DrLicenseModel)"
+				   tabindex="40" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.DrLicenseModel)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,50]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.DrLicenseUseNature)</td>
+	   <td> 
+            <!--使用性质-->
+			<input id="@Html.IdFor(model => model.DrLicenseUseNature)" 
+				   name="@Html.NameFor(model => model.DrLicenseUseNature)" 
+				   value="@Html.ValueFor(model => model.DrLicenseUseNature)"
+				   tabindex="41" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.DrLicenseUseNature)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,50]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.DrLicenseBrand)</td>
+	   <td> 
+            <!--品牌-->
+			<input id="@Html.IdFor(model => model.DrLicenseBrand)" 
+				   name="@Html.NameFor(model => model.DrLicenseBrand)" 
+				   value="@Html.ValueFor(model => model.DrLicenseBrand)"
+				   tabindex="42" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.DrLicenseBrand)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,50]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.DrLicenseDevId)</td>
+	   <td> 
+            <!--识别代码-->
+			<input id="@Html.IdFor(model => model.DrLicenseDevId)" 
+				   name="@Html.NameFor(model => model.DrLicenseDevId)" 
+				   value="@Html.ValueFor(model => model.DrLicenseDevId)"
+				   tabindex="43" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.DrLicenseDevId)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,50]'
+                                 " />
+				   </td>
+	   	   </tr>
+	   	    <tr>
+	   <td class="control-label">@Html.DisplayNameFor(model => model.DrLicenseEngineId)</td>
+	   <td> 
+            <!--发动机号-->
+			<input id="@Html.IdFor(model => model.DrLicenseEngineId)" 
+				   name="@Html.NameFor(model => model.DrLicenseEngineId)" 
+				   value="@Html.ValueFor(model => model.DrLicenseEngineId)"
+				   tabindex="44" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.DrLicenseEngineId)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,50]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.DrLicenseRegistrationDate)</td>
+	   <td> 
+               <!--注册日期-->
+                <input id="@Html.IdFor(model => model.DrLicenseRegistrationDate)" 
+			       name="@Html.NameFor(model => model.DrLicenseRegistrationDate)"
+                   value="@Html.ValueFor(model => model.DrLicenseRegistrationDate)"
+           		   tabindex="45"  
+				   class="easyui-datebox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.DrLicenseRegistrationDate)',
+								 label:'',
+                                 width:200,
+								 required:false,
+								 formatter:dateformatter" />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.DrLicensePubDate)</td>
+	   <td> 
+               <!--发证日期-->
+                <input id="@Html.IdFor(model => model.DrLicensePubDate)" 
+			       name="@Html.NameFor(model => model.DrLicensePubDate)"
+                   value="@Html.ValueFor(model => model.DrLicensePubDate)"
+           		   tabindex="46"  
+				   class="easyui-datebox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.DrLicensePubDate)',
+								 label:'',
+                                 width:200,
+								 required:false,
+								 formatter:dateformatter" />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.DrLicenseRatedUsers)</td>
+	   <td> 
+            <!--额定人数-->
+			<input id="@Html.IdFor(model => model.DrLicenseRatedUsers)"
+				   name="@Html.NameFor(model => model.DrLicenseRatedUsers)" 
+				   value="@Html.ValueFor(model => model.DrLicenseRatedUsers)"
+				   tabindex="47" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.DrLicenseRatedUsers)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType:'integer',
+                                 
+                                 " />
+				   </td>
+	   	   </tr>
+	   	    <tr>
+	   <td class="control-label">@Html.DisplayNameFor(model => model.DrLicenseVehWeight)</td>
+	   <td> 
+             <!--车辆重量(吨)-->
+             <input id="@Html.IdFor(model => model.DrLicenseVehWeight)"
+				   name="@Html.NameFor(model => model.DrLicenseVehWeight)" 
+				   value="@Html.ValueFor(model => model.DrLicenseVehWeight)"
+				   tabindex="48" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.DrLicenseVehWeight)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.DrLicenseDevWeight)</td>
+	   <td> 
+             <!--整备重量(吨)-->
+             <input id="@Html.IdFor(model => model.DrLicenseDevWeight)"
+				   name="@Html.NameFor(model => model.DrLicenseDevWeight)" 
+				   value="@Html.ValueFor(model => model.DrLicenseDevWeight)"
+				   tabindex="49" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.DrLicenseDevWeight)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.DrLicenseNetWeight)</td>
+	   <td> 
+             <!--净重(吨)-->
+             <input id="@Html.IdFor(model => model.DrLicenseNetWeight)"
+				   name="@Html.NameFor(model => model.DrLicenseNetWeight)" 
+				   value="@Html.ValueFor(model => model.DrLicenseNetWeight)"
+				   tabindex="50" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.DrLicenseNetWeight)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.DrLicenseNetVolume)</td>
+	   <td> 
+             <!--净空(立方)-->
+             <input id="@Html.IdFor(model => model.DrLicenseNetVolume)"
+				   name="@Html.NameFor(model => model.DrLicenseNetVolume)" 
+				   value="@Html.ValueFor(model => model.DrLicenseNetVolume)"
+				   tabindex="51" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.DrLicenseNetVolume)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   </tr>
+	   	    <tr>
+	   <td class="control-label">@Html.DisplayNameFor(model => model.DrLicenseVehWide)</td>
+	   <td> 
+             <!--外限宽(米)-->
+             <input id="@Html.IdFor(model => model.DrLicenseVehWide)"
+				   name="@Html.NameFor(model => model.DrLicenseVehWide)" 
+				   value="@Html.ValueFor(model => model.DrLicenseVehWide)"
+				   tabindex="52" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.DrLicenseVehWide)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.DrLicenseVehHigh)</td>
+	   <td> 
+             <!--外限高(米)-->
+             <input id="@Html.IdFor(model => model.DrLicenseVehHigh)"
+				   name="@Html.NameFor(model => model.DrLicenseVehHigh)" 
+				   value="@Html.ValueFor(model => model.DrLicenseVehHigh)"
+				   tabindex="53" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.DrLicenseVehHigh)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.DrLicenseVehLong)</td>
+	   <td> 
+             <!--外限长(米)-->
+             <input id="@Html.IdFor(model => model.DrLicenseVehLong)"
+				   name="@Html.NameFor(model => model.DrLicenseVehLong)" 
+				   value="@Html.ValueFor(model => model.DrLicenseVehLong)"
+				   tabindex="54" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.DrLicenseVehLong)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.DrLicenseScrapedDate)</td>
+	   <td> 
+               <!--强制报废日期-->
+                <input id="@Html.IdFor(model => model.DrLicenseScrapedDate)" 
+			       name="@Html.NameFor(model => model.DrLicenseScrapedDate)"
+                   value="@Html.ValueFor(model => model.DrLicenseScrapedDate)"
+           		   tabindex="55"  
+				   class="easyui-datebox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.DrLicenseScrapedDate)',
+								 label:'',
+                                 width:200,
+								 required:false,
+								 formatter:dateformatter" />
+				   </td>
+	   	   </tr>
+	   	    <tr>
+	   <td class="control-label">@Html.DisplayNameFor(model => model.LoLicenseManageId)</td>
+	   <td> 
+            <!--文管子号-->
+			<input id="@Html.IdFor(model => model.LoLicenseManageId)" 
+				   name="@Html.NameFor(model => model.LoLicenseManageId)" 
+				   value="@Html.ValueFor(model => model.LoLicenseManageId)"
+				   tabindex="56" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.LoLicenseManageId)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,50]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.LoLicenseId)</td>
+	   <td> 
+            <!--运营许可证号-->
+			<input id="@Html.IdFor(model => model.LoLicenseId)" 
+				   name="@Html.NameFor(model => model.LoLicenseId)" 
+				   value="@Html.ValueFor(model => model.LoLicenseId)"
+				   tabindex="57" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.LoLicenseId)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,50]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.LoLicenseBusinessScope)</td>
+	   <td> 
+            <!--经营范围-->
+			<input id="@Html.IdFor(model => model.LoLicenseBusinessScope)" 
+				   name="@Html.NameFor(model => model.LoLicenseBusinessScope)" 
+				   value="@Html.ValueFor(model => model.LoLicenseBusinessScope)"
+				   tabindex="58" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.LoLicenseBusinessScope)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,50]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.LoLicensePubDate)</td>
+	   <td> 
+               <!--发证日期-->
+                <input id="@Html.IdFor(model => model.LoLicensePubDate)" 
+			       name="@Html.NameFor(model => model.LoLicensePubDate)"
+                   value="@Html.ValueFor(model => model.LoLicensePubDate)"
+           		   tabindex="59"  
+				   class="easyui-datebox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.LoLicensePubDate)',
+								 label:'',
+                                 width:200,
+								 required:false,
+								 formatter:dateformatter" />
+				   </td>
+	   	   </tr>
+	   	    <tr>
+	   <td class="control-label">@Html.DisplayNameFor(model => model.LoLicenseValidDate)</td>
+	   <td> 
+               <!--二级有效期-->
+                <input id="@Html.IdFor(model => model.LoLicenseValidDate)" 
+			       name="@Html.NameFor(model => model.LoLicenseValidDate)"
+                   value="@Html.ValueFor(model => model.LoLicenseValidDate)"
+           		   tabindex="60"  
+				   class="easyui-datebox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.LoLicenseValidDate)',
+								 label:'',
+                                 width:200,
+								 required:false,
+								 formatter:dateformatter" />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.LoLicenseCheckDate)</td>
+	   <td> 
+               <!--年检日期-->
+                <input id="@Html.IdFor(model => model.LoLicenseCheckDate)" 
+			       name="@Html.NameFor(model => model.LoLicenseCheckDate)"
+                   value="@Html.ValueFor(model => model.LoLicenseCheckDate)"
+           		   tabindex="61"  
+				   class="easyui-datebox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.LoLicenseCheckDate)',
+								 label:'',
+                                 width:200,
+								 required:false,
+								 formatter:dateformatter" />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.LoLicensePlace)</td>
+	   <td> 
+            <!--注册地-->
+			<input id="@Html.IdFor(model => model.LoLicensePlace)" 
+				   name="@Html.NameFor(model => model.LoLicensePlace)" 
+				   value="@Html.ValueFor(model => model.LoLicensePlace)"
+				   tabindex="62" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.LoLicensePlace)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,30]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.InsTrafficPolicyId)</td>
+	   <td> 
+            <!--交强险保单-->
+			<input id="@Html.IdFor(model => model.InsTrafficPolicyId)" 
+				   name="@Html.NameFor(model => model.InsTrafficPolicyId)" 
+				   value="@Html.ValueFor(model => model.InsTrafficPolicyId)"
+				   tabindex="63" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.InsTrafficPolicyId)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,50]'
+                                 " />
+				   </td>
+	   	   </tr>
+	   	    <tr>
+	   <td class="control-label">@Html.DisplayNameFor(model => model.InsTrafficPolicyCompany)</td>
+	   <td> 
+            <!--保险公司-->
+			<input id="@Html.IdFor(model => model.InsTrafficPolicyCompany)" 
+				   name="@Html.NameFor(model => model.InsTrafficPolicyCompany)" 
+				   value="@Html.ValueFor(model => model.InsTrafficPolicyCompany)"
+				   tabindex="64" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.InsTrafficPolicyCompany)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,50]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.InsTrafficPolicyVaildateDate)</td>
+	   <td> 
+            <!--交强险保单有效期-->
+			<input id="@Html.IdFor(model => model.InsTrafficPolicyVaildateDate)" 
+				   name="@Html.NameFor(model => model.InsTrafficPolicyVaildateDate)" 
+				   value="@Html.ValueFor(model => model.InsTrafficPolicyVaildateDate)"
+				   tabindex="65" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.InsTrafficPolicyVaildateDate)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,50]'
+                                 " />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.InsTrafficPolicyAmount)</td>
+	   <td> 
+             <!--交强险保额-->
+             <input id="@Html.IdFor(model => model.InsTrafficPolicyAmount)"
+				   name="@Html.NameFor(model => model.InsTrafficPolicyAmount)" 
+				   value="@Html.ValueFor(model => model.InsTrafficPolicyAmount)"
+				   tabindex="66" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.InsTrafficPolicyAmount)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.InsThirdPartyId)</td>
+	   <td> 
+            <!--第三者保单号-->
+			<input id="@Html.IdFor(model => model.InsThirdPartyId)" 
+				   name="@Html.NameFor(model => model.InsThirdPartyId)" 
+				   value="@Html.ValueFor(model => model.InsThirdPartyId)"
+				   tabindex="67" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.InsThirdPartyId)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 validType: 'length[0,50]'
+                                 " />
+				   </td>
+	   	   </tr>
+	   	    <tr>
+	   <td class="control-label">@Html.DisplayNameFor(model => model.InsThirdPartyVaildateDate)</td>
+	   <td> 
+               <!--第三者保单有效期-->
+                <input id="@Html.IdFor(model => model.InsThirdPartyVaildateDate)" 
+			       name="@Html.NameFor(model => model.InsThirdPartyVaildateDate)"
+                   value="@Html.ValueFor(model => model.InsThirdPartyVaildateDate)"
+           		   tabindex="68"  
+				   class="easyui-datebox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.InsThirdPartyVaildateDate)',
+								 label:'',
+                                 width:200,
+								 required:false,
+								 formatter:dateformatter" />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.InsThirdPartyAmount)</td>
+	   <td> 
+             <!--第三者保单额-->
+             <input id="@Html.IdFor(model => model.InsThirdPartyAmount)"
+				   name="@Html.NameFor(model => model.InsThirdPartyAmount)" 
+				   value="@Html.ValueFor(model => model.InsThirdPartyAmount)"
+				   tabindex="69" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.InsThirdPartyAmount)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.InsThirdPartyLogisticsAmount)</td>
+	   <td> 
+             <!--物流责任险保额-->
+             <input id="@Html.IdFor(model => model.InsThirdPartyLogisticsAmount)"
+				   name="@Html.NameFor(model => model.InsThirdPartyLogisticsAmount)" 
+				   value="@Html.ValueFor(model => model.InsThirdPartyLogisticsAmount)"
+				   tabindex="70" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.InsThirdPartyLogisticsAmount)',
+								 label:'',
+                                 width:200,
+								 required:false,
+                                 precision:2,
+                                 validType:'decimal',
+                                 
+                                 "  />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.InsThirdPartyLogisticsVaildateDate)</td>
+	   <td> 
+               <!--物流责任险有效期-->
+                <input id="@Html.IdFor(model => model.InsThirdPartyLogisticsVaildateDate)" 
+			       name="@Html.NameFor(model => model.InsThirdPartyLogisticsVaildateDate)"
+                   value="@Html.ValueFor(model => model.InsThirdPartyLogisticsVaildateDate)"
+           		   tabindex="71"  
+				   class="easyui-datebox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.InsThirdPartyLogisticsVaildateDate)',
+								 label:'',
+                                 width:200,
+								 required:false,
+								 formatter:dateformatter" />
+				   </td>
+	   	   </tr>
+	   	           </table>
+     </form>
+     </div>
+    </div>
+<!--end form表单界面-->
+<!--========================================================================================-->
+     </div>
+    <!--end window body -->
+</div>
+<div id="windowfooter" style="padding:5px;">&nbsp;</div>
+<!-- 弹出窗体form表单 -->
+<!-- 弹出编辑对话框 -->
+<!--begin popup detailview javascript block -->
+<script type="text/javascript">
+    //判断新增编辑状态
+    var MODELSTATE = 'Added';
+    var vehicleid = null;
+    var hasChanged = false;
+    function opendetailwindow(data,state) {
+         initdetailview();
+         MODELSTATE = state;
+         vehicleid = (data.Id || 0);
+         $("#detailswindow").window("open");
+         $('#vehicle_form').form('reset');
+         $('#vehicle_form').form('load', data);
+             }
+    
+    //async 保存数据
+    async function saveitem() { 
+      var $editform = $('#vehicle_form');
+      if ($editform.form('enableValidation').form('validate')) {
+            let vehicle = $editform.serializeJSON();
+                        let url = '/Vehicles/EditAsync';
+            //判断是新增或是修改方法
+            if (MODELSTATE === 'Added') {
+                url = '/Vehicles/CreateAsync';
+            }
+            var token = $('input[name="__RequestVerificationToken"]', $editform).val();
+            $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        __RequestVerificationToken: token,
+                        vehicle:vehicle
+                    },
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8'
+                })
+                .done(response => {
+                    if (response.success) {
+                        hasChanged = false;
+                        $editform.form('disableValidation');
+                        $dg.datagrid('reload');
+                        $('#detailswindow').window("close");
+                        toastr.success("保存成功");  
+                    } else {
+                        $.messager.alert("错误",   response.err, "error");
+                    }
+                    })
+                .fail((jqXHR, textStatus, errorThrown) => {
+                       $.messager.alert('异常', `${jqXHR.status}: ${jqXHR.statusText} `, 'error');
+                    });
+        }
+    }
+    //关闭窗口
+    function closedetailwindow() {
+        $('#detailswindow').window('close');
+    }
+    //todo
+    function todo() {
+         console.log('todo.....');
+    }
+     //判断是否有没有保存的记录
+     function hasmodified() {
+            return hasChanged;
+
+     }
+
+
+function initdetailview() {
+
+ 
+//回车光标移动到下个输入控件
+    //如果是枚举类型需要把numberbox改成combobox
+    //车长(米)
+	$('#VehLongSize').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //额定载重(吨)
+	$('#StdLoadWeight').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //运输车型(吨,尺等等),收费吨位
+	$('#FeeLoadWeight').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //额定体积(立方米)
+	$('#StdLoadVolume').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //车厢尺寸(尺)
+	$('#CarriageSize').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //总行驶里程
+	$('#RoadKM').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //行驶时间
+	$('#RoadHours').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //额定转速
+	$('#RPM').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //购买金额
+	$('#PurchasedAmount').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //车厢长(米)
+	$('#VehLong').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //车厢宽(米)
+	$('#VehWide').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //车厢高(米)
+	$('#VehHigh').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //使用年限
+	$('#ServiceLife').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //保养公里数
+	$('#MaintainKM').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //保养周期(月)
+	$('#MaintainMonth').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //尾板使用年限
+	$('#VehTailBoardLife').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //尾板价值
+	$('#VehTailBoardAmount').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //额定人数
+	$('#DrLicenseRatedUsers').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //车辆重量(吨)
+	$('#DrLicenseVehWeight').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //整备重量(吨)
+	$('#DrLicenseDevWeight').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //净重(吨)
+	$('#DrLicenseNetWeight').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //净空(立方)
+	$('#DrLicenseNetVolume').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //外限宽(米)
+	$('#DrLicenseVehWide').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //外限高(米)
+	$('#DrLicenseVehHigh').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //外限长(米)
+	$('#DrLicenseVehLong').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //交强险保额
+	$('#InsTrafficPolicyAmount').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //第三者保单额
+	$('#InsThirdPartyAmount').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //物流责任险保额
+	$('#InsThirdPartyLogisticsAmount').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //日期类型 购买日期
+	$('#PurchasedDate').datebox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //日期类型 下次保养日期
+	$('#MaintainDate').datebox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //日期类型 注册日期
+	$('#DrLicenseRegistrationDate').datebox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //日期类型 发证日期
+	$('#DrLicensePubDate').datebox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //日期类型 强制报废日期
+	$('#DrLicenseScrapedDate').datebox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //日期类型 发证日期
+	$('#LoLicensePubDate').datebox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //日期类型 二级有效期
+	$('#LoLicenseValidDate').datebox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //日期类型 年检日期
+	$('#LoLicenseCheckDate').datebox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //日期类型 第三者保单有效期
+	$('#InsThirdPartyVaildateDate').datebox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //日期类型 物流责任险有效期
+	$('#InsThirdPartyLogisticsVaildateDate').datebox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+}
+</script>
+

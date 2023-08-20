@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+// <copyright file="VehicleMetadata.cs" company="neozhu/MVC5-Scaffolder">
+// Copyright (c) 2019 All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date>2019/8/2 7:55:00 </date>
+// <summary>Class representing a Metadata entity </summary>
+  -->
+<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+   <data name="Id" xml:space="preserve">
+    <value>系统编号</value>
+   </data> 
+   <data name="PlateNumber" xml:space="preserve">
+    <value>车牌号</value>
+   </data> 
+   <data name="ShipOrderNo" xml:space="preserve">
+    <value>派车单号</value>
+   </data> 
+   <data name="InputUser" xml:space="preserve">
+    <value>调度人员</value>
+   </data> 
+   <data name="Status" xml:space="preserve">
+    <value>车辆状态(停用/启用/维修/在途/预定)</value>
+   </data> 
+   <data name="CarType" xml:space="preserve">
+    <value>车辆类型(厢式车（默认）/平板车/轿车/面包车/高栏车/飞翼车等)</value>
+   </data> 
+   <data name="CarrierCode" xml:space="preserve">
+    <value>所属承运人代码</value>
+   </data> 
+   <data name="CarrierName" xml:space="preserve">
+    <value>所属承运人</value>
+   </data> 
+   <data name="VehLongSize" xml:space="preserve">
+    <value>车长(米)</value>
+   </data> 
+   <data name="StdLoadWeight" xml:space="preserve">
+    <value>额定载重(吨)</value>
+   </data> 
+   <data name="FeeLoadWeight" xml:space="preserve">
+    <value>运输车型(吨,尺等等),收费吨位</value>
+   </data> 
+   <data name="StdLoadVolume" xml:space="preserve">
+    <value>额定体积(立方米)</value>
+   </data> 
+   <data name="CarriageSize" xml:space="preserve">
+    <value>车厢尺寸(尺)</value>
+   </data> 
+   <data name="GPSDeviceId" xml:space="preserve">
+    <value>GPS设备编号</value>
+   </data> 
+   <data name="Driver" xml:space="preserve">
+    <value>主驾司机</value>
+   </data> 
+   <data name="DriverPhone" xml:space="preserve">
+    <value>主驾司机电话</value>
+   </data> 
+   <data name="AssistantDriver" xml:space="preserve">
+    <value>副驾司机</value>
+   </data> 
+   <data name="AssistantDriverPhone" xml:space="preserve">
+    <value>副驾司机电话</value>
+   </data> 
+   <data name="CustomsNo" xml:space="preserve">
+    <value>海关编号</value>
+   </data> 
+   <data name="RoadKM" xml:space="preserve">
+    <value>总行驶里程</value>
+   </data> 
+   <data name="RoadHours" xml:space="preserve">
+    <value>行驶时间</value>
+   </data> 
+   <data name="Owner" xml:space="preserve">
+    <value>车主</value>
+   </data> 
+   <data name="OwnerContactPhone" xml:space="preserve">
+    <value>联系人电话</value>
+   </data> 
+   <data name="Brand" xml:space="preserve">
+    <value>品牌</value>
+   </data> 
+   <data name="RPM" xml:space="preserve">
+    <value>额定转速</value>
+   </data> 
+   <data name="PurchasedDate" xml:space="preserve">
+    <value>购买日期</value>
+   </data> 
+   <data name="PurchasedAmount" xml:space="preserve">
+    <value>购买金额</value>
+   </data> 
+   <data name="VehLong" xml:space="preserve">
+    <value>车厢长(米)</value>
+   </data> 
+   <data name="VehWide" xml:space="preserve">
+    <value>车厢宽(米)</value>
+   </data> 
+   <data name="VehHigh" xml:space="preserve">
+    <value>车厢高(米)</value>
+   </data> 
+   <data name="VIN" xml:space="preserve">
+    <value>车架号</value>
+   </data> 
+   <data name="ServiceLife" xml:space="preserve">
+    <value>使用年限</value>
+   </data> 
+   <data name="MaintainKM" xml:space="preserve">
+    <value>保养公里数</value>
+   </data> 
+   <data name="MaintainDate" xml:space="preserve">
+    <value>下次保养日期</value>
+   </data> 
+   <data name="MaintainMonth" xml:space="preserve">
+    <value>保养周期(月)</value>
+   </data> 
+   <data name="ExistVehTailBoard" xml:space="preserve">
+    <value>车辆尾板</value>
+   </data> 
+   <data name="VehTailBoardBrand" xml:space="preserve">
+    <value>尾板品牌</value>
+   </data> 
+   <data name="VehTailBoardFactory" xml:space="preserve">
+    <value>尾板厂家</value>
+   </data> 
+   <data name="VehTailBoardLife" xml:space="preserve">
+    <value>尾板使用年限</value>
+   </data> 
+   <data name="VehTailBoardAmount" xml:space="preserve">
+    <value>尾板价值</value>
+   </data> 
+   <data name="VehTailBoardGPSDeviceId" xml:space="preserve">
+    <value>尾板GPS设备编号</value>
+   </data> 
+   <data name="DrLicenseModel" xml:space="preserve">
+    <value>型号代码</value>
+   </data> 
+   <data name="DrLicenseUseNature" xml:space="preserve">
+    <value>使用性质</value>
+   </data> 
+   <data name="DrLicenseBrand" xml:space="preserve">
+    <value>品牌</value>
+   </data> 
+   <data name="DrLicenseDevId" xml:space="preserve">
+    <value>识别代码</value>
+   </data> 
+   <data name="DrLicenseEngineId" xml:space="preserve">
+    <value>发动机号</value>
+   </data> 
+   <data name="DrLicenseRegistrationDate" xml:space="preserve">
+    <value>注册日期</value>
+   </data> 
+   <data name="DrLicensePubDate" xml:space="preserve">
+    <value>发证日期</value>
+   </data> 
+   <data name="DrLicenseRatedUsers" xml:space="preserve">
+    <value>额定人数</value>
+   </data> 
+   <data name="DrLicenseVehWeight" xml:space="preserve">
+    <value>车辆重量(吨)</value>
+   </data> 
+   <data name="DrLicenseDevWeight" xml:space="preserve">
+    <value>整备重量(吨)</value>
+   </data> 
+   <data name="DrLicenseNetWeight" xml:space="preserve">
+    <value>净重(吨)</value>
+   </data> 
+   <data name="DrLicenseNetVolume" xml:space="preserve">
+    <value>净空(立方)</value>
+   </data> 
+   <data name="DrLicenseVehWide" xml:space="preserve">
+    <value>外限宽(米)</value>
+   </data> 
+   <data name="DrLicenseVehHigh" xml:space="preserve">
+    <value>外限高(米)</value>
+   </data> 
+   <data name="DrLicenseVehLong" xml:space="preserve">
+    <value>外限长(米)</value>
+   </data> 
+   <data name="DrLicenseScrapedDate" xml:space="preserve">
+    <value>强制报废日期</value>
+   </data> 
+   <data name="LoLicenseManageId" xml:space="preserve">
+    <value>文管子号</value>
+   </data> 
+   <data name="LoLicenseId" xml:space="preserve">
+    <value>运营许可证号</value>
+   </data> 
+   <data name="LoLicenseBusinessScope" xml:space="preserve">
+    <value>经营范围</value>
+   </data> 
+   <data name="LoLicensePubDate" xml:space="preserve">
+    <value>发证日期</value>
+   </data> 
+   <data name="LoLicenseValidDate" xml:space="preserve">
+    <value>二级有效期</value>
+   </data> 
+   <data name="LoLicenseCheckDate" xml:space="preserve">
+    <value>年检日期</value>
+   </data> 
+   <data name="LoLicensePlace" xml:space="preserve">
+    <value>注册地</value>
+   </data> 
+   <data name="InsTrafficPolicyId" xml:space="preserve">
+    <value>交强险保单</value>
+   </data> 
+   <data name="InsTrafficPolicyCompany" xml:space="preserve">
+    <value>保险公司</value>
+   </data> 
+   <data name="InsTrafficPolicyVaildateDate" xml:space="preserve">
+    <value>交强险保单有效期</value>
+   </data> 
+   <data name="InsTrafficPolicyAmount" xml:space="preserve">
+    <value>交强险保额</value>
+   </data> 
+   <data name="InsThirdPartyId" xml:space="preserve">
+    <value>第三者保单号</value>
+   </data> 
+   <data name="InsThirdPartyVaildateDate" xml:space="preserve">
+    <value>第三者保单有效期</value>
+   </data> 
+   <data name="InsThirdPartyAmount" xml:space="preserve">
+    <value>第三者保单额</value>
+   </data> 
+   <data name="InsThirdPartyLogisticsAmount" xml:space="preserve">
+    <value>物流责任险保额</value>
+   </data> 
+   <data name="InsThirdPartyLogisticsVaildateDate" xml:space="preserve">
+    <value>物流责任险有效期</value>
+   </data> 
+</root>

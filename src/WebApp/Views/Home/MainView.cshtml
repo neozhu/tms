@@ -1,0 +1,676 @@
+﻿<!-- MAIN CONTENT -->
+<div id="content">
+  <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+      <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-home"></i> Dashboard <span>> 实时监控 </span></h1>
+    </div>
+
+  </div>
+  <!--
+  The ID "widget-grid" will start to initialize all widgets below
+  You do not need to use widgets if you dont want to. Simply remove
+  the <section></section> and you can use wells or panels instead
+  -->
+  <!-- widget grid -->
+  <section id="widget-grid" class="">
+
+    <div class="row">
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-4">
+                <div class="icon-big text-center icon-warning">
+                  <i class="nc-icon nc-delivery-fast text-success"></i>
+                </div>
+              </div>
+              <div class="col-7 col-md-8">
+                <div class="numbers">
+                  <p class="card-category">车辆</p>
+                  <p class="card-title" id="targetId1">
+                    0
+                  </p><p>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <div class="stats">
+              <i class="fa fa-refresh"></i> 在线
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-4">
+                <div class="icon-big text-center icon-warning">
+                  <i class="nc-icon nc-spaceship text-success"></i>
+                </div>
+              </div>
+              <div class="col-7 col-md-8">
+                <div class="numbers">
+                  <p class="card-category">在途订单</p>
+                  <p class="card-title" id="targetId2">
+                    0
+                  </p><p>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <div class="stats">
+              <i class="fa fa-calendar-o"></i> 现在
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-4">
+                <div class="icon-big text-center icon-warning">
+                  <i class="nc-icon nc-single-copy-04 text-danger"></i>
+                </div>
+              </div>
+              <div class="col-7 col-md-8">
+                <div class="numbers">
+                  <p class="card-category">未派车订单</p>
+                  <p class="card-title" id="targetId3">
+                    0
+                  </p><p>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <div class="stats">
+              <i class="fa fa-clock-o"></i> 现在
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-4">
+                <div class="icon-big text-center icon-warning">
+                  <i class="nc-icon nc-time-alarm text-warning"></i>
+                </div>
+              </div>
+              <div class="col-7 col-md-8">
+                <div class="numbers">
+                  <p class="card-category">即将超时的订单</p>
+                  <p class="card-title" id="targetId4">
+
+                  </p><p>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <div class="stats">
+              <i class="fa fa-refresh"></i> 现在
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <div class="row">
+      <!-- NEW WIDGET START -->
+      <!-- WIDGET END -->
+      <article class="col-xs-12 col-sm-8">
+
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget" id="wid-id-4"
+             data-widget-colorbutton="false"
+             data-widget-editbutton="false"
+             data-widget-togglebutton="true"
+             data-widget-deletebutton="true"
+             data-widget-custombutton="false"
+             data-widget-collapsed="false"
+             data-widget-sortable="false"
+             data-widget-refresh="15">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-location-arrow text-primary"></i>
+            </span>
+            <h2>在途跟踪</h2>
+
+          </header>
+
+          <!-- widget div-->
+          <div>
+
+            <!-- widget edit box -->
+            <div class="jarviswidget-editbox">
+              <!-- This area used as dropdown edit box -->
+              <input class="form-control" type="text">
+            </div>
+            <!-- end widget edit box -->
+            <!-- widget content -->
+            <div class="widget-body no-padding">
+
+              <!-- this is what the user will see -->
+              <div id="map" class="map" style="width: 100%; height: 400px"></div>
+
+            </div>
+            <!-- end widget content -->
+
+          </div>
+          <!-- end widget div -->
+
+        </div>
+        <!-- end widget -->
+
+
+      </article>
+      <article class="col-xs-12 col-sm-4">
+
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget" id="wid-id-13"
+             data-widget-colorbutton="false"
+             data-widget-editbutton="false"
+             data-widget-togglebutton="false"
+             data-widget-deletebutton="false"
+             data-widget-fullscreenbutton="false"
+             data-widget-custombutton="false"
+             data-widget-collapsed="false"
+             data-widget-sortable="false">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-facebook text-primary"></i>
+            </span>
+            <h2>在途运单</h2>
+
+          </header>
+
+          <!-- widget div-->
+          <div>
+
+            <!-- widget edit box -->
+            <div class="jarviswidget-editbox">
+              <!-- This area used as dropdown edit box -->
+              <input class="form-control" type="text">
+            </div>
+            <!-- end widget edit box -->
+            <!-- widget content -->
+            <div class="widget-body no-padding">
+              <div class="widget-body-toolbar">
+                <div class="row">
+                  <form id="query_form"
+                        class="easyui-form form-horizontal">
+                    <div class="form-group  col-md-4">
+                      <div class="col-md-12" style="padding:0">
+                        <input id="REQUESTEDSHIPDATE3"
+                               name="REQUESTEDSHIPDATE3"
+                               value=""
+                               tabindex="5"
+                               class="easyui-datebox"
+                               style="width:100%"
+                               type="text"
+                               data-options="prompt:'派车日期(起)',
+												 " />
+                      </div>
+                    </div>
+                    <div class="form-group  col-md-4">
+                      <div class="col-md-12" style="padding:0">
+                        <input id="REQUESTEDSHIPDATE4"
+                               name="REQUESTEDSHIPDATE4"
+                               value=""
+                               tabindex="5"
+                               class="easyui-datebox"
+                               style="width:100%"
+                               type="text"
+                               data-options="prompt:'派车日期(至)',
+												 " />
+                      </div>
+                    </div>
+                    <div class="form-group  col-md-4">
+                      <div class="col-md-12" style="padding:0">
+                        <input id="PLATENUMBER"
+                               name="PLATENUMBER"
+                               value=""
+                               tabindex="5"
+                               class="easyui-combogrid"
+                               style="width:100%"
+                               type="text"
+                               data-options="prompt:'车号',
+                               panelHeight: 'auto',
+        url: '/Vehicles/GetComboDataALL',
+        method: 'get',
+        idField: 'PlateNumber',
+        panelWidth: 350,
+        pagination: true,
+        pageSize:10,
+        textField: 'PlateNumber',
+        columns: [[
+          { field: 'PlateNumber', title: '车牌号', width: 100 },
+          { field: 'CarType', title: '车型', width: 90 },
+          { field: 'Driver', title: '司机', width: 90 },
+          { field: 'DriverPhone', title: '司机电话', width: 100 },
+        ]]
+												       " />
+                      </div>
+                    </div>
+
+
+
+
+
+
+                  </form>
+                </div>
+              </div>
+
+              <div class="widget-body-toolbar">
+                <div class="row">
+                  <div class="col-sm-12  ">
+                    <div class="btn-group btn-group-sm">
+                      <button onclick="searchshiporder()" class="btn btn-default"> <i class="fa fa-refresh"></i> 查询 </button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table id="alert_datagrid2" style="height:310px"></table>
+              </div>
+
+            </div>
+            <!-- end widget content -->
+
+          </div>
+          <!-- end widget div -->
+
+        </div>
+        <!-- end widget -->
+
+
+      </article>
+    </div>
+
+    <!-- end row -->
+
+  </section>
+  <!-- end widget grid -->
+
+</div>
+<!-- END MAIN CONTENT -->
+<div id="playvideowindow" style="display:none">
+  <div id="video_content">
+
+  </div>
+</div>
+<style>
+  #video_content {
+    display: grid;
+    margin: 0 auto;
+  }
+
+  #map {
+    height: 100%;
+    width: 100%;
+  }
+
+  .custom-input-card {
+    width: 18rem;
+  }
+
+    .custom-input-card .btn:last-child {
+      margin-left: 1rem;
+    }
+
+  .content-window-card {
+    position: relative;
+    min-width: 28rem;
+    min-height: 19rem;
+    padding: 0.75rem 0 0 1.25rem;
+    box-shadow: none;
+    bottom: 0;
+    left: 0;
+  }
+
+    .content-window-card p {
+      height: 1rem;
+    }
+</style>
+<link href="https://vjs.zencdn.net/7.6.6/video-js.css" rel="stylesheet" />
+@section Scripts {
+  <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+  <script src="https://vjs.zencdn.net/7.6.6/video.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/videojs-flash@2/dist/videojs-flash.min.js"></script>
+  <script src="https://webapi.amap.com/maps?v=1.4.13&key=@Settings.MapKey&plugin=AMap.TruckDriving"></script>
+  <script src="~/Scripts/smartadmin.charts.min.js"></script>
+  <script>
+    function showvideo(p) {
+      $.messager.progress({
+        title: '请等待',
+        msg: '获取视频数据...'
+      });
+
+      $.get(`/Vehicles/GetRtmp?p=${p}`).done(res => {
+        $.messager.progress('close');
+        console.log(res);
+        if (res.success == true) {
+          $('#playvideowindow').window({
+            title: `直播视频`,
+            width: 560,
+            height: 370,
+            modal: true,
+            collapsible: false,
+            maximizable: false,
+            minimizable: false,
+            onClose: function () {
+              var oldPlayer = document.getElementById('rtmp_video');
+              videojs(oldPlayer).dispose();
+            }
+          });
+          //const src = 'rtmp://cyberplayerplay.kaywang.cn/cyberplayer/demo201711-L1';
+          const src = res.src;
+          const videohtml = `<video id="rtmp_video" data-setup="{}"
+              preload="auto" controls="false"
+             class="video-js vjs-default-skin vjs-big-play-centered"
+             style="width:555px;height:325px">
+             <source autoplay  src="${src}" type="video/rtmp">
+        <p class="vjs-no-js">您的浏览器不支持H5或FLASH</p>
+      </video>`
+          $('#video_content').append(videohtml);
+          var options = {
+            controls: "true",
+            preload: "auto",
+            autoplay: true,
+            sources: [
+              {
+                type: 'video/rtmp',
+                src: src,
+              }
+            ]
+          };
+          var player = videojs('rtmp_video', options, function onPlayerReady() {
+            videojs.log('Your player is ready!');
+            //this.src({
+            //  type: 'video/rtmp',
+            //  src: src
+            //});
+
+            this.play();
+            this.on('ended', function () {
+              videojs.log('Awww...over so soon?!');
+            });
+          });
+        } else {
+          $.messager.alert('错误', res.err);
+        }
+
+
+
+
+
+      });
+
+    }
+    $(function () {
+
+
+
+      var map = new AMap.Map('map', {
+        center: [113.054920, 23.010626],
+        zoom: 6,//级别
+        resizeEnable: true, //是否监控地图容器尺寸变化
+      });
+      $.get('/SHIPORDERs/GetTrackList').done(res => {
+        console.log(res);
+        if (res && res.length > 0) {
+          res.forEach(item => {
+            console.log(item)
+            if (item.LATITUDE > 0) {
+              var viaMarker = new AMap.Marker({
+                position: new AMap.LngLat(item.LONGITUDE, item.LATITUDE),
+                // 将一张图片的地址设置为 icon
+                icon: '/content/img/marker.png',
+                // 设置了 icon 以后，设置 icon 的偏移量，以 icon 的 [center bottom] 为原点
+                offset: new AMap.Pixel(-13, -30),
+                clickable: true,
+                click: function () {
+                  console.log('click');
+                }
+              });
+              map.add([viaMarker]);
+              AMap.event.addListener(viaMarker, "click", function () {
+                var info = [];
+                info.push("<div class='input-card content-window-card'><div><img style=\"float:left;\" src=\" https://webapi.amap.com/images/autonavi.png \"/></div> ");
+                info.push(`<div style="padding:7px 0px 0px 0px;"><h5>${item.PLATENUMBER} 运单号：${item.SHIPORDERKEY} <button onclick="showvideo('${item.PLATENUMBER}')" type="button" class="btn   btn-sm"><i class="fa fa-camera" ></i></button></h5>`);
+                info.push(`<p class='input-item'>司机 : ${item.DRIVERNAME} 电话 : ${item.DRIVERPHONE}  </p>`);
+                info.push(`<p class='input-item'>从 : ${item.ORIGINAL} 至 : ${item.DESTINATION}  </p>`);
+                info.push(`<p class='input-item'>数量 : ${item.TOTALCASECNT} 重量 : ${item.TOTALGROSSWGT}  </p>`);
+                info.push(`<p class='input-item'>状态 : ${item.STATUS}   车辆状态 : ${item.isstopState}   </p>`);
+                info.push(`<p class='input-item'>速度 : ${item.Speed} KM/H 当日里程 : ${item.dayMileage} KM  </p>`);
+                info.push(`<p class='input-item'>位置 : ${item.location}    </p></div></div>`);
+
+                infoWindow = new AMap.InfoWindow({
+                  offset: 12,
+                  anchor: 'bottom-center',
+                  content: info.join("")  //使用默认信息窗体框样式，显示信息内容
+                });
+
+                infoWindow.open(map, viaMarker.getPosition());
+              });
+
+            }
+          });
+        }
+      });
+
+    });
+    var tag = false;
+    document.addEventListener('smartPanel.onFullscreen', () => {
+      console.log('smartPanel.onFullscreen')
+      if ($('#wid-id-4').parent().attr('id') == 'jarviswidget-fullscreen-mode') {
+        $('#map').height($(this).height() - 35);
+      } else {
+        $('#map').height(400);
+      }
+    })
+    document.addEventListener('smartPanel.onResize', () => {
+      console.log('smartPanel.onResize')
+      if ($('#wid-id-4').parent().attr('id') == 'jarviswidget-fullscreen-mode') {
+        $('#map').height($(this).height() - 35);
+      } else {
+        $('#map').height(400);
+      }
+    })
+    
+  </script>
+  <script>
+    var $dg2 = $('#alert_datagrid2')
+    function searchshiporder() {
+      var dt1 = $('#REQUESTEDSHIPDATE3').datebox('getValue');
+      var dt2 = $('#REQUESTEDSHIPDATE4').datebox('getValue');
+      var platenumber = $('#PLATENUMBER').combogrid('getValue');
+      var url = `/SHIPORDERs/GetKanbanData?dt1=${dt1}&dt2=${dt2}&platenumber=${platenumber}`;
+      $dg2.datagrid('loading');
+      $.get(url).done(res => {
+
+        $dg2.datagrid('loadData', res);
+        $dg2.datagrid('loaded');
+      });
+
+    }
+
+    $(() => {
+
+
+      $dg2 = $dg2.datagrid({
+        rownumbers: true,
+        checkOnSelect: true,
+        selectOnCheck: false,
+        idField: 'ID',
+        sortName: 'ID',
+        sortOrder: 'desc',
+        remoteFilter: false,
+        singleSelect: false,
+        pagination: false,
+        pageSize: 5,
+        striped: true,
+        onBeforeLoad: function () {
+          //datagrid resize when jarvisWidgets resized.
+          const that = $(this);
+          $(window).on("resize.jarvisWidgets", () => {
+            that.datagrid('resize');
+          })
+        },
+        columns: [[
+
+          {   /*配送日期*/
+            field: 'SHIPORDERKEY',
+            title: '派车单号',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            sortable: true,
+            resizable: true
+          },
+          {    /*供应商名称*/
+            field: 'PLATENUMBER',
+            title: '车号',
+            width: 100,
+            hidden: false,
+            sortable: true,
+            resizable: true
+          },
+
+
+          {    /*出货信息*/
+            field: '_',
+            title: '<span class="required">剩余作业时间</pan>',
+            width: 140,
+            hidden: false,
+            sortable: true,
+            resizable: true,
+            formatter: function (v, r, i) {
+              if (r.STATUS != '170') {
+                var dt1 = new moment(r.DELIVERYDATE);
+                var dt2 = new moment();
+                var duration = moment.duration(dt1.diff(dt2))
+                var hours = parseInt(duration.asHours());
+                var minutes = parseInt(duration.asMinutes()) % 60;
+                console.log(hours, minutes);
+                if (minutes > 0) {
+                  return `<span class="text-success">还有${hours}小时${minutes}分 </span>`
+                } else {
+                  if (hours < 0) {
+                    return `<span class="required">已超时${-hours}小时${-minutes}分 </span>`
+                  } else {
+                    return `<span class="text-warning">已超时${-hours}小时${-minutes}分 </span>`
+                  }
+                }
+              }
+
+            }
+          },
+          {    /*批次号*/
+            field: 'ORIGINAL',
+            title: '起始地',
+            width: 110,
+            hidden: false,
+            sortable: true,
+            resizable: true
+          },
+          {    /*批次号*/
+            field: 'DESTINATION',
+            title: '目的地',
+            width: 110,
+            hidden: false,
+            sortable: true,
+            resizable: true
+          },
+          {    /*状态*/
+            field: 'STATUS',
+            title: '状态',
+            width: 80,
+            hidden: false,
+            sortable: true,
+            formatter: shipstatusformatter,
+            resizable: true
+          },
+          {    /*备注*/
+            field: 'NOTES',
+            title: '备注',
+            width: 120,
+            hidden: false,
+            sortable: true,
+            resizable: true
+          },
+
+
+
+
+
+
+
+        ]]
+      });
+
+
+      $('#REQUESTEDSHIPDATE3').datebox('setValue', moment().format('YYYY-MM-DD'));
+      $('#REQUESTEDSHIPDATE4').datebox('setValue', moment().format('YYYY-MM-DD'));
+      searchshiporder();
+    })
+
+    $(() => {
+      $.get('/Home/GetTackTitle').done(res => {
+        if (res.success) {
+
+          const countUp1 = new CountUp('targetId1', res.num1, { duration: 1 });
+          if (!countUp1.error) {
+            countUp1.start();
+          } else {
+            console.error(countUp1.error);
+          }
+
+          const countUp2 = new CountUp('targetId2', res.num2, { duration: 1 });
+          if (!countUp2.error) {
+            countUp2.start();
+          } else {
+            console.error(countUp2.error);
+          }
+
+          const countUp31 = new CountUp('targetId3', res.num3, { duration: 1 });
+          if (!countUp31.error) {
+            countUp31.start();
+          } else {
+            console.error(countUp31.error);
+          }
+
+          const countUp4 = new CountUp('targetId4', res.num4, { duration: 1 });
+          if (!countUp4.error) {
+            countUp4.start();
+          } else {
+            console.error(countUp4.error);
+          }
+        }
+      });
+    });
+
+  </script>
+}
+

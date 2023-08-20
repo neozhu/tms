@@ -1,0 +1,152 @@
+[
+  {
+    "includeInProject": true,
+    "inputFiles": [
+      "Scripts/bootstrap/bootstrap.min.js",
+      "Scripts/jquery.slimscroll.js",
+      "Scripts/libs/jquery-ui-1.12.1.noConflict.min.js",
+      "Scripts/plugin/moment/moment.min.js",
+      "scripts/smartwidgets/jarvis.widget.js",
+      "scripts/notification/SmartNotification.js",
+      "Scripts/jquery.signalR-2.4.1.min.js",
+      "scripts/app.config.js",
+      "scripts/app.js",
+      "Scripts/plugin/numeral/numeral.min.js",
+      "scripts/plugin/toastr/toastr.min.js",
+      "Scripts/plugin/plusastab/plusastab.joelpurra.js",
+      "Scripts/plugin/plusastab/emulatetab.joelpurra.js"
+
+    ],
+    "outputFileName": "Scripts/smartadmin.min.js"
+  },
+  {
+    "includeInProject": true,
+    "outputFileName": "Scripts/smartadmin.charts.min.js",
+    "inputFiles": [
+      "Scripts/plugin/fullcalendar/fullcalendar.min.js",
+      "Scripts/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js",
+      "Scripts/plugin/morris/morris.min.js",
+      "Scripts/plugin/morris/raphael.min.js",
+      "Scripts/plugin/flot/jquery.flot.cust.min.js",
+      "Scripts/plugin/flot/jquery.flot.resize.min.js",
+      "Scripts/plugin/flot/jquery.flot.time.min.js",
+      "Scripts/plugin/flot/jquery.flot.fillbetween.min.js",
+      "Scripts/plugin/flot/jquery.flot.orderBar.min.js",
+      "Scripts/plugin/flot/jquery.flot.pie.min.js",
+      "Scripts/plugin/flot/jquery.flot.tooltip.min.js",
+      "Scripts/plugin/dygraphs/dygraph-combined.min.js",
+      "Scripts/plugin/chartjs/chart.min.js",
+      "Scripts/plugin/highChartCore/highcharts-custom.min.js",
+      "Scripts/plugin/highchartTable/jquery.highchartTable.min.js",
+      "Scripts/plugin/vectormap/jquery-jvectormap-1.2.2.min.js",
+      "Scripts/plugin/vectormap/jquery-jvectormap-world-mill-en.js",
+      "Scripts/plugin/sparkline/jquery.sparkline.min.js",
+      "Scripts/plugin/countup/countUp.min.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "includeInProject": true,
+    "outputFileName": "Content/css/smartadmin.min.css",
+    "inputFiles": [
+      "Content/css/bootstrap.css",
+      "Content/css/font-awesome.css",
+      "Content/css/fonts-googleapis.css",
+      "Content/css/lockscreen.css",
+      "Content/css/smartadmin-production-plugins.css",
+      "Content/css/smartadmin-production.css",
+      "Content/css/smartadmin-skins.css",
+      "Content/css/demo.css",
+      "Content/css/smartadmin-rtl.css",
+      "Content/css/your_style.css",
+      "Scripts/easyui/themes/insdep/icon.css",
+      "Scripts/easyui/themes/insdep/easyui.css",
+      "Scripts/plugin/toastr/toastr.min.css",
+      "Scripts/plugin/daterangepicker/daterangepicker.css",
+      "Scripts/plugin/jquery.fileuploader/font/font-fileuploader.css",
+      "Scripts/plugin/jquery.fileuploader/jquery.fileuploader.min.css",
+      "Scripts/plugin/jquery.fileuploader/jquery.fileuploader-theme-dragdrop.css"
+
+
+    ]
+  },
+  {
+    "includeInProject": true,
+    "outputFileName": "Scripts/smartadmin.easyui.min.js",
+    "inputFiles": [
+
+      "Scripts/easyui/jquery.easyui.min.js",
+      "Scripts/easyui/plugins/datagrid-filter.js",
+      "Scripts/easyui/plugins/datagrid-export.js",
+      "Scripts/plugin/daterangepicker/daterangepicker.js",
+      "Scripts/easyui/plugins/columns-ext.js",
+      "Scripts/jquery.custom.extend.js",
+      "Scripts/jquery.easyui.default.js",
+      "Scripts/jquery.easyui.component.js",
+      "Scripts/jquery.fileDownload.js",
+      "Scripts/plugin/jquery.serializejson/jquery.serializejson.min.js",
+      "Scripts/plugin/filesaver/FileSaver.min.js",
+      "Scripts/plugin/jquery.fileuploader/jquery.fileuploader.min.js"
+    ]
+  },
+  {
+    "includeInProject": true,
+    "outputFileName": "Scripts/smartadmin.plugin.min.js",
+    "inputFiles": [
+      "scripts/plugin/jquery-validate/jquery.validate.min.js",
+      //"scripts/plugin/jquery-form/jquery.form.min.js",
+      //"scripts/plugin/jquery-validate/additional-methods.min.js",
+      "scripts/plugin/jquery-validate/localization/messages_zh.min.js",
+      "scripts/plugin/masked-input/jquery.maskedinput.min.js"
+      //"scripts/plugin/bootstrap-slider/bootstrap-slider.min.js",
+      //"scripts/plugin/msie-fix/jquery.mb.browser.min.js",
+      //"scripts/plugin/fastclick/fastclick.min.js",
+      //"Scripts/plugin/animation/animate.min.js",
+      //"scripts/plugin/jquery-touch/jquery.ui.touch-punch.min.js",
+      //"Scripts/plugin/autocomplete/jquery.autocomplete.js"
+
+    ]
+  },
+  {
+    "includeInProject": true,
+    "outputFileName": "Scripts/smart-chat-ui/smart.chat.min.js",
+    "inputFiles": [
+      "Scripts/smart-chat-ui/signalr.chat.client.js",
+      "Scripts/smart-chat-ui/smart.chat.manager.js",
+      "Scripts/smart-chat-ui/smart.chat.ui.js"
+    ]
+  },
+  {
+    "includeInProject": true,
+    "outputFileName": "Scripts/jquery.filerupload.min.js",
+    "inputFiles": [
+      "Scripts/jquery.filerupload.js"
+    ]
+  },
+  {
+    "includeInProject": true,
+    "outputFileName": "Scripts/plugin/jquery.fileuploader/jquery.fileuploader.dragdrop.min.js",
+    "inputFiles": [
+      "Scripts/plugin/jquery.fileuploader/jquery.fileuploader.dragdrop.js"
+    ]
+  },
+  {
+    "includeInProject": true,
+    "outputFileName": "Scripts/plugin/jquery.serializefiles/jquery.serializefiles.min.js",
+    "inputFiles": [
+      "Scripts/plugin/jquery.serializefiles/jquery.serializefiles.js"
+    ]
+  },
+  {
+    "includeInProject": true,
+    "outputFileName": "Scripts/easyui/themes/insdep/easyui.min.css",
+    "inputFiles": [
+      "Scripts/easyui/themes/insdep/icon.css",
+      "Scripts/easyui/themes/insdep/easyui.css"
+    ]
+  }
+]

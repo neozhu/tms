@@ -1,0 +1,2133 @@
+﻿@model WebApp.Models.Vehicle
+@{
+  /**/
+
+  ViewBag.Title = "车辆信息";
+}
+<!-- MAIN CONTENT -->
+<div id="content">
+  <!-- quick navigation bar -->
+  <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+      <h1 class="page-title txt-color-blueDark">
+        <i class="fa fa-table fa-fw "></i>
+        主数据管理
+        <span>
+          >
+          车辆信息
+        </span>
+      </h1>
+    </div>
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+
+    </div>
+  </div>
+  <!-- end quick navigation bar -->
+  <!-- widget grid -->
+  <section id="widget-grid" class="">
+    <!-- row -->
+    <div class="row">
+      <!-- NEW WIDGET START -->
+      <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false" data-widget-deletebutton="false">
+          <!-- widget options:
+          usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+          data-widget-colorbutton="false"
+          data-widget-editbutton="false"
+          data-widget-togglebutton="false"
+          data-widget-deletebutton="false"
+          data-widget-fullscreenbutton="false"
+          data-widget-custombutton="false"
+          data-widget-collapsed="true"
+          data-widget-sortable="false"
+          -->
+          <header>
+            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+            <h2>车辆信息</h2>
+          </header>
+
+          <!-- widget div-->
+          <div>
+            <!-- widget edit box -->
+            <div class="jarviswidget-editbox">
+              <!-- This area used as dropdown edit box -->
+            </div>
+            <!-- end widget edit box -->
+            <!-- widget content -->
+            <div class="widget-body no-padding">
+              <div class="sk-spinner sk-spinner-wave">
+                <div class="sk-rect1"></div>
+                <div class="sk-rect2"></div>
+                <div class="sk-rect3"></div>
+                <div class="sk-rect4"></div>
+                <div class="sk-rect5"></div>
+              </div>
+              <div class="widget-body-toolbar">
+                <div class="row">
+                  <div class="col-sm-8  ">
+                    <!-- 开启授权控制请参考 @@if (Html.IsAuthorize("Create") -->
+                    <div class="btn-group btn-group-sm">
+                      <button onclick="append()" class="btn btn-default"> <i class="fa fa-plus"></i> @Html.L("Add") </button>
+                    </div>
+                    <div class="btn-group btn-group-sm">
+                      <button onclick="removeit()" class="btn btn-default"> <i class="fa fa-trash-o"></i> @Html.L("Delete") </button>
+                    </div>
+                    <div class="btn-group btn-group-sm">
+                      <button onclick="accept()" class="btn btn-default"> <i class="fa fa-floppy-o"></i> @Html.L("Save") </button>
+                    </div>
+                    <div class="btn-group btn-group-sm">
+                      <button onclick="reject()" class="btn btn-default"> <i class="fa fa-ban"></i> @Html.L("Cancel") </button>
+                    </div>
+                    <div class="btn-group btn-group-sm">
+                      <button onclick="reload()" class="btn btn-default"> <i class="fa fa-refresh"></i> @Html.L("Refresh") </button>
+                    </div>
+                    <div class="btn-group btn-group-sm hidden-xs">
+                      <button type="button" onclick="importexcel()" class="btn btn-default"><i class="fa fa-cloud-upload"></i> @Html.L("Import") </button>
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a href="javascript:importexcel()"><i class="fa fa-file-excel-o"></i>  @Html.L("Upload") </a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="javascript:downloadtemplate()"><i class="fa fa-download"></i> @Html.L("Download") </a></li>
+                      </ul>
+                    </div>
+                    <div class="btn-group btn-group-sm hidden-xs hidden-md">
+                      <button onclick="exportexcel()" class="btn btn-default"> <i class="fa fa-file-excel-o"></i> @Html.L("Export") </button>
+                    </div>
+                    <div class="btn-group btn-group-sm visible-lg-inline-block">
+                      <button onclick="print()" class="btn btn-default"> <i class="fa fa-print"></i> @Html.L("Print") </button>
+                    </div>
+                    <div class="btn-group btn-group-sm visible-lg-inline-block">
+                      <button onclick="dohelp()" class="btn btn-default"> <i class="fa fa-question-circle-o"></i> @Html.L("Help") </button>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 text-align-right visible-lg-inline-block">
+                    <div class="btn-group btn-group-sm">
+                      <button onclick="window.history.back()" class="btn btn-sm btn-success"> <i class="fa fa-chevron-left"></i> @Html.L("GoBack") </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="alert alert-warning no-margin fade in">
+                <button class="close" data-dismiss="alert">
+                  ×
+                </button>
+                <i class="fa-fw fa fa-info"></i>
+                注意事项:
+              </div>
+              <!--begin datagrid-content -->
+              <div class="table-responsive">
+                <table id="vehicles_datagrid"></table>
+              </div>
+              <!--end datagrid-content -->
+            </div>
+            <!-- end widget content -->
+          </div>
+          <!-- end widget div -->
+        </div>
+        <!-- end widget -->
+      </article>
+      <!-- WIDGET END -->
+    </div>
+    <!-- end row -->
+  </section>
+  <!-- end widget grid -->
+  <!-- file upload partial view -->
+  <!-- RenderPartial() does exactly the same thing and is better for performance over Partial() -->
+  @{ Html.RenderPartial("_ImportWindow", new ViewDataDictionary { { "EntityName", "Vehicle" } }); }
+  <!-- end file upload partial view -->
+  <!-- detail popup window -->
+  @{ Html.RenderPartial("_PopupDetailFormView", new WebApp.Models.Vehicle()); }
+  <!-- end detail popup window -->
+  <div id="mapwindow" style="display:none">
+    <div id="allmap" style="width:100%;height:100%"></div>
+  </div>
+  <div id="playvideowindow" style="display:none">
+    <div id="video_content">
+    
+    </div>
+  </div>
+</div>
+<!-- END MAIN CONTENT -->
+<style>
+  #video_content {
+    display:grid;
+    margin: 0 auto;
+  }
+  #allmap {
+    height: 100%;
+    width: 100%;
+  }
+
+  .custom-input-card {
+    width: 20rem;
+  }
+
+    .custom-input-card .btn:last-child {
+      margin-left: 1rem;
+    }
+
+  .content-window-card {
+    position: relative;
+    min-width: 25rem;
+    min-height: 15rem;
+    padding: 0.75rem 0 0 1.25rem;
+    box-shadow: none;
+    bottom: 0;
+    left: 0;
+  }
+
+    .content-window-card p {
+      height: 1rem;
+    }
+</style>
+<link href="https://vjs.zencdn.net/7.6.6/video-js.css" rel="stylesheet" />
+@section Scripts {
+
+  <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+  <script src="https://vjs.zencdn.net/7.6.6/video.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/videojs-flash@2/dist/videojs-flash.min.js"></script>
+
+  <script src="https://webapi.amap.com/maps?v=1.4.15&key=@Settings.MapKey"></script>
+  <script type="text/javascript">
+      //是否启用弹窗口模式新增编辑数据
+      const POPUPMODE = true;
+      //是否强制从后台取值
+      const REQUIRBACKEND = false;
+      //是否开启行内编辑
+      const EDITINLINE = false;
+      //上传导入参数设定
+    const entityname = "Vehicle";
+    const username = '@Settings.GpsAccount';
+    const password = '@Settings.GpsPassword';
+    const GPSAPIURL = '@Settings.GpsApiURL';
+    const GPSAPPKEY = '@Settings.GpsAppKey';
+    var vehicle = {};
+
+
+
+    //弹出视频监控窗口
+    function showVideoWindow(id, row, index) {
+      $.messager.progress({
+        title: '请等待',
+        msg: '获取视频数据...'
+      });
+      vehicle = $dg.datagrid('getRows')[index];
+      $.get(`/Vehicles/GetRtmp?p=${vehicle.PlateNumber}`).done(res => {
+        $.messager.progress('close');
+        console.log(res);
+        if (res.success == true) {
+          $('#playvideowindow').window({
+            title: `直播视频`,
+            width: 560,
+            height: 370,
+            modal: true,
+            collapsible: false,
+            maximizable: false,
+            minimizable:false,
+            onClose: function () {
+              var oldPlayer = document.getElementById('rtmp_video');
+              videojs(oldPlayer).dispose();
+            }
+          });
+          //const src = 'rtmp://cyberplayerplay.kaywang.cn/cyberplayer/demo201711-L1';
+          const src = res.src;
+         const videohtml =`<video id="rtmp_video" data-setup="{}"
+            preload="auto" controls="false"
+           class="video-js vjs-default-skin vjs-big-play-centered"
+           style="width:555px;height:325px">
+           <source autoplay  src="${src}" type="video/rtmp">
+      <p class="vjs-no-js">您的浏览器不支持H5或FLASH</p>
+    </video>`
+          $('#video_content').append(videohtml);
+          var options = {
+            controls: "true",
+            preload: "auto",
+            autoplay:true,
+            sources: [
+              {
+                type:'video/rtmp',
+                src:src,
+              }
+              ]
+          };
+          var player = videojs('rtmp_video', options, function onPlayerReady() {
+            videojs.log('Your player is ready!');
+            //this.src({
+            //  type: 'video/rtmp',
+            //  src: src
+            //});
+
+            this.play();
+            this.on('ended', function () {
+              videojs.log('Awww...over so soon?!');
+            });
+          });
+        } else {
+          $.messager.alert('错误', res.err);
+        }
+
+
+
+
+
+      });
+
+    }
+    function showMapWindow(id, row, index) {
+      $.messager.progress({
+        title: '请等待',
+        msg: '正在获取GSP定位...'
+      });
+      vehicle = $dg.datagrid('getRows')[index];
+      $.get('/Vehicles/GetLoc?p=' + vehicle.PlateNumber).done(res => {
+        console.log(res);
+        $.messager.progress('close');
+        if (res.success == true) {
+          $('#mapwindow').window({
+            title: `${res.loc.objectName}-${res.loc.statusDes}`,
+            width: 1024,
+            height: 568,
+            modal: true
+          });
+
+          var map = new AMap.Map('allmap', {
+            resizeEnable: true, //是否监控地图容器尺寸变化
+            zoom: 15, //初始化地图层级
+            center: [res.loc.lon, res.loc.lat],//中心点坐标
+          });
+          var lnglat = [res.loc.lon, res.loc.lat]
+          var viaMarker = new AMap.Marker({
+            position: new AMap.LngLat(res.loc.lon, res.loc.lat),
+            // 将一张图片的地址设置为 icon
+            icon: '/content/img/marker.png',
+            // 设置了 icon 以后，设置 icon 的偏移量，以 icon 的 [center bottom] 为原点
+            offset: new AMap.Pixel(-13, -30),
+            clickable: true,
+            click: function () {
+              console.log('click');
+            }
+          });
+          map.add([viaMarker]);
+          AMap.event.addListener(viaMarker, "click", function () {
+            var info = [];
+            info.push("<div class='input-card content-window-card'><div><img style=\"float:left;\" src=\" https://webapi.amap.com/images/autonavi.png \"/></div> ");
+            info.push(`<div style="padding:7px 0px 0px 0px;"><h5>${res.loc.objectName} <button onclick="showVideoWindow(0,0,'${index}')" type="button" class="btn  btn-sm"><i class="fa fa-camera" ></i></button></h5>`);
+            info.push(`<p class='input-item'>司机 : ${res.v.Driver} 电话 : ${res.v.DriverPhone}  </p>`);
+            info.push(`<p class='input-item'>状态 : ${res.loc.isstopState} 总里程 : ${res.loc.mileage} KM </p>`);
+            info.push(`<p class='input-item'>速度 : ${res.loc.speed} KM/H 当日里程 : ${res.loc.dayMileage} KM  </p>`);
+            info.push(`<p class='input-item'>位置 :   ${res.loc.gpsLocatinAddr}     </p></div></div>`);
+
+            infoWindow = new AMap.InfoWindow({
+              offset: 12,
+              anchor: 'top-right',
+              content: info.join("")  //使用默认信息窗体框样式，显示信息内容
+            });
+
+            infoWindow.open(map, viaMarker.getPosition());
+          });
+
+        } else {
+          $.messager.alert('错误', res.err);
+        }
+      });
+
+
+    }
+
+      //下载Excel导入模板
+    function downloadtemplate() {
+      //默认模板路径存放位置
+      const url = '/FileUpload/Download?file=/ExcelTemplate/Vehicle.xlsx';
+      $.fileDownload(url)
+        .done(() => {
+          //console.log('file download a success!');
+          toastr.success('模板下载完成!');
+        })
+        .fail(() => {
+          $.messager.alert('失败', '没有下载到导入模板[Vehicle.xlsx]文件!', 'error');
+        });
+    }
+       //打印
+       function print() {
+            $dg.datagrid('print', 'DataGrid');
+       }
+        //打开Excel上传窗口
+	   function importexcel() {
+		    $('#importwindow').window('open');
+	   }
+	   //执行导出下载Excel
+	   function exportexcel() {
+				const filterRules = JSON.stringify($dg.datagrid('options').filterRules);
+				//console.log(filterRules);
+				$.messager.progress({ title: '正在执行导出!' });
+				let formData = new FormData();
+				formData.append('filterRules', filterRules);
+				formData.append('sort', 'Id');
+				formData.append('order', 'asc');
+				$.postDownload('/Vehicles/ExportExcel', formData).then(res => {
+                    $.messager.progress('close');
+                    toastr.success('导出成功!');
+                }).catch(err => {
+                    //console.log(err);
+                    $.messager.progress('close');
+                    $.messager.alert('失败', err.statusText, 'error');
+                });
+
+		}
+        //显示帮助信息
+        function dohelp() {
+            toastr.info('有问题请联系管理员 <br><i class="fa fa-envelope-o" aria-hidden="true"></i> : demo@admin.com','帮助');
+        }
+       var editIndex = undefined;
+       //重新加载数据
+	   function reload() {
+			if (endEditing()) {
+			    $dg.datagrid('reload');
+		    }
+	   }
+      //关闭编辑状态
+	  function endEditing() {
+			if (editIndex === undefined) {
+                return true;
+            }
+			if ($dg.datagrid('validateRow', editIndex)) {
+				$dg.datagrid('endEdit', editIndex);
+				editIndex = undefined;
+                return true;
+			} else {
+				const invalidinput = $('input.validatebox-invalid','.datagrid');
+                const fieldnames = invalidinput.map((index, item) => {
+                  return $(item).attr('placeholder') || $(item).attr('id');
+                });
+                $.messager.alert('提示', `${Array.from(fieldnames)} 输入有误.`, 'error');
+				return false;
+			}
+		}
+    //单击列开启编辑功能
+	function onClickCell(index, field) {
+        vehicle = $dg.datagrid('getRows')[index];
+	    const _operates = ['_operate1', 'ck'];
+		if (!EDITINLINE || $.inArray(field, _operates) >= 0) {
+				return;
+		}
+		if (editIndex !== index) {
+		    if (endEditing()) {
+			    $dg.datagrid('selectRow', index)
+				   .datagrid('beginEdit', index);
+                hook = true;
+                editIndex = index;
+				const ed = $dg.datagrid('getEditor', { index: index, field: field });
+				if (ed) {
+						($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+				}
+			} else {
+				$dg.datagrid('selectRow', editIndex);
+			}
+		}
+	}
+    //新增记录
+	async function append() {
+       vehicle = { ShipOrderNo: null,
+InputUser: null,
+Status: '1',
+CarType: '厢式车',
+CarrierCode: '-',
+CarrierName: '-',
+VehLongSize: 0,
+StdLoadWeight: 0,
+FeeLoadWeight: 0,
+StdLoadVolume: 0,
+CarriageSize: 0,
+GPSDeviceId: 'xxx-xxxx-xxxx-xxxx',
+Driver: '-',
+DriverPhone: '-',
+AssistantDriver: '',
+AssistantDriverPhone: '',
+ };
+        //需要后台创建对象
+       if (REQUIRBACKEND) {
+         vehicle = await $.get('/Vehicles/NewItemAsync');
+       }
+        if (POPUPMODE) {
+           //弹出新增窗口
+           opendetailwindow(vehicle, 'Added');
+        } else {
+			if (endEditing()) {
+				//对必填字段进行默认值初始化
+				$dg.datagrid('insertRow',
+                              {
+                                  index: 0,
+                                  row: vehicle
+                               });
+				editIndex = 0;
+				$dg.datagrid('selectRow', editIndex)
+					.datagrid('beginEdit', editIndex);
+                hook = true;
+			}
+        }
+	}
+    //删除编辑的行
+	function removeit() {
+       if (EDITINLINE) {
+          if ($dg.datagrid('getChecked').length > 0) {
+            deletechecked();
+            return;
+          }
+          if (editIndex !== undefined) {
+    			$dg.datagrid('cancelEdit', editIndex)
+					.datagrid('deleteRow', editIndex);
+			   editIndex = undefined;
+               hook = true;
+           }else{
+              const row = $dg.datagrid('getSelected');
+              if(row){
+                const rowindex = $dg.datagrid('getRowIndex', row);
+                $dg.datagrid('deleteRow', rowindex);
+                hook = true;
+              }else{
+                $.messager.alert('提示', '请选中需要删除的记录.', 'info');
+              }
+           }
+        } else {
+		   if ($dg.datagrid('getChecked').length > 0) {
+              deletechecked();
+           }
+           else {
+              $.messager.alert('提示', '请选中需要删除的记录.', 'info');
+           }
+        }
+	}
+    //删除该行
+    function deleteRow(id) {
+          $.messager.confirm('确认', '你确定要删除该记录?', result => {
+                if (result) {
+                    $.post('/Vehicles/DeleteCheckedAsync', { id: [id] })
+                         .done(response => {
+                                if (response.success) {
+                                    toastr.success('删除成功');
+                                    $dg.datagrid('uncheckAll');
+                                    $dg.datagrid('reload');
+                                } else {
+                                    $.messager.alert('错误', response.err,'error');
+                                }
+                          })
+                          .fail((jqXHR, textStatus, errorThrown) => {
+						        $.messager.alert('异常', `${jqXHR.status}: ${jqXHR.statusText} `, 'error');
+					      });
+                    }
+                });
+
+     }
+    //删除选中的行
+    function deletechecked() {
+        const rows = $dg.datagrid('getChecked');
+        if (rows.length > 0) {
+            const id = rows.filter(item=>item.Id!=null).map(item => {
+                   return item.Id;
+                });
+            $.messager.confirm('确认', `你确定要删除这 <span class='badge bg-color-red'>${id.length} </span> 行记录?`, result => {
+                if (result) {
+                    $.post('/Vehicles/DeleteCheckedAsync', { id: id })
+                         .done(response => {
+                                if (response.success) {
+                                    toastr.success('删除成功');
+                                    $dg.datagrid('uncheckAll');
+                                    $dg.datagrid('reload');
+                                } else {
+                                    $.messager.alert('错误', response.err,'error');
+                                }
+                          })
+                          .fail((jqXHR, textStatus, errorThrown) => {
+						     $.messager.alert('异常', `${jqXHR.status}: ${jqXHR.statusText} `, 'error');
+					      });
+                    }
+                });
+         } else {
+                $.messager.alert('提示', '请先选择要删除的记录!','question');
+         }
+     }
+    //提交保存后台数据库
+	function accept() {
+	  if (endEditing()) {
+		if ($dg.datagrid('getChanges').length > 0) {
+		  const inserted = $dg.datagrid('getChanges', 'inserted').map(item => {
+          item.TrackingState = 1;
+          return item;
+        });
+        const updated = $dg.datagrid('getChanges', 'updated').map(item => {
+          item.TrackingState = 2
+          return item;
+        });
+        const deleted = $dg.datagrid('getChanges', 'deleted').map(item => {
+          item.TrackingState = 3
+          return item;
+        });
+        //过滤已删除的重复项
+        const changed = inserted.concat(updated.filter(item => {
+            return !deleted.includes(item);
+          })).concat(deleted);
+        //console.table(changed);
+		$.post('/Vehicles/SaveDataAsync', {vehicles:changed})
+                     .done(response => {
+						   //console.log(response);
+						   if (response.success) {
+							   toastr.success('保存成功');
+							   $dg.datagrid('acceptChanges');
+							   $dg.datagrid('reload');
+                               hook = false;
+						   } else {
+                               $.messager.alert('错误', response.err ,'error');
+                           }
+					    })
+                      .fail((jqXHR, textStatus, errorThrown) => {
+						$.messager.alert('异常', `${jqXHR.status}: ${jqXHR.statusText} `, 'error');
+					  });
+				}
+			}
+	}
+	function reject() {
+	    $dg.datagrid('rejectChanges');
+	    editIndex = undefined;
+        hook = false;
+	}
+	function getChanges() {
+	    const rows = $dg.datagrid('getChanges');
+		//console.log(rows.length + ' rows are changed!');
+	}
+    //弹出明细信息
+	async function showDetailsWindow(id,row,index) {
+        if (REQUIRBACKEND) {
+			//console.log(index, row);
+           vehicle = await $.get('/Vehicles/GetItemAsync/' + id);
+        } else {
+            vehicle =  $dg.datagrid('getRows')[index];
+        }
+        opendetailwindow(vehicle,'Modified');
+	}
+
+    //初始化定义datagrid
+    var $dg = $('#vehicles_datagrid');
+    $(() => {
+      //定义datagrid结构
+      $dg.datagrid({
+        rownumbers: true,
+        checkOnSelect: false,
+        selectOnCheck: false,
+        idField: 'Id',
+        sortName: 'Id',
+        sortOrder: 'desc',
+        remoteFilter: true,
+        singleSelect: true,
+        url: '/Vehicles/GetDataAsync',
+        method: 'get',
+        onClickCell: onClickCell,
+        pagination: true,
+        striped: true,
+        onBeforeLoad: function () {
+          //datagrid resize when jarvisWidgets resized.
+          const that = $(this);
+          $(window).on("resize.jarvisWidgets", () => {
+            that.datagrid('resize');
+          })
+        },
+        onSelect: function (index, row) {
+          vehicle = row;
+        },
+        onBeginEdit: function (index, row) {
+
+        },
+        onEndEdit: function (index, row) {
+
+        },
+        onBeforeEdit: function (index, row) {
+          row.editing = true;
+          $(this).datagrid('refreshRow', index);
+        },
+        onAfterEdit: function (index, row) {
+          row.editing = false;
+          $(this).datagrid('refreshRow', index);
+        },
+        onCancelEdit: function (index, row) {
+          row.editing = false;
+          $(this).datagrid('refreshRow', index);
+        },
+        frozenColumns: [[
+          /*开启CheckBox选择功能*/
+          { field: 'ck', checkbox: true },
+          {
+            field: '_operate1',
+            title: '@Html.L("Command")',
+            width: 135,
+            sortable: false,
+            resizable: true,
+            formatter: function showdetailsformatter(value, row, index) {
+              if (!row.editing) {
+                return '<div class="btn-group">\
+                           <button onclick="showDetailsWindow(\'' + row.Id + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="查看明细" ><i class="fa fa-pencil-square-o"></i> </button>\
+                           <button onclick="showMapWindow(\'' + row.Id + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="地图位置" ><i class="fa fa-map-marker"></i> </button>\
+                           <button onclick="showVideoWindow(\'' + row.Id + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="视频监控" ><i class="fa fa-video-camera"></i> </button>\
+                           <button onclick="deleteRow(\'' + row.Id + '\',\'' + JSON.stringify(row).replace(/\"/g, '&quot;') + '\',' + index + ')" class="btn btn-default btn-xs" title="删除记录" ><i class="fa fa-trash-o"></i> </button>\
+                       </div>';
+              } else {
+                return '<button class="btn btn-default btn-xs" disabled title="查看明细"  ><i class="fa fa-pencil-square-o"></i> </button>';
+              }
+            }
+          }
+        ]],
+        columns: [[
+          { /*系统编号*/
+            field: 'Id',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.Id)</span>',
+            width: 120,
+            sortable: true,
+            resizable: true,
+            hidden: true
+          },
+          {    /*车牌号*/
+            field: 'PlateNumber',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.PlateNumber)</span>',
+            width: 100,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.PlateNumber)', required: true, validType: 'length[7,10]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+
+          {    /*车辆状态(停用/启用/维修/在途/预定)*/
+            field: 'Status',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.Status)</span>',
+            width: 80,
+            align: 'right',
+            hidden: false,
+            editor: {
+              /*需要在键值对中维护status枚举值并生成JavaScript才能使用*/
+              type: 'statuseditor',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.Status)',
+                required: true
+              }
+            },
+            formatter: vstatusformatter
+          },
+          {    /*车辆类型(厢式车（默认）/平板车/轿车/面包车/高栏车/飞翼车等)*/
+            field: 'CarType',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.CarType)</span>',
+            width: 100,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.CarType)', required: true, validType: 'length[0,20]' }
+            },
+            sortable: true,
+            resizable: true,
+            formatter: cartypeformatter
+          },
+          {    /*所属承运人代码*/
+            field: 'CarrierCode',
+            title: '@Html.DisplayNameFor(model => model.CarrierCode)',
+            width: 100,
+            hidden: true,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.CarrierCode)', required: false, validType: 'length[0,20]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*所属承运人*/
+            field: 'CarrierName',
+            title: '@Html.DisplayNameFor(model => model.CarrierName)',
+            width: 160,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.CarrierName)', required: false, validType: 'length[0,80]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*车长(米)*/
+            field: 'VehLongSize',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.VehLongSize)</span>',
+            width: 90,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.VehLongSize)',
+                required: true,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*额定载重(吨)*/
+            field: 'StdLoadWeight',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.StdLoadWeight)</span>',
+            width: 90,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.StdLoadWeight)',
+                required: true,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*运输车型(吨,尺等等),收费吨位*/
+            field: 'FeeLoadWeight',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.FeeLoadWeight)</span>',
+            width: 90,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.FeeLoadWeight)',
+                required: true,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*额定体积(立方米)*/
+            field: 'StdLoadVolume',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.StdLoadVolume)</span>',
+            width: 90,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.StdLoadVolume)',
+                required: true,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*车厢尺寸(尺)*/
+            field: 'CarriageSize',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.CarriageSize)</span>',
+            width: 90,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.CarriageSize)',
+                required: true,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*GPS设备编号*/
+            field: 'GPSDeviceId',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.GPSDeviceId)</span>',
+            width: 160,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.GPSDeviceId)', required: true, validType: 'length[0,50]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*主驾司机*/
+            field: 'Driver',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.Driver)</span>',
+            width: 100,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.Driver)', required: true, validType: 'length[0,20]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*主驾司机电话*/
+            field: 'DriverPhone',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.DriverPhone)</span>',
+            width: 130,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.DriverPhone)', required: true, validType: 'length[0,50]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          @*{    /*副驾司机*/
+            field: 'AssistantDriver',
+            title: '@Html.DisplayNameFor(model => model.AssistantDriver)',
+            width: 100,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.AssistantDriver)', required: false, validType: 'length[0,20]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*副驾司机电话*/
+            field: 'AssistantDriverPhone',
+            title: '@Html.DisplayNameFor(model => model.AssistantDriverPhone)',
+            width: 130,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.AssistantDriverPhone)', required: false, validType: 'length[0,50]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+           {    /*派车单号*/
+            field: 'ShipOrderNo',
+            title: '@Html.DisplayNameFor(model => model.ShipOrderNo)',
+            width: 130,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.ShipOrderNo)', required: false, validType: 'length[0,20]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*调度人员*/
+            field: 'InputUser',
+            title: '@Html.DisplayNameFor(model => model.InputUser)',
+            width: 130,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.InputUser)', required: false, validType: 'length[0,20]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*海关编号*/
+            field: 'CustomsNo',
+            title: '@Html.DisplayNameFor(model => model.CustomsNo)',
+            width: 130,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.CustomsNo)', required: false, validType: 'length[0,20]' }
+            },
+            sortable: true,
+            resizable: true
+          },*@
+          {    /*总行驶里程*/
+            field: 'RoadKM',
+            title: '@Html.DisplayNameFor(model => model.RoadKM)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.RoadKM)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*行驶时间*/
+            field: 'RoadHours',
+            title: '@Html.DisplayNameFor(model => model.RoadHours)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.RoadHours)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          @*{    /*车主*/
+            field: 'Owner',
+            title: '@Html.DisplayNameFor(model => model.Owner)',
+            width: 130,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.Owner)', required: false, validType: 'length[0,20]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*联系人电话*/
+            field: 'OwnerContactPhone',
+            title: '@Html.DisplayNameFor(model => model.OwnerContactPhone)',
+            width: 260,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.OwnerContactPhone)', required: false, validType: 'length[0,50]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*品牌*/
+            field: 'Brand',
+            title: '@Html.DisplayNameFor(model => model.Brand)',
+            width: 130,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.Brand)', required: false, validType: 'length[0,20]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {     /*额定转速*/
+            field: 'RPM',
+            title: '@Html.DisplayNameFor(model => model.RPM)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.RPM)',
+                required: false,
+                validType: 'integer',
+
+              }
+            },
+            formatter: intformatter,
+            sortable: true,
+            resizable: true
+          },
+          {   /*购买日期*/
+            field: 'PurchasedDate',
+            title: '@Html.DisplayNameFor(model => model.PurchasedDate)',
+            width: 120,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'datebox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.PurchasedDate)', required: false }
+            },
+            formatter: dateformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*购买金额*/
+            field: 'PurchasedAmount',
+            title: '@Html.DisplayNameFor(model => model.PurchasedAmount)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.PurchasedAmount)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },*@
+          {    /*车厢长(米)*/
+            field: 'VehLong',
+            title: '@Html.DisplayNameFor(model => model.VehLong)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.VehLong)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*车厢宽(米)*/
+            field: 'VehWide',
+            title: '@Html.DisplayNameFor(model => model.VehWide)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.VehWide)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*车厢高(米)*/
+            field: 'VehHigh',
+            title: '@Html.DisplayNameFor(model => model.VehHigh)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.VehHigh)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          @*{    /*车架号*/
+            field: 'VIN',
+            title: '@Html.DisplayNameFor(model => model.VIN)',
+            width: 260,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.VIN)', required: false, validType: 'length[0,50]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {     /*使用年限*/
+            field: 'ServiceLife',
+            title: '@Html.DisplayNameFor(model => model.ServiceLife)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.ServiceLife)',
+                required: false,
+                validType: 'integer',
+
+              }
+            },
+            formatter: intformatter,
+            sortable: true,
+            resizable: true
+          },
+          {     /*保养公里数*/
+            field: 'MaintainKM',
+            title: '@Html.DisplayNameFor(model => model.MaintainKM)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.MaintainKM)',
+                required: false,
+                validType: 'integer',
+
+              }
+            },
+            formatter: intformatter,
+            sortable: true,
+            resizable: true
+          },
+          {   /*下次保养日期*/
+            field: 'MaintainDate',
+            title: '@Html.DisplayNameFor(model => model.MaintainDate)',
+            width: 120,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'datebox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.MaintainDate)', required: false }
+            },
+            formatter: dateformatter,
+            sortable: true,
+            resizable: true
+          },
+          {     /*保养周期(月)*/
+            field: 'MaintainMonth',
+            title: '@Html.DisplayNameFor(model => model.MaintainMonth)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.MaintainMonth)',
+                required: false,
+                validType: 'integer',
+
+              }
+            },
+            formatter: intformatter,
+            sortable: true,
+            resizable: true
+          },
+          {  /*车辆尾板*/
+            field: 'ExistVehTailBoard',
+            title: '<span class="required">@Html.DisplayNameFor(model => model.ExistVehTailBoard)</span>',
+            width: 120,
+            align: 'center',
+            hidden: false,
+            editor: {
+              type: 'booleaneditor',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.ExistVehTailBoard)',
+                required: true
+              }
+            },
+            formatter: booleanformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*尾板品牌*/
+            field: 'VehTailBoardBrand',
+            title: '@Html.DisplayNameFor(model => model.VehTailBoardBrand)',
+            width: 130,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.VehTailBoardBrand)', required: false, validType: 'length[0,30]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*尾板厂家*/
+            field: 'VehTailBoardFactory',
+            title: '@Html.DisplayNameFor(model => model.VehTailBoardFactory)',
+            width: 130,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.VehTailBoardFactory)', required: false, validType: 'length[0,30]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {     /*尾板使用年限*/
+            field: 'VehTailBoardLife',
+            title: '@Html.DisplayNameFor(model => model.VehTailBoardLife)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.VehTailBoardLife)',
+                required: false,
+                validType: 'integer',
+
+              }
+            },
+            formatter: intformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*尾板价值*/
+            field: 'VehTailBoardAmount',
+            title: '@Html.DisplayNameFor(model => model.VehTailBoardAmount)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.VehTailBoardAmount)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*尾板GPS设备编号*/
+            field: 'VehTailBoardGPSDeviceId',
+            title: '@Html.DisplayNameFor(model => model.VehTailBoardGPSDeviceId)',
+            width: 260,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.VehTailBoardGPSDeviceId)', required: false, validType: 'length[0,50]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*型号代码*/
+            field: 'DrLicenseModel',
+            title: '@Html.DisplayNameFor(model => model.DrLicenseModel)',
+            width: 260,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.DrLicenseModel)', required: false, validType: 'length[0,50]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*使用性质*/
+            field: 'DrLicenseUseNature',
+            title: '@Html.DisplayNameFor(model => model.DrLicenseUseNature)',
+            width: 260,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.DrLicenseUseNature)', required: false, validType: 'length[0,50]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*品牌*/
+            field: 'DrLicenseBrand',
+            title: '@Html.DisplayNameFor(model => model.DrLicenseBrand)',
+            width: 260,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.DrLicenseBrand)', required: false, validType: 'length[0,50]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*识别代码*/
+            field: 'DrLicenseDevId',
+            title: '@Html.DisplayNameFor(model => model.DrLicenseDevId)',
+            width: 260,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.DrLicenseDevId)', required: false, validType: 'length[0,50]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*发动机号*/
+            field: 'DrLicenseEngineId',
+            title: '@Html.DisplayNameFor(model => model.DrLicenseEngineId)',
+            width: 260,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.DrLicenseEngineId)', required: false, validType: 'length[0,50]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {   /*注册日期*/
+            field: 'DrLicenseRegistrationDate',
+            title: '@Html.DisplayNameFor(model => model.DrLicenseRegistrationDate)',
+            width: 120,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'datebox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.DrLicenseRegistrationDate)', required: false }
+            },
+            formatter: dateformatter,
+            sortable: true,
+            resizable: true
+          },
+          {   /*发证日期*/
+            field: 'DrLicensePubDate',
+            title: '@Html.DisplayNameFor(model => model.DrLicensePubDate)',
+            width: 120,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'datebox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.DrLicensePubDate)', required: false }
+            },
+            formatter: dateformatter,
+            sortable: true,
+            resizable: true
+          },
+          {     /*额定人数*/
+            field: 'DrLicenseRatedUsers',
+            title: '@Html.DisplayNameFor(model => model.DrLicenseRatedUsers)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.DrLicenseRatedUsers)',
+                required: false,
+                validType: 'integer',
+
+              }
+            },
+            formatter: intformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*车辆重量(吨)*/
+            field: 'DrLicenseVehWeight',
+            title: '@Html.DisplayNameFor(model => model.DrLicenseVehWeight)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.DrLicenseVehWeight)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*整备重量(吨)*/
+            field: 'DrLicenseDevWeight',
+            title: '@Html.DisplayNameFor(model => model.DrLicenseDevWeight)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.DrLicenseDevWeight)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*净重(吨)*/
+            field: 'DrLicenseNetWeight',
+            title: '@Html.DisplayNameFor(model => model.DrLicenseNetWeight)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.DrLicenseNetWeight)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*净空(立方)*/
+            field: 'DrLicenseNetVolume',
+            title: '@Html.DisplayNameFor(model => model.DrLicenseNetVolume)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.DrLicenseNetVolume)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*外限宽(米)*/
+            field: 'DrLicenseVehWide',
+            title: '@Html.DisplayNameFor(model => model.DrLicenseVehWide)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.DrLicenseVehWide)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*外限高(米)*/
+            field: 'DrLicenseVehHigh',
+            title: '@Html.DisplayNameFor(model => model.DrLicenseVehHigh)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.DrLicenseVehHigh)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*外限长(米)*/
+            field: 'DrLicenseVehLong',
+            title: '@Html.DisplayNameFor(model => model.DrLicenseVehLong)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.DrLicenseVehLong)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {   /*强制报废日期*/
+            field: 'DrLicenseScrapedDate',
+            title: '@Html.DisplayNameFor(model => model.DrLicenseScrapedDate)',
+            width: 120,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'datebox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.DrLicenseScrapedDate)', required: false }
+            },
+            formatter: dateformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*文管子号*/
+            field: 'LoLicenseManageId',
+            title: '@Html.DisplayNameFor(model => model.LoLicenseManageId)',
+            width: 260,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.LoLicenseManageId)', required: false, validType: 'length[0,50]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*运营许可证号*/
+            field: 'LoLicenseId',
+            title: '@Html.DisplayNameFor(model => model.LoLicenseId)',
+            width: 260,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.LoLicenseId)', required: false, validType: 'length[0,50]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*经营范围*/
+            field: 'LoLicenseBusinessScope',
+            title: '@Html.DisplayNameFor(model => model.LoLicenseBusinessScope)',
+            width: 260,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.LoLicenseBusinessScope)', required: false, validType: 'length[0,50]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {   /*发证日期*/
+            field: 'LoLicensePubDate',
+            title: '@Html.DisplayNameFor(model => model.LoLicensePubDate)',
+            width: 120,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'datebox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.LoLicensePubDate)', required: false }
+            },
+            formatter: dateformatter,
+            sortable: true,
+            resizable: true
+          },
+          {   /*二级有效期*/
+            field: 'LoLicenseValidDate',
+            title: '@Html.DisplayNameFor(model => model.LoLicenseValidDate)',
+            width: 120,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'datebox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.LoLicenseValidDate)', required: false }
+            },
+            formatter: dateformatter,
+            sortable: true,
+            resizable: true
+          },
+          {   /*年检日期*/
+            field: 'LoLicenseCheckDate',
+            title: '@Html.DisplayNameFor(model => model.LoLicenseCheckDate)',
+            width: 120,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'datebox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.LoLicenseCheckDate)', required: false }
+            },
+            formatter: dateformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*注册地*/
+            field: 'LoLicensePlace',
+            title: '@Html.DisplayNameFor(model => model.LoLicensePlace)',
+            width: 130,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.LoLicensePlace)', required: false, validType: 'length[0,30]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*交强险保单*/
+            field: 'InsTrafficPolicyId',
+            title: '@Html.DisplayNameFor(model => model.InsTrafficPolicyId)',
+            width: 260,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.InsTrafficPolicyId)', required: false, validType: 'length[0,50]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*保险公司*/
+            field: 'InsTrafficPolicyCompany',
+            title: '@Html.DisplayNameFor(model => model.InsTrafficPolicyCompany)',
+            width: 260,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.InsTrafficPolicyCompany)', required: false, validType: 'length[0,50]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*交强险保单有效期*/
+            field: 'InsTrafficPolicyVaildateDate',
+            title: '@Html.DisplayNameFor(model => model.InsTrafficPolicyVaildateDate)',
+            width: 260,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.InsTrafficPolicyVaildateDate)', required: false, validType: 'length[0,50]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {    /*交强险保额*/
+            field: 'InsTrafficPolicyAmount',
+            title: '@Html.DisplayNameFor(model => model.InsTrafficPolicyAmount)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.InsTrafficPolicyAmount)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*第三者保单号*/
+            field: 'InsThirdPartyId',
+            title: '@Html.DisplayNameFor(model => model.InsThirdPartyId)',
+            width: 260,
+            hidden: false,
+            editor: {
+              type: 'textbox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.InsThirdPartyId)', required: false, validType: 'length[0,50]' }
+            },
+            sortable: true,
+            resizable: true
+          },
+          {   /*第三者保单有效期*/
+            field: 'InsThirdPartyVaildateDate',
+            title: '@Html.DisplayNameFor(model => model.InsThirdPartyVaildateDate)',
+            width: 120,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'datebox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.InsThirdPartyVaildateDate)', required: false }
+            },
+            formatter: dateformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*第三者保单额*/
+            field: 'InsThirdPartyAmount',
+            title: '@Html.DisplayNameFor(model => model.InsThirdPartyAmount)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.InsThirdPartyAmount)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {    /*物流责任险保额*/
+            field: 'InsThirdPartyLogisticsAmount',
+            title: '@Html.DisplayNameFor(model => model.InsThirdPartyLogisticsAmount)',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'numberbox',
+              options: {
+                prompt: '@Html.DisplayNameFor(model => model.InsThirdPartyLogisticsAmount)',
+                required: false,
+                precision: 2,
+                validType: 'decimal',
+
+              }
+            },
+            formatter: numberformatter,
+            sortable: true,
+            resizable: true
+          },
+          {   /*物流责任险有效期*/
+            field: 'InsThirdPartyLogisticsVaildateDate',
+            title: '@Html.DisplayNameFor(model => model.InsThirdPartyLogisticsVaildateDate)',
+            width: 120,
+            align: 'right',
+            hidden: false,
+            editor: {
+              type: 'datebox',
+              options: { prompt: '@Html.DisplayNameFor(model => model.InsThirdPartyLogisticsVaildateDate)', required: false }
+            },
+            formatter: dateformatter,
+            sortable: true,
+            resizable: true
+          },*@
+        ]]
+      });
+
+      $dg.datagrid('enableFilter', [
+        /*需要在键值队维护好status枚举值*/
+        {  /*车辆状态(停用/启用/维修/在途/预定)*/
+          field: 'Status',
+          type: 'vstatusfilter',
+          options: {
+
+          }
+        },
+        {
+          field: 'CarType',
+          type: 'cartypefilter',
+          options: {
+
+          }
+        },
+        {   /*系统编号*/
+          field: 'Id',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*车长(米)*/
+          field: 'VehLongSize',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*额定载重(吨)*/
+          field: 'StdLoadWeight',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*运输车型(吨,尺等等),收费吨位*/
+          field: 'FeeLoadWeight',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*额定体积(立方米)*/
+          field: 'StdLoadVolume',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*车厢尺寸(尺)*/
+          field: 'CarriageSize',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*总行驶里程*/
+          field: 'RoadKM',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*行驶时间*/
+          field: 'RoadHours',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*额定转速*/
+          field: 'RPM',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*购买金额*/
+          field: 'PurchasedAmount',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*车厢长(米)*/
+          field: 'VehLong',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*车厢宽(米)*/
+          field: 'VehWide',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*车厢高(米)*/
+          field: 'VehHigh',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*使用年限*/
+          field: 'ServiceLife',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*保养公里数*/
+          field: 'MaintainKM',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*保养周期(月)*/
+          field: 'MaintainMonth',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*尾板使用年限*/
+          field: 'VehTailBoardLife',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*尾板价值*/
+          field: 'VehTailBoardAmount',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*额定人数*/
+          field: 'DrLicenseRatedUsers',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*车辆重量(吨)*/
+          field: 'DrLicenseVehWeight',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*整备重量(吨)*/
+          field: 'DrLicenseDevWeight',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*净重(吨)*/
+          field: 'DrLicenseNetWeight',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*净空(立方)*/
+          field: 'DrLicenseNetVolume',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*外限宽(米)*/
+          field: 'DrLicenseVehWide',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*外限高(米)*/
+          field: 'DrLicenseVehHigh',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*外限长(米)*/
+          field: 'DrLicenseVehLong',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*交强险保额*/
+          field: 'InsTrafficPolicyAmount',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*第三者保单额*/
+          field: 'InsThirdPartyAmount',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {   /*物流责任险保额*/
+          field: 'InsThirdPartyLogisticsAmount',
+          type: 'numberbox',
+          op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
+        },
+        {     /*购买日期*/
+          field: 'PurchasedDate',
+          type: 'dateRange',
+          options: {
+            onChange: value => {
+              $dg.datagrid('addFilterRule', {
+                field: 'PurchasedDate',
+                op: 'between',
+                value: value
+              });
+
+              $dg.datagrid('doFilter');
+            }
+          }
+        },
+        {     /*下次保养日期*/
+          field: 'MaintainDate',
+          type: 'dateRange',
+          options: {
+            onChange: value => {
+              $dg.datagrid('addFilterRule', {
+                field: 'MaintainDate',
+                op: 'between',
+                value: value
+              });
+
+              $dg.datagrid('doFilter');
+            }
+          }
+        },
+        {     /*注册日期*/
+          field: 'DrLicenseRegistrationDate',
+          type: 'dateRange',
+          options: {
+            onChange: value => {
+              $dg.datagrid('addFilterRule', {
+                field: 'DrLicenseRegistrationDate',
+                op: 'between',
+                value: value
+              });
+
+              $dg.datagrid('doFilter');
+            }
+          }
+        },
+        {     /*发证日期*/
+          field: 'DrLicensePubDate',
+          type: 'dateRange',
+          options: {
+            onChange: value => {
+              $dg.datagrid('addFilterRule', {
+                field: 'DrLicensePubDate',
+                op: 'between',
+                value: value
+              });
+
+              $dg.datagrid('doFilter');
+            }
+          }
+        },
+        {     /*强制报废日期*/
+          field: 'DrLicenseScrapedDate',
+          type: 'dateRange',
+          options: {
+            onChange: value => {
+              $dg.datagrid('addFilterRule', {
+                field: 'DrLicenseScrapedDate',
+                op: 'between',
+                value: value
+              });
+
+              $dg.datagrid('doFilter');
+            }
+          }
+        },
+        {     /*发证日期*/
+          field: 'LoLicensePubDate',
+          type: 'dateRange',
+          options: {
+            onChange: value => {
+              $dg.datagrid('addFilterRule', {
+                field: 'LoLicensePubDate',
+                op: 'between',
+                value: value
+              });
+
+              $dg.datagrid('doFilter');
+            }
+          }
+        },
+        {     /*二级有效期*/
+          field: 'LoLicenseValidDate',
+          type: 'dateRange',
+          options: {
+            onChange: value => {
+              $dg.datagrid('addFilterRule', {
+                field: 'LoLicenseValidDate',
+                op: 'between',
+                value: value
+              });
+
+              $dg.datagrid('doFilter');
+            }
+          }
+        },
+        {     /*年检日期*/
+          field: 'LoLicenseCheckDate',
+          type: 'dateRange',
+          options: {
+            onChange: value => {
+              $dg.datagrid('addFilterRule', {
+                field: 'LoLicenseCheckDate',
+                op: 'between',
+                value: value
+              });
+
+              $dg.datagrid('doFilter');
+            }
+          }
+        },
+        {     /*第三者保单有效期*/
+          field: 'InsThirdPartyVaildateDate',
+          type: 'dateRange',
+          options: {
+            onChange: value => {
+              $dg.datagrid('addFilterRule', {
+                field: 'InsThirdPartyVaildateDate',
+                op: 'between',
+                value: value
+              });
+
+              $dg.datagrid('doFilter');
+            }
+          }
+        },
+        {     /*物流责任险有效期*/
+          field: 'InsThirdPartyLogisticsVaildateDate',
+          type: 'dateRange',
+          options: {
+            onChange: value => {
+              $dg.datagrid('addFilterRule', {
+                field: 'InsThirdPartyLogisticsVaildateDate',
+                op: 'between',
+                value: value
+              });
+
+              $dg.datagrid('doFilter');
+            }
+          }
+        },
+        {   /*车辆尾板*/
+          field: 'ExistVehTailBoard',
+          type: 'booleanfilter'
+        },
+      ]);
+    });
+
+  </script>
+
+
+
+  <!--end popup detailview javascript block -->
+  <script src="~/Scripts/jquery.filerupload.min.js"></script>
+}
+
+

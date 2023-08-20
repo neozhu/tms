@@ -1,0 +1,15 @@
+﻿<div class="login-info dropdown">
+  <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <a href="#" id="show-shortcut">
+      <img src="@Auth.GetAvatarsByName(User.Identity.Name)" alt="me" class="online" />
+      <span>@Auth.GetFullName(User.Identity.Name.ToLower())</span>
+      <i class="fa fa-angle-down"></i>
+      <input type="hidden" id="hdId" />
+      <input type="hidden" id="currentuser" value="@User.Identity.Name" />
+    </a>
+
+  </span>
+  <ul class="dropdown-menu" aria-labelledby="show-shortcut">
+    <li><a href="javascript:showchangewindow()">修改密码</a></li>
+  </ul>
+</div>

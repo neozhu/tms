@@ -1,0 +1,751 @@
+﻿﻿@model WebApp.Models.SHIPORDER
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin shiporder form  -->
+<form id="shiporder_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.ID)" 
+                       name="@Html.NameFor(model => model.ID)" 
+                       value="@Html.ValueFor(model => model.ID)" />
+ <fieldset>
+     <div class="row">
+			              <!--运单号-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.SHIPORDERKEY)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.SHIPORDERKEY)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--对账单号-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.EXTERNSHIPORDERKEY) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.EXTERNSHIPORDERKEY)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--接单日期-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.SHIPORDERDATE)</span> </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.SHIPORDERDATE)
+			    </label>
+            </section>
+			  		 
+	    
+			              <!--状态-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.STATUS)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.STATUS)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--运输方式(正常/加急/退运)-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.TYPE) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.TYPE)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--起始地-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.ORIGINAL)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.ORIGINAL)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--目的地-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.DESTINATION)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.DESTINATION)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--运输车辆-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.PLATENUMBER)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.PLATENUMBER)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--司机-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DRIVERNAME) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.DRIVERNAME)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--司机电话-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DRIVERPHONE) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.DRIVERPHONE)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--承运人代码-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CARRIERCODE) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CARRIERCODE)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--承运人名称-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CARRIERNAME) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CARRIERNAME)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--发货单位-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.SHIPPERKEY) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.SHIPPERKEY)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--发货单位名称-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.SHIPPERNAME) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.SHIPPERNAME)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--发货地址-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.SHIPPERADDRESS) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.SHIPPERADDRESS)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--收货单位-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CONSIGNEEKEY) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CONSIGNEEKEY)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--收货单位名称-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CONSIGNEENAME) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CONSIGNEENAME)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--收货地址-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CONSIGNEEADDRESS) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CONSIGNEEADDRESS)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--要求配送日期-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.REQUESTEDSHIPDATE) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.REQUESTEDSHIPDATE)
+			    </label>
+            </section>
+			  		 
+	    
+			              <!--实际配送日期-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.ACTUALSHIPDATE) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.ACTUALSHIPDATE)
+			    </label>
+            </section>
+			  		 
+	   </div>
+	    
+     <div class="row">
+			              <!--要求到货时间-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DELIVERYDATE) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.DELIVERYDATE)
+			    </label>
+            </section>
+			  		 
+	    
+			              <!--实际到货时间-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.ACTUALDELIVERYDATE) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.ACTUALDELIVERYDATE)
+			    </label>
+            </section>
+			  		 
+	    
+			              <!--结案日期-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CLOSEDDATE) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.CLOSEDDATE)
+			    </label>
+            </section>
+			  		 
+	    
+			  			<!--合计发运数量-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.TOTALQTY)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.TOTALQTY)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--合计确认数量-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.TOTALSHIPPEDQTY)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.TOTALSHIPPEDQTY)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--合计件数-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.TOTALCASECNT) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.TOTALCASECNT)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--合计毛重(KG)-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.TOTALGROSSWGT) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.TOTALGROSSWGT)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--合计体积(M)-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.TOTALCUBE) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.TOTALCUBE)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--标准里程(千米)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.STDKM)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.STDKM)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--起始里程数(千米)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.KM1)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.KM1)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--结束里程数(千米)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.KM2)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.KM2)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--实际里程(千米)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.ACTKM)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.ACTKM)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--标准油耗(升)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.STDOIL)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.STDOIL)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--起始油量(升)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.OIL1)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.OIL1)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--结束油量(升)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.OIL2)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.OIL2)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--油耗(升)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.ACTOIL)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.ACTOIL)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--额定载重(吨)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.STDLOADWEIGHT)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.STDLOADWEIGHT)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--额定体积(立方米)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.STDLOADVOLUME)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.STDLOADVOLUME)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--收费吨位-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.FEELOADWEIGHT)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.FEELOADWEIGHT)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--重量装载率-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.LOADFACTOR1)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.LOADFACTOR1)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--体积装载率-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.LOADFACTOR2)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.LOADFACTOR2)
+			    </label>
+            </section>
+		 
+	    
+			  			  <!--是否计算运费-->
+              <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.CHECKEDCOST1)</span> </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.CHECKEDCOST1)
+            </label>
+            </section>
+		 
+	    
+			  			<!--合计运费-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.TOTALCOST1)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.TOTALCOST1)
+			    </label>
+            </section>
+		 
+	    
+			  			  <!--是否送货上门-->
+              <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.CHECKEDCOST2)</span> </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.CHECKEDCOST2)
+            </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--送货费(RMB)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.TOTALCOST2)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.TOTALCOST2)
+			    </label>
+            </section>
+		 
+	    
+			  			  <!--是否上楼-->
+              <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.CHECKEDCOST3)</span> </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.CHECKEDCOST3)
+            </label>
+            </section>
+		 
+	    
+			  			<!--楼层-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.FLOOR)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.FLOOR)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--搬运费(RMB)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.TOTALCOST3)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.TOTALCOST3)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			  			  <!--是否加急-->
+              <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.CHECKEDCOST4)</span> </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.CHECKEDCOST4)
+            </label>
+            </section>
+		 
+	    
+			  			<!--加急费(RMB)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.TOTALCOST4)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.TOTALCOST4)
+			    </label>
+            </section>
+		 
+	    
+			  			  <!--是否专车-->
+              <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.CHECKEDCOST5)</span> </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.CHECKEDCOST5)
+            </label>
+            </section>
+		 
+	    
+			  			<!--专车费(RMB)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.TOTALCOST5)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.TOTALCOST5)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			  			  <!--是否其它服务-->
+              <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.CHECKEDCOST6)</span> </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.CHECKEDCOST6)
+            </label>
+            </section>
+		 
+	    
+			  			<!--其它服务费(RMB)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.TOTALCOST6)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.TOTALCOST6)
+			    </label>
+            </section>
+		 
+	    
+			  			  <!--是否其它服务2-->
+              <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.CHECKEDCOST7)</span> </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.CHECKEDCOST7)
+            </label>
+            </section>
+		 
+	    
+			  			<!--其它服务费2(RMB)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.TOTALCOST7)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.TOTALCOST7)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			  			  <!--是否其它服务3-->
+              <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.CHECKEDCOST8)</span> </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.CHECKEDCOST8)
+            </label>
+            </section>
+		 
+	    
+			  			<!--其它服务费3(RMB)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.TOTALCOST8)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.TOTALCOST8)
+			    </label>
+            </section>
+		 
+	    
+			  			  <!--结算标志-->
+              <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.FLAG1)</span> </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.FLAG1)
+            </label>
+            </section>
+		 
+	    
+			              <!--备注2-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.NOTES1) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.NOTES1)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			  			  <!--其它标志-->
+              <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.FLAG2)</span> </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.FLAG2)
+            </label>
+            </section>
+		 
+	    
+			              <!--备注-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.NOTES) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.NOTES)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--所属公司-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.COMPANYCODE) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.COMPANYCODE)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--上传用户-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LOTTABLE1) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.LOTTABLE1)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--LOTTABLE2-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LOTTABLE2) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.LOTTABLE2)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--LOTTABLE3-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LOTTABLE3) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.LOTTABLE3)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--LOTTABLE4-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LOTTABLE4) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.LOTTABLE4)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--LOTTABLE5-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LOTTABLE5) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.LOTTABLE5)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--LOTTABLE6-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LOTTABLE6) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.LOTTABLE6)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--LOTTABLE7-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LOTTABLE7) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.LOTTABLE7)
+			    </label>
+            </section>
+		 
+	    
+			              <!--LOTTABLE8-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LOTTABLE8) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.LOTTABLE8)
+			    </label>
+            </section>
+			  		 
+	    
+   </div>
+	    
+</fieldset>
+</form>
+<!-- end shiporder form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+
+    <div class="row">
+        <section class="col col-md-12 col-lg-12">
+    <!-- details tabs -->
+    <div class="tabs-container">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs bordered">
+								<li class="active"><a data-toggle="tab" href="#tab-shiporderdetails"> SHIPORDERDETAILS</a></li>
+				   
+		 </ul>
+		 <!-- Tab panes -->
+         <div class="tab-content">
+              <div id="tab-shiporderdetails" class="tab-pane active">
+                   <div class="panel-body-toolbar">
+                                    <div class="row">
+                                        <div class="col-sm-8  ">
+                                            <div class="btn-group">
+                                                <a href="javascript:shiporderdetails_append()" class="btn btn-sm btn-default"> <i class="fa fa-plus"></i> 新增 </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="javascript:shiporderdetails_removeit()" class="btn btn-sm btn-default"> <i class="fa fa-trash-o"></i> 删除 </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="javascript:shiporderdetails_accept()" class="btn btn-sm btn-default"> <i class="fa fa-floppy-o"></i> 保存 </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="javascript:shiporderdetails_reload()" class="btn btn-sm btn-default"> <i class="fa fa-refresh"></i> 刷新 </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="javascript:shiporderdetails_reject()" class="btn btn-sm btn-default"> <i class="fa fa-window-close-o"></i> 取消 </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                   </div>
+                <div class="table-responsive">
+				<table id="shiporderdetails_datagrid" >
+                </table>
+              
+            </div>
+         </div>
+	</div>
+	</div>
+ 
+<!--end details tabs -->
+        </div>
+    </div>
+<!-- end detail section -->
+
+
+

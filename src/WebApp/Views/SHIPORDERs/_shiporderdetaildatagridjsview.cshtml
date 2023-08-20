@@ -1,0 +1,664 @@
+﻿
+@model WebApp.Models.SHIPORDERDETAIL
+
+<script type="text/javascript">
+    //是否开启行内编辑
+    const SUBEDITINLINE = true;
+   //初始化 SHIPORDERDETAIL datagrid
+   var $shiporderdetailsdg = $('#shiporderdetails_datagrid');
+   //当前行记录
+   var shiporderdetail = {};
+   //datagrid CRUD method
+    var shiporderdetails_editIndex = undefined;
+    //取消
+    function shiporderdetails_reject() {
+		$shiporderdetailsdg.datagrid('rejectChanges');
+		shiporderdetails_editIndex = undefined;
+    }
+    //重新加载数据
+    function shiporderdetails_reload() {
+			if (shiporderdetails_endEditing()) {
+				$shiporderdetailsdg.datagrid('reload');
+			}
+	}
+    //关闭编辑状态
+	function shiporderdetails_endEditing() {
+			if (shiporderdetails_editIndex === undefined) {
+                return true; 
+            }
+			if ($shiporderdetailsdg.datagrid('validateRow', shiporderdetails_editIndex)) {
+				$shiporderdetailsdg.datagrid('endEdit', shiporderdetails_editIndex);
+				shiporderdetails_editIndex = undefined;
+                return true;
+			} else {
+				const invalidinput = $('input.validatebox-invalid');
+                const fieldnames = invalidinput.map((index, item) => {
+                  return $(item).attr('placeholder') || $(item).attr('id');
+                });
+                $.messager.alert('提示', `${Array.from(fieldnames)} 输入有误.`, 'error');
+				return false;
+			}
+		}
+    //单击列开启编辑功能
+	function shiporderdetails_onClickCell(index, field) {
+			const _operates = ['_operate1', 'ck'];
+			if (!SUBEDITINLINE || $.inArray(field, _operates) >= 0) {
+				return false;
+			}
+			if (shiporderdetails_editIndex !== index) {
+				if (shiporderdetails_endEditing()) {
+					$shiporderdetailsdg.datagrid('selectRow', index)
+							.datagrid('beginEdit', index);
+                    shiporderdetails_editIndex = index;
+					var ed = $shiporderdetailsdg.datagrid('getEditor', { index: index, field: field });
+					if (ed) {
+						($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+					}
+				} else {
+					$shiporderdetailsdg.datagrid('selectRow', shiporderdetails_editIndex);
+				}
+			}
+		}
+    //双击弹出编辑当前行对话框
+    function shiporderdetails_onDblClickRow(index, row) {
+        if (!SUBEDITINLINE) {
+            open_shiporderdetaildlg(index, row, 'Modified');
+        }
+    }
+    //订阅对话框新增返回事件
+    $(document).on('shiporderdetail_form.add', (e, index,item) => {
+        $shiporderdetailsdg.datagrid("insertRow",
+            {
+                index: 0,
+                row: item
+            });
+    });
+    //订阅对话框修改返回事件
+    $(document).on('shiporderdetail_form.edit', (e,index, item) => {
+        $shiporderdetailsdg.datagrid('updateRow', {
+            index: index,
+            row: item
+        });
+    });
+    //新增记录
+    function shiporderdetails_append() {
+       const item = {
+          SHIPORDERKEY: '00000001', 
+ORDERLINENUMBER: '001', 
+STATUS: '105', 
+LOTTABLE3: '-', 
+SKU: '-', 
+SKUTYPE: '瓷砖', 
+ORIGINALQTY: 0, 
+SHIPPEDQTY: 0, 
+UMO: 'EA', 
+PACKKEY: '-', 
+CASECNT: 0, 
+GROSSWGT: 0, 
+NETWGT: 0, 
+CUBE: 0, 
+CHECKEDCOST1: false, 
+COST1: 0, 
+CHECKEDCOST2: false, 
+COST2: 0, 
+CHECKEDCOST3: false, 
+FLOOR: 0, 
+COST3: 0, 
+CHECKEDCOST4: false, 
+COST4: 0, 
+CHECKEDCOST5: false, 
+COST5: 0, 
+CHECKEDCOST6: false, 
+COST6: 0, 
+CHECKEDCOST7: false, 
+COST7: 0, 
+CHECKEDCOST8: false, 
+COST8: 0, 
+ORDERKEY: '00000001', 
+LOTTABLE2: '-', 
+FLAG1: false, 
+FLAG2: false, 
+REQUESTEDSHIPDATE: moment().format('YYYY-MM-DD HH:mm:ss'), 
+DELIVERYDATE: moment().format('YYYY-MM-DD HH:mm:ss'), 
+ACTUALSHIPDATE: null, 
+ACTUALDELIVERYDATE: null, 
+WHSEID: 'WHSE01', 
+STORERKEY: '东鹏', 
+LOTTABLE1: '-', 
+TYPE: '1', 
+ORIGINAL: '', 
+DESTINATION: '', 
+SHPTYPE: '1', 
+COMPANYCODE: '000001', 
+
+          SHIPORDERID:shiporderid
+        };
+      if (!SUBEDITINLINE) {
+        open_shiporderdetaildlg(0, item, 'Added');
+      } else {
+			if (shiporderdetails_endEditing()) {
+				//对必填字段进行默认值初始化
+				$shiporderdetailsdg.datagrid('insertRow', 
+                               { index: 0,
+                                  row: item 
+                               });
+				shiporderdetails_editIndex = 0;
+				$shiporderdetailsdg.datagrid('selectRow', shiporderdetails_editIndex)
+						.datagrid('beginEdit', shiporderdetails_editIndex);
+			}
+        }
+	 }
+    //删除编辑的行
+	function shiporderdetails_removeit() {
+		if (shiporderdetails_editIndex !== undefined) {  
+			$shiporderdetailsdg.datagrid('cancelEdit', shiporderdetails_editIndex)
+					           .datagrid('deleteRow', shiporderdetails_editIndex);
+			shiporderdetails_editIndex = undefined;
+        } else {
+           const row = $shiporderdetailsdg.datagrid('getSelected');
+           if(row){
+             const rowindex = $shiporderdetailsdg.datagrid('getRowIndex', row);
+             $shiporderdetailsdg.datagrid('deleteRow', rowindex);
+           }else{
+             $.messager.alert('提示', '没有选中删除的记录.', 'info');
+           }
+        }
+	}
+    //删除选中的行
+    function shiporderdetails_deletechecked() {
+            const rows = $shiporderdetailsdg.datagrid('getChecked');
+            if (rows.length > 0) {
+                var id = rows.filter(item=>item.ID!=null).map(item => {
+                    return item.ID;
+                });
+                $.messager.confirm('确认', `你确定要删除这 <span class='badge bg-color-red'>${id.length}</span> 行记录?`,result => {
+                    if (result) {
+                        $.post('/SHIPORDERDETAILS/DeleteCheckedAsync', { id: id })
+                         .done(response => {
+                            if (response.success) {
+                                $shiporderdetailsdg.datagrid('reload');
+                            } else {
+                                $.messager.alert('错误', response.err,'error');
+                            }
+                         });
+                    }
+                });  
+            } else {
+                $.messager.alert('提示', '请先选择要删除的记录!','question');
+            }
+      }
+    //提交保存后台数据库
+	function shiporderdetails_accept() {
+      return new Promise((resolve, reject) => {
+			if (shiporderdetails_endEditing()) {
+				if ($shiporderdetailsdg.datagrid('getChanges').length > 0) {
+					const inserted = $shiporderdetailsdg.datagrid('getChanges', 'inserted').map(item => {
+                       item.TrackingState = 1;
+                       return item;
+                    });
+					const deleted = $shiporderdetailsdg.datagrid('getChanges', 'deleted').map(item => {
+                       item.TrackingState = 3;
+                       return item;
+                    });
+					const updated = $shiporderdetailsdg.datagrid('getChanges', 'updated').map(item => {
+                       item.TrackingState = 2;
+                       return item;
+                    });
+					//过滤已删除的重复项
+                    const changed = inserted.concat(updated.filter(item => {
+                           return !deleted.includes(item);
+                         })).concat(deleted);
+                   //console.table(changed);
+				  if (MODELSTATE === 'Added') {
+                    resolve({ success:true, changed });
+                  } else {
+                    $.post('/SHIPORDERDETAILS/SaveDataAsync', {shiporderdetails:changed})
+                     .done(response => {
+                        response.changed = changed;
+                        resolve(response);
+						//console.log(response);
+						if (response.success) {
+							toastr.success('保存成功'); 
+							$shiporderdetailsdg.datagrid('acceptChanges');
+							$shiporderdetailsdg.datagrid('reload');
+						} else {
+                           $.messager.alert('错误', response.err ,'error');
+                        }
+					  })
+                      .fail((jqXHR, textStatus, errorThrown) => {
+						//console.log(errorThrown);
+                        resolve({ success: false, err: errorThrown });
+						$.messager.alert('异常', errorThrown,'error');
+					  });
+                   }
+				} else {
+                  resolve({ success: true });
+                }
+			} else {
+               resolve({ success: false });
+            }
+		});
+      }
+
+
+$(() => {
+  $shiporderdetailsdg.datagrid({
+    rownumbers: true,
+    iconCls: 'fa fa-list',
+    idField: 'ID',
+    sortName: 'ID',
+    sortOrder: 'asc',
+    remoteFilter: true,
+    singleSelect: true,
+    checkOnSelect: false,
+    selectOnCheck: false,
+    method: 'get',
+    //onDblClickRow: shiporderdetails_onDblClickRow,
+    //onClickCell: shiporderdetails_onClickCell,
+    onSelect: function (index, row) {
+      shiporderdetail = row;
+    },
+    onEndEdit: function (index, row) {
+
+    },
+    onBeforeEdit: function (index, row) {
+      row.editing = true;
+      $(this).datagrid('refreshRow', index);
+    },
+    onAfterEdit: function (index, row) {
+      row.editing = false;
+      $(this).datagrid('refreshRow', index);
+    },
+    onCancelEdit: function (index, row) {
+      row.editing = false;
+      $(this).datagrid('refreshRow', index);
+    },
+    pagination: true,
+    striped: true,
+   columns: [[
+        {
+          field: 'ID', title: '<span class="required">ID</span>',
+          width: 100, sortable: true,
+          resizable: true,
+          hidden: true
+        },
+        {    /*订单号*/
+          field: 'ORDERKEY',
+          title: '订单号',
+          width: 100,
+          sortable: true,
+          hidden: false,
+          resizable: true
+        },
+       
+
+        {    /*客户名称*/
+          field: 'SUPPLIERNAME',
+          title: '客户名称',
+          width: 140,
+          sortable: true,
+          hidden: false,
+          resizable: true
+        },
+        {    /*物料编码*/
+          field: 'SKU',
+          title: '物料编码',
+          width: 90,
+          sortable: true,
+          hidden: false,
+          resizable: true
+        },
+        {    /*物料类型(洁具/瓷砖)*/
+          field: 'SKUTYPE',
+          title: '物料类型</span>',
+          width: 90,
+          sortable: true,
+          hidden: false,
+          resizable: true
+        },
+        {    /*物料名称*/
+          field: 'SKUNAME',
+          title: '物料名称',
+          width: 150,
+          sortable: true,
+          hidden: false,
+          resizable: true
+        },
+        {    /*交货数量*/
+          field: 'ORIGINALQTY',
+          title: '交货数量</span>',
+          width: 90,
+          align: 'right',
+          hidden: false,
+          sortable: true,
+          resizable: true,
+          formatter: numberformatter
+        },
+
+        {    /*交货件数*/
+          field: 'CASECNT',
+          title: '交货件数</span>',
+          width: 90,
+          align: 'right',
+          hidden: false,
+          sortable: true,
+          resizable: true,
+          formatter: numberformatter
+        },
+        {    /*毛重(KG)*/
+          field: 'GROSSWGT',
+          title: '毛重</span>',
+          width: 90,
+          align: 'right',
+          hidden: false,
+          sortable: true,
+          resizable: true,
+          formatter: numberformatter
+        },
+        {    /*体积(M)*/
+          field: 'CUBE',
+          title: '体积',
+          width: 90,
+          align: 'right',
+          hidden: false,
+          sortable: true,
+          resizable: true,
+          formatter: numberformatter
+        },
+        {  /*是否送货上门*/
+          field: 'CHECKEDCOST3',
+          title: '搬货上楼',
+          width: 80,
+          align: 'center',
+          hidden: false,
+          formatter: booleanformatter,
+          sortable: true,
+          resizable: true
+        },
+        {    /*体积(M)*/
+          field: 'COST3NOTE',
+          title: '搬货方式',
+          width: 100,
+          align: 'right',
+          hidden: false,
+          sortable: true,
+          resizable: true
+        },
+        {    /*体积(M)*/
+          field: 'COST6NOTES',
+          title: '其它服务',
+          width: 100,
+          align: 'right',
+          hidden: false,
+          sortable: true,
+          resizable: true
+        },
+        {    /*体积(M)*/
+          field: 'FLOOR',
+          title: '楼层',
+          width: 100,
+          align: 'right',
+          hidden: true,
+          sortable: true,
+          resizable: true
+        },
+        {    /*备注*/
+          field: 'NOTES',
+          title: '备注',
+          width: 260,
+          sortable: true,
+          hidden: false,
+          resizable: true
+        },
+        {    /*提货地址*/
+          field: 'LOTTABLE3',
+          title: '提货地址',
+          width: 160,
+          sortable: true,
+          hidden: true,
+          resizable: true
+        },
+        {    /*收货地址*/
+          field: 'CONSIGNEEADDRESS',
+          title: '收货地址',
+          width: 160,
+          sortable: true,
+          hidden: false,
+          resizable: true
+        },
+        {    /*批次号*/
+          field: 'LOTTABLE2',
+          title: '批次号',
+          width: 100,
+          sortable: true,
+          hidden: false,
+          resizable: true
+        },
+        {    /*提货单号*/
+          field: 'EXTERNORDERKEY',
+          title: '提货单号',
+          width: 100,
+          sortable: true,
+          hidden: false,
+          resizable: true
+        }
+      ]]
+  });
+            //初始化 datagrid filter
+            $shiporderdetailsdg.datagrid('enableFilter',[
+				{    /*交货数量*/
+					  field: 'ORIGINALQTY',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{    /*已发运数量*/
+					  field: 'SHIPPEDQTY',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{    /*交货件数*/
+					  field: 'CASECNT',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{    /*毛重(KG)*/
+					  field: 'GROSSWGT',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{    /*净重(KG)*/
+					  field: 'NETWGT',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{    /*体积(M)*/
+					  field: 'CUBE',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{    /*运费(RMB)*/
+					  field: 'COST1',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{    /*送货费(RMB)*/
+					  field: 'COST2',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{    /*楼层*/
+					  field: 'FLOOR',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{    /*搬运费(RMB)*/
+					  field: 'COST3',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{    /*加急费(RMB)*/
+					  field: 'COST4',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{    /*专车费(RMB)*/
+					  field: 'COST5',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{    /*其它服务费1(RMB)*/
+					  field: 'COST6',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{    /*其它服务费2(RMB)*/
+					  field: 'COST7',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{    /*其它服务费3(RMB)*/
+					  field: 'COST8',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{    /*LOTTABLE6*/
+					  field: 'LOTTABLE6',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{    /*LOTTABLE7*/
+					  field: 'LOTTABLE7',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{     /*要求配送日期*/
+					  field: 'REQUESTEDSHIPDATE',
+					  type: 'dateRange',
+					  options: {
+						  onChange: function (value) {
+							    $shiporderdetailsdg.datagrid('addFilterRule', {
+									  field: 'REQUESTEDSHIPDATE',
+									  op: 'between',
+									  value: value
+								  });
+							    $shiporderdetailsdg.datagrid('doFilter');
+						  }
+					  }
+				  },
+				{     /*要求到货时间*/
+					  field: 'DELIVERYDATE',
+					  type: 'dateRange',
+					  options: {
+						  onChange: function (value) {
+							    $shiporderdetailsdg.datagrid('addFilterRule', {
+									  field: 'DELIVERYDATE',
+									  op: 'between',
+									  value: value
+								  });
+							    $shiporderdetailsdg.datagrid('doFilter');
+						  }
+					  }
+				  },
+				{     /*实际配送日期*/
+					  field: 'ACTUALSHIPDATE',
+					  type: 'dateRange',
+					  options: {
+						  onChange: function (value) {
+							    $shiporderdetailsdg.datagrid('addFilterRule', {
+									  field: 'ACTUALSHIPDATE',
+									  op: 'between',
+									  value: value
+								  });
+							    $shiporderdetailsdg.datagrid('doFilter');
+						  }
+					  }
+				  },
+				{     /*实际到货时间*/
+					  field: 'ACTUALDELIVERYDATE',
+					  type: 'dateRange',
+					  options: {
+						  onChange: function (value) {
+							    $shiporderdetailsdg.datagrid('addFilterRule', {
+									  field: 'ACTUALDELIVERYDATE',
+									  op: 'between',
+									  value: value
+								  });
+							    $shiporderdetailsdg.datagrid('doFilter');
+						  }
+					  }
+				  },
+				{     /*LOTTABLE7*/
+					  field: 'LOTTABLE8',
+					  type: 'dateRange',
+					  options: {
+						  onChange: function (value) {
+							    $shiporderdetailsdg.datagrid('addFilterRule', {
+									  field: 'LOTTABLE8',
+									  op: 'between',
+									  value: value
+								  });
+							    $shiporderdetailsdg.datagrid('doFilter');
+						  }
+					  }
+				  },
+				{     /*LOTTABLE9*/
+					  field: 'LOTTABLE9',
+					  type: 'dateRange',
+					  options: {
+						  onChange: function (value) {
+							    $shiporderdetailsdg.datagrid('addFilterRule', {
+									  field: 'LOTTABLE9',
+									  op: 'between',
+									  value: value
+								  });
+							    $shiporderdetailsdg.datagrid('doFilter');
+						  }
+					  }
+				  },
+				{     /*是否计算运费*/
+					  field: 'CHECKEDCOST1',
+					  type: 'booleanfilter'
+     			 },
+				{     /*是否送货上门*/
+					  field: 'CHECKEDCOST2',
+					  type: 'booleanfilter'
+     			 },
+				{     /*是否上楼*/
+					  field: 'CHECKEDCOST3',
+					  type: 'booleanfilter'
+     			 },
+				{     /*是否加急*/
+					  field: 'CHECKEDCOST4',
+					  type: 'booleanfilter'
+     			 },
+				{     /*是否专车*/
+					  field: 'CHECKEDCOST5',
+					  type: 'booleanfilter'
+     			 },
+				{     /*是否其它服务1*/
+					  field: 'CHECKEDCOST6',
+					  type: 'booleanfilter'
+     			 },
+				{     /*是否其它服务2*/
+					  field: 'CHECKEDCOST7',
+					  type: 'booleanfilter'
+     			 },
+				{     /*是否其它服务3*/
+					  field: 'CHECKEDCOST8',
+					  type: 'booleanfilter'
+     			 },
+				{     /*结算标志*/
+					  field: 'FLAG1',
+					  type: 'booleanfilter'
+     			 },
+				{     /*其它标志*/
+					  field: 'FLAG2',
+					  type: 'booleanfilter'
+     			 },
+		   ]);
+  });
+      
+</script>
+
+
+ 

@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+// <copyright file="ORDERDETAILMetadata.cs" company="neozhu/MVC5-Scaffolder">
+// Copyright (c) 2019 All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date>2019/8/8 7:20:12 </date>
+// <summary>Class representing a Metadata entity </summary>
+  -->
+<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+　　<data name="ID" xml:space="preserve">
+    <value>I D</value>
+   </data> 
+　　<data name="ORDERKEY" xml:space="preserve">
+    <value>O R D E R K E Y</value>
+   </data> 
+　　<data name="LOTTABLE2" xml:space="preserve">
+    <value>L O T T A B L E2</value>
+   </data> 
+　　<data name="EXTERNORDERKEY" xml:space="preserve">
+    <value>E X T E R N O R D E R K E Y</value>
+   </data> 
+　　<data name="ORDERLINENUMBER" xml:space="preserve">
+    <value>O R D E R L I N E N U M B E R</value>
+   </data> 
+　　<data name="STATUS" xml:space="preserve">
+    <value>S T A T U S</value>
+   </data> 
+　　<data name="SUPPLIERCODE" xml:space="preserve">
+    <value>S U P P L I E R C O D E</value>
+   </data> 
+　　<data name="SUPPLIERNAME" xml:space="preserve">
+    <value>S U P P L I E R N A M E</value>
+   </data> 
+　　<data name="SKU" xml:space="preserve">
+    <value>S K U</value>
+   </data> 
+　　<data name="SKUTYPE" xml:space="preserve">
+    <value>S K U T Y P E</value>
+   </data> 
+　　<data name="SKUNAME" xml:space="preserve">
+    <value>S K U N A M E</value>
+   </data> 
+　　<data name="ORIGINALQTY" xml:space="preserve">
+    <value>O R I G I N A L Q T Y</value>
+   </data> 
+　　<data name="SHIPPEDQTY" xml:space="preserve">
+    <value>S H I P P E D Q T Y</value>
+   </data> 
+　　<data name="UMO" xml:space="preserve">
+    <value>U M O</value>
+   </data> 
+　　<data name="PACKKEY" xml:space="preserve">
+    <value>P A C K K E Y</value>
+   </data> 
+　　<data name="CASECNT" xml:space="preserve">
+    <value>C A S E C N T</value>
+   </data> 
+　　<data name="GROSSWGT" xml:space="preserve">
+    <value>G R O S S W G T</value>
+   </data> 
+　　<data name="NETWGT" xml:space="preserve">
+    <value>N E T W G T</value>
+   </data> 
+　　<data name="CUBE" xml:space="preserve">
+    <value>C U B E</value>
+   </data> 
+　　<data name="SALER" xml:space="preserve">
+    <value>S A L E R</value>
+   </data> 
+　　<data name="SALESORG" xml:space="preserve">
+    <value>S A L E S O R G</value>
+   </data> 
+　　<data name="COST1" xml:space="preserve">
+    <value>C O S T1</value>
+   </data> 
+　　<data name="CHECKEDCOST2" xml:space="preserve">
+    <value>C H E C K E D C O S T2</value>
+   </data> 
+　　<data name="COST2" xml:space="preserve">
+    <value>C O S T2</value>
+   </data> 
+　　<data name="CHECKEDCOST3" xml:space="preserve">
+    <value>C H E C K E D C O S T3</value>
+   </data> 
+　　<data name="FLOOR" xml:space="preserve">
+    <value>F L O O R</value>
+   </data> 
+　　<data name="COST3" xml:space="preserve">
+    <value>C O S T3</value>
+   </data> 
+　　<data name="CHECKEDCOST4" xml:space="preserve">
+    <value>C H E C K E D C O S T4</value>
+   </data> 
+　　<data name="COST4" xml:space="preserve">
+    <value>C O S T4</value>
+   </data> 
+　　<data name="CHECKEDCOST5" xml:space="preserve">
+    <value>C H E C K E D C O S T5</value>
+   </data> 
+　　<data name="COST5" xml:space="preserve">
+    <value>C O S T5</value>
+   </data> 
+　　<data name="CHECKEDCOST6" xml:space="preserve">
+    <value>C H E C K E D C O S T6</value>
+   </data> 
+　　<data name="COST6" xml:space="preserve">
+    <value>C O S T6</value>
+   </data> 
+　　<data name="CHECKEDCOST7" xml:space="preserve">
+    <value>C H E C K E D C O S T7</value>
+   </data> 
+　　<data name="COST7" xml:space="preserve">
+    <value>C O S T7</value>
+   </data> 
+　　<data name="CHECKEDCOST8" xml:space="preserve">
+    <value>C H E C K E D C O S T8</value>
+   </data> 
+　　<data name="COST8" xml:space="preserve">
+    <value>C O S T8</value>
+   </data> 
+　　<data name="NOTES" xml:space="preserve">
+    <value>N O T E S</value>
+   </data> 
+　　<data name="FLAG1" xml:space="preserve">
+    <value>F L A G1</value>
+   </data> 
+　　<data name="FLAG2" xml:space="preserve">
+    <value>F L A G2</value>
+   </data> 
+　　<data name="NOTES1" xml:space="preserve">
+    <value>N O T E S1</value>
+   </data> 
+　　<data name="REQUESTEDSHIPDATE" xml:space="preserve">
+    <value>R E Q U E S T E D S H I P D A T E</value>
+   </data> 
+　　<data name="DELIVERYDATE" xml:space="preserve">
+    <value>D E L I V E R Y D A T E</value>
+   </data> 
+　　<data name="ACTUALSHIPDATE" xml:space="preserve">
+    <value>A C T U A L S H I P D A T E</value>
+   </data> 
+　　<data name="ACTUALDELIVERYDATE" xml:space="preserve">
+    <value>A C T U A L D E L I V E R Y D A T E</value>
+   </data> 
+　　<data name="WHSEID" xml:space="preserve">
+    <value>W H S E I D</value>
+   </data> 
+　　<data name="STORERKEY" xml:space="preserve">
+    <value>S T O R E R K E Y</value>
+   </data> 
+　　<data name="LOTTABLE3" xml:space="preserve">
+    <value>L O T T A B L E3</value>
+   </data> 
+　　<data name="CONSIGNEEADDRESS" xml:space="preserve">
+    <value>C O N S I G N E E A D D R E S S</value>
+   </data> 
+　　<data name="LOTTABLE1" xml:space="preserve">
+    <value>L O T T A B L E1</value>
+   </data> 
+　　<data name="EXTERNLINENO" xml:space="preserve">
+    <value>E X T E R N L I N E N O</value>
+   </data> 
+　　<data name="TYPE" xml:space="preserve">
+    <value>T Y P E</value>
+   </data> 
+　　<data name="ORIGINAL" xml:space="preserve">
+    <value>O R I G I N A L</value>
+   </data> 
+　　<data name="DESTINATION" xml:space="preserve">
+    <value>D E S T I N A T I O N</value>
+   </data> 
+　　<data name="SHPTYPE" xml:space="preserve">
+    <value>S H P T Y P E</value>
+   </data> 
+　　<data name="COMPANYCODE" xml:space="preserve">
+    <value>C O M P A N Y C O D E</value>
+   </data> 
+　　<data name="LOTTABLE4" xml:space="preserve">
+    <value>L O T T A B L E4</value>
+   </data> 
+　　<data name="LOTTABLE5" xml:space="preserve">
+    <value>L O T T A B L E5</value>
+   </data> 
+　　<data name="LOTTABLE6" xml:space="preserve">
+    <value>L O T T A B L E6</value>
+   </data> 
+　　<data name="LOTTABLE7" xml:space="preserve">
+    <value>L O T T A B L E7</value>
+   </data> 
+　　<data name="LOTTABLE8" xml:space="preserve">
+    <value>L O T T A B L E8</value>
+   </data> 
+　　<data name="LOTTABLE9" xml:space="preserve">
+    <value>L O T T A B L E9</value>
+   </data> 
+　　<data name="LOTTABLE10" xml:space="preserve">
+    <value>L O T T A B L E10</value>
+   </data> 
+　　<data name="ORDERID" xml:space="preserve">
+    <value>O R D E R I D</value>
+   </data> 
+</root>

@@ -1,0 +1,249 @@
+﻿@model WebApp.Models.SHIPORDER
+@{
+  ViewBag.Title = "打印派车单";
+}
+<style>
+  div[data-size=A4] {
+    background: #fff;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: .5cm;
+    -webkit-box-shadow: 0 0 0.5cm rgba(0,0,0,.5);
+    box-shadow: 0 0 0.5cm rgba(0,0,0,.5);
+    background: url(/content/img/pattern-1.svg) no-repeat center bottom;
+    background-size: cover;
+    padding: 4rem;
+    position: relative;
+  }
+</style>
+<div id="content">
+
+  <!-- widget grid -->
+  <section id="widget-grid" class="">
+    <div class="row">
+
+      <!-- NEW WIDGET START -->
+      <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget well jarviswidget-color-darken" id="wid-id-0" data-widget-sortable="false" data-widget-deletebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false">
+          <!-- widget options:
+          usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+          data-widget-colorbutton="false"
+          data-widget-editbutton="false"
+          data-widget-togglebutton="false"
+          data-widget-deletebutton="false"
+          data-widget-fullscreenbutton="false"
+          data-widget-custombutton="false"
+          data-widget-collapsed="true"
+          data-widget-sortable="false"
+
+          -->
+          <header>
+            <span class="widget-icon"> <i class="fa fa-barcode"></i> </span>
+            <h2>Item #44761 </h2>
+
+          </header>
+
+          <!-- widget div-->
+          <div>
+
+            <!-- widget edit box -->
+            <div class="jarviswidget-editbox">
+              <!-- This area used as dropdown edit box -->
+
+            </div>
+            <!-- end widget edit box -->
+            <!-- widget content -->
+            <div class="widget-body no-padding">
+
+              <div class="widget-body-toolbar">
+
+                <div class="row">
+
+                  <div class="col-sm-4">
+                    <div class="btn-group">
+                      @if (Model.STATUS == "110")
+                      {
+                        <button onclick="doprint('@Model.ID')" class="btn btn-sm btn-primary"> <i class="fa fa-print"></i> 打印派车单 </button>
+                      }
+                      else
+                      {
+                        <button onclick="redoprint('@Model.ID')" class="btn btn-sm btn-info"> <i class="fa fa-print"></i> 重印派车单 </button>
+                      }
+                    </div>
+
+                  </div>
+
+                  <div class="col-sm-8 text-align-right">
+
+
+
+                    <div class="btn-group">
+                      <a href="/SHIPORDERS/Index" class="btn btn-sm btn-success"> <i class="fa fa-backward"></i> 返回 </a>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+              <div class="container" style="margin-top: 20px;">
+                <div data-size="A4" id="printa4">
+                  <div class="padding-10">
+                    <br>
+
+                    <div class="text-align-center">
+                      <h1 class="font-400">派车单</h1>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <br>
+                    <div class="row">
+                      <div class="col-sm-9">
+                        <h4 class="semi-bold">派车单号:@Model.SHIPORDERKEY</h4>
+                      </div>
+                      <div class="col-sm-3">
+                        <div>
+                          <div>
+                            <strong>打印时间 :</strong>
+                            <span class="pull-right"> @DateTime.Now </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <table class="table table-hover table-bordered">
+                      <tbody>
+                        <tr>
+                          <td>车号</td>
+                          <td>@Model.PLATENUMBER</td>
+                          <td>司机</td>
+                          <td>@Model.DRIVERNAME</td>
+                          <td>电话</td>
+                          <td>@Model.DRIVERPHONE</td>
+                        </tr>
+                        <tr>
+                          <td>始发地</td>
+                          <td>@Model.ORIGINAL</td>
+                          <td>目的地</td>
+                          <td>@Model.DESTINATION</td>
+                          <td>货物件数</td>
+                          <td>@Model.TOTALCASECNT</td>
+                        </tr>
+                        <tr>
+                          <td colspan="3" class="text-center"><strong>可变成本</strong></td>
+                          <td colspan="3" class="text-center"><strong>运输考核</strong></td>
+
+                        </tr>
+                        <tr>
+                          <td>过路过桥费</td>
+                          <td>油耗</td>
+                          <td>运输里程</td>
+                          <td>标准过路过桥费</td>
+                          <td>标准油耗</td>
+                          <td>标准里程</td>
+                        </tr>
+                        <tr style="line-height:60px;height:60px">
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>@Model.STDTOLL</td>
+                          <td>@Model.STDOIL</td>
+                          <td>@Model.STDKM</td>
+                        </tr>
+                        <tr style="line-height:90px;height:90px">
+                          <td>调度备注</td>
+                          <td colspan="5">
+                            <span>@Model.NOTES</span>
+                          </td>
+
+                        </tr>
+                        <tr>
+                          <td colspan="2">要求送达时间:@Model.DELIVERYDATE.Value.ToString("MM-dd HH:mm")</td>
+
+                          <td>接单时间:@Model.SHIPORDERDATE.ToString("MM-dd")</td>
+                          <td>调度：@Model.LOTTABLE1</td>
+                          <td>司机签字：</td>
+                          <td>客户签字：</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <br>
+                    <table class="table table-hover table-bordered">
+                      <thead>
+                        <tr>
+                          <th class="text-center">序号</th>
+                          <th>物料编码</th>
+                          <th>客户</th>
+                          <th>收货地</th>
+                          <th>数量</th>
+                          <th>备注</th>
+                          <th>销售</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @{
+                          var index = 0;
+                          foreach (var item in Model.SHIPORDERDETAILS)
+                          {
+                            index = index + 1;
+                            <tr>
+                              <td>@index</td>
+                              <td>@item.SKU</td>
+                              <td>@item.SUPPLIERNAME</td>
+                              <td>@item.CONSIGNEEADDRESS</td>
+                              <td>@item.ORIGINALQTY</td>
+                              <td>@item.NOTES</td>
+                              <td>@item.SALER</td>
+                            </tr>
+                          }
+                        }
+
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end widget content -->
+
+          </div>
+          <!-- end widget div -->
+
+        </div>
+        <!-- end widget -->
+
+      </article>
+      <!-- WIDGET END -->
+
+    </div>
+  </section>
+</div>
+@section Scripts {
+  <script src="~/Scripts/plugin/printthis/printThis.js"></script>
+ 
+  <script type="text/javascript">
+    function doprint(id) {
+      console.log(id);
+      $.messager.progress({ title: '请等待', msg: '正在生存打印信息...' });
+      $.get('/SHIPORDERs/DoPrint/' + id).done(res => {
+        console.log(res);
+        $.messager.progress('close');
+        if (res.success) {
+          $('#printa4').printThis({
+            importCSS: true,
+            loadCSS: "/Content/css/bootstrap.css",});
+        }
+      });
+    }
+    function redoprint(id) {
+      $('#printa4').printThis({
+        importCSS: true,
+        loadCSS: "/Content/css/bootstrap.css",
+      });
+    }
+  </script>
+
+}

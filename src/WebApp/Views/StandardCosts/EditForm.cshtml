@@ -1,0 +1,109 @@
+﻿﻿@model WebApp.Models.StandardCost
+<!-- begin master section -->
+<div  class="main-form">
+<!--begin standardcost form  -->
+<form id="standardcost_form" method="post" novalidate="novalidate" >
+@Html.AntiForgeryToken()
+   @Html.HiddenFor(x=>x.Id)
+ <fieldset>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--起始地-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.ORIGINAL)</span> </label>
+			@Html.EditorFor(x => x.ORIGINAL, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.ORIGINAL) } })
+      
+         </div>
+
+        <!--目的地-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.DESTINATION)</span> </label>
+			@Html.EditorFor(x => x.DESTINATION, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.DESTINATION) } })
+      
+         </div>
+
+		<!--标准里程(千米)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.STDKM)</span> </label>
+            @Html.EditorFor(x => x.STDKM, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.STDKM) } })
+
+        </div>
+
+        <!--车辆类型(厢式车（默认）/平板车/轿车/面包车/高栏车/飞翼车等)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.CarType) </label>
+			@Html.EditorFor(x => x.CarType, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.CarType) } })
+      
+         </div>
+
+		<!--额定载重(吨)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.STDLOADWEIGHT)</span> </label>
+            @Html.EditorFor(x => x.STDLOADWEIGHT, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.STDLOADWEIGHT) } })
+
+        </div>
+
+		<!--标准油耗(升)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.STDOIL)</span> </label>
+            @Html.EditorFor(x => x.STDOIL, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.STDOIL) } })
+
+        </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+		<!--标准运费-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.STDCOST)</span> </label>
+            @Html.EditorFor(x => x.STDCOST, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.STDCOST) } })
+
+        </div>
+
+        <!--说明-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DESCRIPTION) </label>
+			@Html.EditorFor(x => x.DESCRIPTION, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.DESCRIPTION) } })
+      
+         </div>
+
+        <!--备注-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Notes) </label>
+			@Html.EditorFor(x => x.Notes, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Notes) } })
+      
+         </div>
+
+        <!--LOTTABLE1-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.LOTTABLE1) </label>
+			@Html.EditorFor(x => x.LOTTABLE1, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.LOTTABLE1) } })
+      
+         </div>
+
+        <!--LOTTABLE2-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.LOTTABLE2) </label>
+			@Html.EditorFor(x => x.LOTTABLE2, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.LOTTABLE2) } })
+      
+         </div>
+
+		<!--LOTTABLE3-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.LOTTABLE3)</span> </label>
+            @Html.EditorFor(x => x.LOTTABLE3, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.LOTTABLE3) } })
+
+        </div>
+	   </div>
+    </div>
+	    
+</fieldset>
+</form>
+<!-- end standardcost form  -->
+</div>
+
+<!-- end master section -->
+<!--========================================================================================-->
+
