@@ -1,0 +1,109 @@
+﻿﻿@model WebApp.Models.StatusHistory
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin statushistory form  -->
+<form id="statushistory_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+ <fieldset>
+     <div class="row">
+			              <!--订单号-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.ORDERKEY) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.ORDERKEY)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--运单号-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.SHIPORDERKEY) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.SHIPORDERKEY)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--状态-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.STATUS) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.STATUS)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--描述-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DESCRIPTION) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.DESCRIPTION)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--备注-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.REMARK) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.REMARK)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--时间-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.TRANSACTIONDATETIME)</span> </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.TRANSACTIONDATETIME)
+			    </label>
+            </section>
+			  		 
+	    
+			              <!--操作人-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.USER) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.USER)
+            </label>
+            </section>
+ 		 
+	    
+			  			<!--经度-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.LONGITUDE)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.LONGITUDE)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--纬度-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.LATITUDE)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.LATITUDE)
+			    </label>
+            </section>
+		 
+	    
+   </div>
+	    
+</fieldset>
+</form>
+<!-- end statushistory form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+
+

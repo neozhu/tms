@@ -1,0 +1,619 @@
+﻿﻿@model WebApp.Models.Vehicle
+<!-- begin master section -->
+<div  class="main-form">
+<!--begin vehicle form  -->
+<form id="vehicle_form" method="post" novalidate="novalidate" >
+@Html.AntiForgeryToken()
+   @Html.HiddenFor(x=>x.Id)
+ <fieldset>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--车牌号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.PlateNumber)</span> </label>
+			@Html.EditorFor(x => x.PlateNumber, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.PlateNumber) } })
+      
+         </div>
+
+        <!--派车单号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.ShipOrderNo) </label>
+			@Html.EditorFor(x => x.ShipOrderNo, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.ShipOrderNo) } })
+      
+         </div>
+
+        <!--调度人员-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.InputUser) </label>
+			@Html.EditorFor(x => x.InputUser, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.InputUser) } })
+      
+         </div>
+
+        <!--车辆状态(停用/启用/维修/在途/预定)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Status)</span> </label>
+			@Html.EditorFor(x => x.Status, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Status) } })
+      
+         </div>
+
+        <!--车辆类型(厢式车（默认）/平板车/轿车/面包车/高栏车/飞翼车等)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.CarType)</span> </label>
+			@Html.EditorFor(x => x.CarType, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.CarType) } })
+      
+         </div>
+
+        <!--所属承运人代码-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.CarrierCode) </label>
+			@Html.EditorFor(x => x.CarrierCode, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.CarrierCode) } })
+      
+         </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--所属承运人-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.CarrierName) </label>
+			@Html.EditorFor(x => x.CarrierName, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.CarrierName) } })
+      
+         </div>
+
+		<!--车长(米)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.VehLongSize)</span> </label>
+            @Html.EditorFor(x => x.VehLongSize, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.VehLongSize) } })
+
+        </div>
+
+		<!--额定载重(吨)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.StdLoadWeight)</span> </label>
+            @Html.EditorFor(x => x.StdLoadWeight, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.StdLoadWeight) } })
+
+        </div>
+
+		<!--运输车型(吨,尺等等),收费吨位-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.FeeLoadWeight)</span> </label>
+            @Html.EditorFor(x => x.FeeLoadWeight, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.FeeLoadWeight) } })
+
+        </div>
+
+		<!--额定体积(立方米)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.StdLoadVolume)</span> </label>
+            @Html.EditorFor(x => x.StdLoadVolume, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.StdLoadVolume) } })
+
+        </div>
+
+		<!--车厢尺寸(尺)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.CarriageSize)</span> </label>
+            @Html.EditorFor(x => x.CarriageSize, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.CarriageSize) } })
+
+        </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--GPS设备编号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.GPSDeviceId)</span> </label>
+			@Html.EditorFor(x => x.GPSDeviceId, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.GPSDeviceId) } })
+      
+         </div>
+
+        <!--主驾司机-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Driver)</span> </label>
+			@Html.EditorFor(x => x.Driver, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Driver) } })
+      
+         </div>
+
+        <!--主驾司机电话-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.DriverPhone)</span> </label>
+			@Html.EditorFor(x => x.DriverPhone, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.DriverPhone) } })
+      
+         </div>
+
+        <!--副驾司机-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.AssistantDriver) </label>
+			@Html.EditorFor(x => x.AssistantDriver, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.AssistantDriver) } })
+      
+         </div>
+
+        <!--副驾司机电话-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.AssistantDriverPhone) </label>
+			@Html.EditorFor(x => x.AssistantDriverPhone, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.AssistantDriverPhone) } })
+      
+         </div>
+
+        <!--海关编号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.CustomsNo) </label>
+			@Html.EditorFor(x => x.CustomsNo, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.CustomsNo) } })
+      
+         </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+		<!--总行驶里程-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.RoadKM) </label>
+            @Html.EditorFor(x => x.RoadKM, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.RoadKM) } })
+
+        </div>
+
+		<!--行驶时间-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.RoadHours) </label>
+            @Html.EditorFor(x => x.RoadHours, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.RoadHours) } })
+
+        </div>
+
+        <!--车主-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Owner) </label>
+			@Html.EditorFor(x => x.Owner, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Owner) } })
+      
+         </div>
+
+        <!--联系人电话-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.OwnerContactPhone) </label>
+			@Html.EditorFor(x => x.OwnerContactPhone, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.OwnerContactPhone) } })
+      
+         </div>
+
+        <!--品牌-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Brand) </label>
+			@Html.EditorFor(x => x.Brand, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Brand) } })
+      
+         </div>
+
+		<!--额定转速-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.RPM) </label>
+            @Html.EditorFor(x => x.RPM, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.RPM) } })
+
+        </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+       <!--购买日期-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.PurchasedDate) </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.PurchasedDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.PurchasedDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+
+		<!--购买金额-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.PurchasedAmount) </label>
+            @Html.EditorFor(x => x.PurchasedAmount, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.PurchasedAmount) } })
+
+        </div>
+
+		<!--车厢长(米)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.VehLong) </label>
+            @Html.EditorFor(x => x.VehLong, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.VehLong) } })
+
+        </div>
+
+		<!--车厢宽(米)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.VehWide) </label>
+            @Html.EditorFor(x => x.VehWide, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.VehWide) } })
+
+        </div>
+
+		<!--车厢高(米)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.VehHigh) </label>
+            @Html.EditorFor(x => x.VehHigh, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.VehHigh) } })
+
+        </div>
+
+        <!--车架号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.VIN) </label>
+			@Html.EditorFor(x => x.VIN, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.VIN) } })
+      
+         </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+		<!--使用年限-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.ServiceLife) </label>
+            @Html.EditorFor(x => x.ServiceLife, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.ServiceLife) } })
+
+        </div>
+
+		<!--保养公里数-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.MaintainKM) </label>
+            @Html.EditorFor(x => x.MaintainKM, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.MaintainKM) } })
+
+        </div>
+
+       <!--下次保养日期-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.MaintainDate) </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.MaintainDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.MaintainDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+
+		<!--保养周期(月)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.MaintainMonth) </label>
+            @Html.EditorFor(x => x.MaintainMonth, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.MaintainMonth) } })
+
+        </div>
+
+		
+      <!--车辆尾板-->
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+              <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.ExistVehTailBoard)</span> </label>
+              <div class="checkbox  no-margin">
+              <label>
+                 <input id="@Html.IdFor(model => model.ExistVehTailBoard)"
+                       name="@Html.NameFor(model => model.ExistVehTailBoard)"
+                       value="true" @(Model.ExistVehTailBoard ? "checked=\"checked\"" : "")
+                       class="checkbox style-0"
+                       tabindex="6"
+                       type="checkbox" />
+                <span>@Html.DisplayNameFor(model => model.ExistVehTailBoard)</span>
+              </label>
+            </div>
+      </div>
+
+        <!--尾板品牌-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.VehTailBoardBrand) </label>
+			@Html.EditorFor(x => x.VehTailBoardBrand, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.VehTailBoardBrand) } })
+      
+         </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--尾板厂家-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.VehTailBoardFactory) </label>
+			@Html.EditorFor(x => x.VehTailBoardFactory, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.VehTailBoardFactory) } })
+      
+         </div>
+
+		<!--尾板使用年限-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.VehTailBoardLife) </label>
+            @Html.EditorFor(x => x.VehTailBoardLife, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.VehTailBoardLife) } })
+
+        </div>
+
+		<!--尾板价值-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.VehTailBoardAmount) </label>
+            @Html.EditorFor(x => x.VehTailBoardAmount, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.VehTailBoardAmount) } })
+
+        </div>
+
+        <!--尾板GPS设备编号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.VehTailBoardGPSDeviceId) </label>
+			@Html.EditorFor(x => x.VehTailBoardGPSDeviceId, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.VehTailBoardGPSDeviceId) } })
+      
+         </div>
+
+        <!--型号代码-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DrLicenseModel) </label>
+			@Html.EditorFor(x => x.DrLicenseModel, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.DrLicenseModel) } })
+      
+         </div>
+
+        <!--使用性质-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DrLicenseUseNature) </label>
+			@Html.EditorFor(x => x.DrLicenseUseNature, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.DrLicenseUseNature) } })
+      
+         </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--品牌-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DrLicenseBrand) </label>
+			@Html.EditorFor(x => x.DrLicenseBrand, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.DrLicenseBrand) } })
+      
+         </div>
+
+        <!--识别代码-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DrLicenseDevId) </label>
+			@Html.EditorFor(x => x.DrLicenseDevId, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.DrLicenseDevId) } })
+      
+         </div>
+
+        <!--发动机号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DrLicenseEngineId) </label>
+			@Html.EditorFor(x => x.DrLicenseEngineId, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.DrLicenseEngineId) } })
+      
+         </div>
+
+       <!--注册日期-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DrLicenseRegistrationDate) </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.DrLicenseRegistrationDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.DrLicenseRegistrationDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+
+       <!--发证日期-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DrLicensePubDate) </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.DrLicensePubDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.DrLicensePubDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+
+		<!--额定人数-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DrLicenseRatedUsers) </label>
+            @Html.EditorFor(x => x.DrLicenseRatedUsers, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.DrLicenseRatedUsers) } })
+
+        </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+		<!--车辆重量(吨)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DrLicenseVehWeight) </label>
+            @Html.EditorFor(x => x.DrLicenseVehWeight, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.DrLicenseVehWeight) } })
+
+        </div>
+
+		<!--整备重量(吨)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DrLicenseDevWeight) </label>
+            @Html.EditorFor(x => x.DrLicenseDevWeight, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.DrLicenseDevWeight) } })
+
+        </div>
+
+		<!--净重(吨)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DrLicenseNetWeight) </label>
+            @Html.EditorFor(x => x.DrLicenseNetWeight, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.DrLicenseNetWeight) } })
+
+        </div>
+
+		<!--净空(立方)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DrLicenseNetVolume) </label>
+            @Html.EditorFor(x => x.DrLicenseNetVolume, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.DrLicenseNetVolume) } })
+
+        </div>
+
+		<!--外限宽(米)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DrLicenseVehWide) </label>
+            @Html.EditorFor(x => x.DrLicenseVehWide, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.DrLicenseVehWide) } })
+
+        </div>
+
+		<!--外限高(米)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DrLicenseVehHigh) </label>
+            @Html.EditorFor(x => x.DrLicenseVehHigh, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.DrLicenseVehHigh) } })
+
+        </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+		<!--外限长(米)-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DrLicenseVehLong) </label>
+            @Html.EditorFor(x => x.DrLicenseVehLong, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.DrLicenseVehLong) } })
+
+        </div>
+
+       <!--强制报废日期-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.DrLicenseScrapedDate) </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.DrLicenseScrapedDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.DrLicenseScrapedDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+
+        <!--文管子号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.LoLicenseManageId) </label>
+			@Html.EditorFor(x => x.LoLicenseManageId, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.LoLicenseManageId) } })
+      
+         </div>
+
+        <!--运营许可证号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.LoLicenseId) </label>
+			@Html.EditorFor(x => x.LoLicenseId, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.LoLicenseId) } })
+      
+         </div>
+
+        <!--经营范围-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.LoLicenseBusinessScope) </label>
+			@Html.EditorFor(x => x.LoLicenseBusinessScope, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.LoLicenseBusinessScope) } })
+      
+         </div>
+
+       <!--发证日期-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.LoLicensePubDate) </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.LoLicensePubDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.LoLicensePubDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+       <!--二级有效期-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.LoLicenseValidDate) </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.LoLicenseValidDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.LoLicenseValidDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+
+       <!--年检日期-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.LoLicenseCheckDate) </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.LoLicenseCheckDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.LoLicenseCheckDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+
+        <!--注册地-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.LoLicensePlace) </label>
+			@Html.EditorFor(x => x.LoLicensePlace, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.LoLicensePlace) } })
+      
+         </div>
+
+        <!--交强险保单-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.InsTrafficPolicyId) </label>
+			@Html.EditorFor(x => x.InsTrafficPolicyId, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.InsTrafficPolicyId) } })
+      
+         </div>
+
+        <!--保险公司-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.InsTrafficPolicyCompany) </label>
+			@Html.EditorFor(x => x.InsTrafficPolicyCompany, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.InsTrafficPolicyCompany) } })
+      
+         </div>
+
+        <!--交强险保单有效期-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.InsTrafficPolicyVaildateDate) </label>
+			@Html.EditorFor(x => x.InsTrafficPolicyVaildateDate, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.InsTrafficPolicyVaildateDate) } })
+      
+         </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+		<!--交强险保额-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.InsTrafficPolicyAmount) </label>
+            @Html.EditorFor(x => x.InsTrafficPolicyAmount, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.InsTrafficPolicyAmount) } })
+
+        </div>
+
+        <!--第三者保单号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.InsThirdPartyId) </label>
+			@Html.EditorFor(x => x.InsThirdPartyId, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.InsThirdPartyId) } })
+      
+         </div>
+
+       <!--第三者保单有效期-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.InsThirdPartyVaildateDate) </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.InsThirdPartyVaildateDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.InsThirdPartyVaildateDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+
+		<!--第三者保单额-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.InsThirdPartyAmount) </label>
+            @Html.EditorFor(x => x.InsThirdPartyAmount, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.InsThirdPartyAmount) } })
+
+        </div>
+
+		<!--物流责任险保额-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.InsThirdPartyLogisticsAmount) </label>
+            @Html.EditorFor(x => x.InsThirdPartyLogisticsAmount, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.InsThirdPartyLogisticsAmount) } })
+
+        </div>
+
+       <!--物流责任险有效期-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.InsThirdPartyLogisticsVaildateDate) </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.InsThirdPartyLogisticsVaildateDate, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.InsThirdPartyLogisticsVaildateDate ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+	   </div>
+    </div>
+	    
+</fieldset>
+</form>
+<!-- end vehicle form  -->
+</div>
+
+<!-- end master section -->
+<!--========================================================================================-->
+

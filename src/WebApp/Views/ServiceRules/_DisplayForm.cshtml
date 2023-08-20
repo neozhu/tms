@@ -1,0 +1,126 @@
+﻿﻿@model WebApp.ServiceRule
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin servicerule form  -->
+<form id="servicerule_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+ <fieldset>
+     <div class="row">
+			              <!--服务项目-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.NAME)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.NAME)
+            </label>
+            </section>
+ 		 
+	    
+			  			<!--货物总量起-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.GWT1)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.GWT1)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--货物总量至-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.GWT2)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.GWT2)
+			    </label>
+            </section>
+		 
+	    
+			  			  <!--电梯楼层-->
+              <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.ELEVATOR)</span> </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.ELEVATOR)
+            </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--单价-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.PRICE)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.PRICE)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--最小收费-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.MINAMOUNT)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.MINAMOUNT)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--状态-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.STATUS)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.STATUS)
+			    </label>
+            </section>
+		 
+	    
+			              <!--说明-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DESCRIPTION) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.DESCRIPTION)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--LOTTABLE1-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LOTTABLE1) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.LOTTABLE1)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--LOTTABLE2-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LOTTABLE2) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.LOTTABLE2)
+            </label>
+            </section>
+ 		 
+	    
+			  			<!--LOTTABLE3-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.LOTTABLE3)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.LOTTABLE3)
+			    </label>
+            </section>
+		 
+	    
+   </div>
+	    
+</fieldset>
+</form>
+<!-- end servicerule form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+
+

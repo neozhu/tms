@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+// <copyright file="VehicleMetadata.cs" company="neozhu/MVC5-Scaffolder">
+// Copyright (c) 2019 All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date>2019/8/2 7:56:24 </date>
+// <summary>Class representing a Metadata entity </summary>
+  -->
+<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+　　<data name="Id" xml:space="preserve">
+    <value>Id</value>
+   </data> 
+　　<data name="PlateNumber" xml:space="preserve">
+    <value>Plate Number</value>
+   </data> 
+　　<data name="ShipOrderNo" xml:space="preserve">
+    <value>Ship Order No</value>
+   </data> 
+　　<data name="InputUser" xml:space="preserve">
+    <value>Input User</value>
+   </data> 
+　　<data name="Status" xml:space="preserve">
+    <value>Status</value>
+   </data> 
+　　<data name="CarType" xml:space="preserve">
+    <value>Car Type</value>
+   </data> 
+　　<data name="CarrierCode" xml:space="preserve">
+    <value>Carrier Code</value>
+   </data> 
+　　<data name="CarrierName" xml:space="preserve">
+    <value>Carrier Name</value>
+   </data> 
+　　<data name="VehLongSize" xml:space="preserve">
+    <value>Veh Long Size</value>
+   </data> 
+　　<data name="StdLoadWeight" xml:space="preserve">
+    <value>Std Load Weight</value>
+   </data> 
+　　<data name="FeeLoadWeight" xml:space="preserve">
+    <value>Fee Load Weight</value>
+   </data> 
+　　<data name="StdLoadVolume" xml:space="preserve">
+    <value>Std Load Volume</value>
+   </data> 
+　　<data name="CarriageSize" xml:space="preserve">
+    <value>Carriage Size</value>
+   </data> 
+　　<data name="GPSDeviceId" xml:space="preserve">
+    <value>G P S Device Id</value>
+   </data> 
+　　<data name="Driver" xml:space="preserve">
+    <value>Driver</value>
+   </data> 
+　　<data name="DriverPhone" xml:space="preserve">
+    <value>Driver Phone</value>
+   </data> 
+　　<data name="AssistantDriver" xml:space="preserve">
+    <value>Assistant Driver</value>
+   </data> 
+　　<data name="AssistantDriverPhone" xml:space="preserve">
+    <value>Assistant Driver Phone</value>
+   </data> 
+　　<data name="CustomsNo" xml:space="preserve">
+    <value>Customs No</value>
+   </data> 
+　　<data name="RoadKM" xml:space="preserve">
+    <value>Road K M</value>
+   </data> 
+　　<data name="RoadHours" xml:space="preserve">
+    <value>Road Hours</value>
+   </data> 
+　　<data name="Owner" xml:space="preserve">
+    <value>Owner</value>
+   </data> 
+　　<data name="OwnerContactPhone" xml:space="preserve">
+    <value>Owner Contact Phone</value>
+   </data> 
+　　<data name="Brand" xml:space="preserve">
+    <value>Brand</value>
+   </data> 
+　　<data name="RPM" xml:space="preserve">
+    <value>R P M</value>
+   </data> 
+　　<data name="PurchasedDate" xml:space="preserve">
+    <value>Purchased Date</value>
+   </data> 
+　　<data name="PurchasedAmount" xml:space="preserve">
+    <value>Purchased Amount</value>
+   </data> 
+　　<data name="VehLong" xml:space="preserve">
+    <value>Veh Long</value>
+   </data> 
+　　<data name="VehWide" xml:space="preserve">
+    <value>Veh Wide</value>
+   </data> 
+　　<data name="VehHigh" xml:space="preserve">
+    <value>Veh High</value>
+   </data> 
+　　<data name="VIN" xml:space="preserve">
+    <value>V I N</value>
+   </data> 
+　　<data name="ServiceLife" xml:space="preserve">
+    <value>Service Life</value>
+   </data> 
+　　<data name="MaintainKM" xml:space="preserve">
+    <value>Maintain K M</value>
+   </data> 
+　　<data name="MaintainDate" xml:space="preserve">
+    <value>Maintain Date</value>
+   </data> 
+　　<data name="MaintainMonth" xml:space="preserve">
+    <value>Maintain Month</value>
+   </data> 
+　　<data name="ExistVehTailBoard" xml:space="preserve">
+    <value>Exist Veh Tail Board</value>
+   </data> 
+　　<data name="VehTailBoardBrand" xml:space="preserve">
+    <value>Veh Tail Board Brand</value>
+   </data> 
+　　<data name="VehTailBoardFactory" xml:space="preserve">
+    <value>Veh Tail Board Factory</value>
+   </data> 
+　　<data name="VehTailBoardLife" xml:space="preserve">
+    <value>Veh Tail Board Life</value>
+   </data> 
+　　<data name="VehTailBoardAmount" xml:space="preserve">
+    <value>Veh Tail Board Amount</value>
+   </data> 
+　　<data name="VehTailBoardGPSDeviceId" xml:space="preserve">
+    <value>Veh Tail Board G P S Device Id</value>
+   </data> 
+　　<data name="DrLicenseModel" xml:space="preserve">
+    <value>Dr License Model</value>
+   </data> 
+　　<data name="DrLicenseUseNature" xml:space="preserve">
+    <value>Dr License Use Nature</value>
+   </data> 
+　　<data name="DrLicenseBrand" xml:space="preserve">
+    <value>Dr License Brand</value>
+   </data> 
+　　<data name="DrLicenseDevId" xml:space="preserve">
+    <value>Dr License Dev Id</value>
+   </data> 
+　　<data name="DrLicenseEngineId" xml:space="preserve">
+    <value>Dr License Engine Id</value>
+   </data> 
+　　<data name="DrLicenseRegistrationDate" xml:space="preserve">
+    <value>Dr License Registration Date</value>
+   </data> 
+　　<data name="DrLicensePubDate" xml:space="preserve">
+    <value>Dr License Pub Date</value>
+   </data> 
+　　<data name="DrLicenseRatedUsers" xml:space="preserve">
+    <value>Dr License Rated Users</value>
+   </data> 
+　　<data name="DrLicenseVehWeight" xml:space="preserve">
+    <value>Dr License Veh Weight</value>
+   </data> 
+　　<data name="DrLicenseDevWeight" xml:space="preserve">
+    <value>Dr License Dev Weight</value>
+   </data> 
+　　<data name="DrLicenseNetWeight" xml:space="preserve">
+    <value>Dr License Net Weight</value>
+   </data> 
+　　<data name="DrLicenseNetVolume" xml:space="preserve">
+    <value>Dr License Net Volume</value>
+   </data> 
+　　<data name="DrLicenseVehWide" xml:space="preserve">
+    <value>Dr License Veh Wide</value>
+   </data> 
+　　<data name="DrLicenseVehHigh" xml:space="preserve">
+    <value>Dr License Veh High</value>
+   </data> 
+　　<data name="DrLicenseVehLong" xml:space="preserve">
+    <value>Dr License Veh Long</value>
+   </data> 
+　　<data name="DrLicenseScrapedDate" xml:space="preserve">
+    <value>Dr License Scraped Date</value>
+   </data> 
+　　<data name="LoLicenseManageId" xml:space="preserve">
+    <value>Lo License Manage Id</value>
+   </data> 
+　　<data name="LoLicenseId" xml:space="preserve">
+    <value>Lo License Id</value>
+   </data> 
+　　<data name="LoLicenseBusinessScope" xml:space="preserve">
+    <value>Lo License Business Scope</value>
+   </data> 
+　　<data name="LoLicensePubDate" xml:space="preserve">
+    <value>Lo License Pub Date</value>
+   </data> 
+　　<data name="LoLicenseValidDate" xml:space="preserve">
+    <value>Lo License Valid Date</value>
+   </data> 
+　　<data name="LoLicenseCheckDate" xml:space="preserve">
+    <value>Lo License Check Date</value>
+   </data> 
+　　<data name="LoLicensePlace" xml:space="preserve">
+    <value>Lo License Place</value>
+   </data> 
+　　<data name="InsTrafficPolicyId" xml:space="preserve">
+    <value>Ins Traffic Policy Id</value>
+   </data> 
+　　<data name="InsTrafficPolicyCompany" xml:space="preserve">
+    <value>Ins Traffic Policy Company</value>
+   </data> 
+　　<data name="InsTrafficPolicyVaildateDate" xml:space="preserve">
+    <value>Ins Traffic Policy Vaildate Date</value>
+   </data> 
+　　<data name="InsTrafficPolicyAmount" xml:space="preserve">
+    <value>Ins Traffic Policy Amount</value>
+   </data> 
+　　<data name="InsThirdPartyId" xml:space="preserve">
+    <value>Ins Third Party Id</value>
+   </data> 
+　　<data name="InsThirdPartyVaildateDate" xml:space="preserve">
+    <value>Ins Third Party Vaildate Date</value>
+   </data> 
+　　<data name="InsThirdPartyAmount" xml:space="preserve">
+    <value>Ins Third Party Amount</value>
+   </data> 
+　　<data name="InsThirdPartyLogisticsAmount" xml:space="preserve">
+    <value>Ins Third Party Logistics Amount</value>
+   </data> 
+　　<data name="InsThirdPartyLogisticsVaildateDate" xml:space="preserve">
+    <value>Ins Third Party Logistics Vaildate Date</value>
+   </data> 
+</root>

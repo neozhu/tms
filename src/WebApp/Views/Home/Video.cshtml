@@ -1,0 +1,174 @@
+﻿@model IEnumerable<WebApp.Models.ViewModel.VehVideo>
+@{
+  ViewBag.Title = "车辆视频位置&视频监控";
+}
+<!-- MAIN CONTENT -->
+<div id="content">
+
+  <!-- row -->
+  <div class="row">
+
+    <!-- col -->
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+      <h1 class="page-title txt-color-blueDark">
+
+        <!-- PAGE HEADER -->
+        <i class="fa-fw fa fa-home"></i>
+        看板
+        <span>
+          >
+          车辆视频位置&视频监控
+        </span>
+      </h1>
+    </div>
+    <!-- end col -->
+    <!-- right side of the page with the sparkline graphs -->
+    <!-- col -->
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+
+
+    </div>
+    <!-- end col -->
+
+  </div>
+  <!-- end row -->
+  <!--
+      The ID "widget-grid" will start to initialize all widgets below
+      You do not need to use widgets if you dont want to. Simply remove
+      the <section></section> and you can use wells or panels instead
+      -->
+  <!-- widget grid -->
+  <section id="widget-grid" class="">
+
+    <div class="row">
+      @foreach (var item in Model)
+      {
+        <div class="col-md-3">
+          <div>车牌号：@item.PlateNumber 司机：@item.Driver 电话：@item.DriverPhone <a style="margin-bottom:3px;height:18px;line-height:18px" href="javascript:showMapWindow('@item.PlateNumber');" class="btn btn-default btn-xs "><i class="fa fa-map-marker"></i></a></div>
+          <div class="embed-responsive embed-responsive-16by9">
+            <video name="rtmp_video" data-setup='{ "controls": true, "autoplay": true, "preload": "auto","fluid": true,"responsive": true }'
+                   preload="auto" controls="true"
+                   class="video-js vjs-default-skin vjs-big-play-centered"
+                   style="width:555px;height:325px">
+              <source autoplay src="@item.RtmpUrl" type="video/rtmp">
+              <p class="vjs-no-js">您的浏览器不支持H5或FLASH</p>
+            </video>
+          </div>
+        </div>
+      }
+    </div>
+
+  </section>
+  <!-- end widget grid -->
+
+</div>
+<div id="mapwindow" style="display:none">
+  <div id="allmap" style="width:100%;height:100%"></div>
+</div>
+<link href="https://vjs.zencdn.net/7.6.6/video-js.css" rel="stylesheet" />
+<style>
+  #allmap {
+    height: 100%;
+    width: 100%;
+  }
+
+  .custom-input-card {
+    width: 20rem;
+  }
+
+    .custom-input-card .btn:last-child {
+      margin-left: 1rem;
+    }
+
+  .content-window-card {
+    position: relative;
+    min-width: 25rem;
+    min-height: 15rem;
+    padding: 0.75rem 0 0 1.25rem;
+    box-shadow: none;
+    bottom: 0;
+    left: 0;
+  }
+
+    .content-window-card p {
+      height: 1rem;
+    }
+</style>
+<!-- END MAIN CONTENT -->
+
+
+@section Scripts {
+  <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+  <script src="https://vjs.zencdn.net/7.6.6/video.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/videojs-flash@2/dist/videojs-flash.min.js"></script>
+
+  <script src="https://webapi.amap.com/maps?v=1.4.15&key=@Settings.MapKey"></script>
+  <script type="text/javascript">
+    $(() => {
+
+
+    })
+
+    function showMapWindow(platenumber) {
+      $.messager.progress({
+        title: '请等待',
+        msg: '正在获取GSP定位...'
+      });
+      $.get('/Vehicles/GetLoc?p=' + platenumber).done(res => {
+        console.log(res);
+        $.messager.progress('close');
+        if (res.success == true) {
+          $('#mapwindow').window({
+            title: `${platenumber}-${res.loc.statusDes}`,
+            width: 1024,
+            height: 568,
+            modal: true
+          });
+
+          var map = new AMap.Map('allmap', {
+            resizeEnable: true, //是否监控地图容器尺寸变化
+            zoom: 15, //初始化地图层级
+            center: [res.loc.lon, res.loc.lat],//中心点坐标
+          });
+          var lnglat = [res.loc.lon, res.loc.lat]
+          var viaMarker = new AMap.Marker({
+            position: new AMap.LngLat(res.loc.lon, res.loc.lat),
+            // 将一张图片的地址设置为 icon
+            icon: '/content/img/marker.png',
+            // 设置了 icon 以后，设置 icon 的偏移量，以 icon 的 [center bottom] 为原点
+            offset: new AMap.Pixel(-13, -30),
+            clickable: true,
+            click: function () {
+              console.log('click');
+            }
+          });
+          map.add([viaMarker]);
+          AMap.event.addListener(viaMarker, "click", function () {
+            var info = [];
+            info.push("<div class='input-card content-window-card'><div><img style=\"float:left;\" src=\" https://webapi.amap.com/images/autonavi.png \"/></div> ");
+            info.push(`<div style="padding:7px 0px 0px 0px;"><h5>${res.loc.objectName} </h5>`);
+            info.push(`<p class='input-item'>司机 : ${res.v.Driver} 电话 : ${res.v.DriverPhone}  </p>`);
+            info.push(`<p class='input-item'>状态 : ${res.loc.isstopState} 总里程 : ${res.loc.mileage} KM </p>`);
+            info.push(`<p class='input-item'>速度 : ${res.loc.speed} KM/H 当日里程 : ${res.loc.dayMileage} KM  </p>`);
+            info.push(`<p class='input-item'>位置 :   ${res.loc.gpsLocatinAddr}     </p></div></div>`);
+
+            infoWindow = new AMap.InfoWindow({
+              offset: 12,
+              anchor: 'top-right',
+              content: info.join("")  //使用默认信息窗体框样式，显示信息内容
+            });
+
+            infoWindow.open(map, viaMarker.getPosition());
+          });
+
+        } else {
+          $.messager.alert('错误', res.err);
+        }
+      });
+
+
+    }
+  </script>
+
+}
+

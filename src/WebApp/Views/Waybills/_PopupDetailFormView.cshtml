@@ -1,0 +1,753 @@
+﻿﻿@model WebApp.Models.Waybill
+<!-- 弹出窗体form表单 -->
+<div id="waybilldetailwindow" hidden="hidden" class="easyui-window"
+     title="明细数据"
+     data-options="modal:true,
+                    closed:true,
+                    minimizable:false,
+                    collapsible:false,
+                    maximized:false,
+                    iconCls:'icon-more',
+                    footer:'#windowfooter',
+                    closeDuration:200,
+                    closeAnimation:'slide',
+                    openDuration:300,
+                    openAnimation:'slide',
+                    onBeforeClose:function(){
+                      var that = $(this);
+                      if(waybillhasmodified()){
+                        $.messager.confirm('确认','你确定要放弃保存修改的记录?',function(r){
+                        if (r){
+                          var opts = that.panel('options');
+                          var onBeforeClose = opts.onBeforeClose;
+                          opts.onBeforeClose = function(){};
+                          that.panel('close');
+                          opts.onBeforeClose = onBeforeClose;
+                          hook = false;
+                        }
+                        });
+                        return false;
+                      }
+                    },
+                    onOpen:function(){
+                       $(this).window('vcenter');
+                       $(this).window('hcenter');
+                    },
+                    onRestore:function(){
+                    },
+                    onMaximize:function(){
+                    }
+                    " style="width:1020px;height:520px">
+  <!-- begin toolbar -->
+  <div class="window-body-toolbar">
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="btn-group btn-group-sm">
+          <button name="saveitembutton" onclick="savewaybillitem()" class="btn btn-default">
+            <i class="fa fa-floppy-o"></i> @Html.L("Save")
+          </button>
+        </div>
+        <div class="btn-group btn-group-sm" id="deleteitem-btn-group">
+          <button onclick="deletewaybillitem()" class="btn btn-danger">
+            <i class="fa fa-trash-o"></i> @Html.L("Delete")
+          </button>
+        </div>
+        <div class="btn-group btn-group-sm" style="display:none">
+          <button onclick="todo()" class="btn btn-default">
+            <i class="fa fa-print"></i> ToDo
+          </button>
+        </div>
+      </div>
+      <div class="col-sm-4 text-align-right">
+        <div class="btn-group btn-group-sm">
+          <button type="button" class="btn   btn-success" onclick="closewaybilldetailwindow()">
+            <i class="fa fa-chevron-left"></i>
+            @Html.L("Close")
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end toolbar -->
+  <!-- begin window body -->
+  <div class="widget-body">
+    <form id="waybill_form"
+          class="easyui-form form-horizontal padding-10"
+          method="post"
+          data-options="novalidate:true,
+                            onChange: function(target){
+                              hook = true;
+                              $('button[name*=\'saveitembutton\']').prop('disabled', false);
+                             },
+                             onLoadSuccess:function(data){
+                               hook = false;
+                               $('button[name*=\'saveitembutton\']').prop('disabled', true);
+                             }">
+      @Html.AntiForgeryToken()
+      <!--Primary Key-->
+      @Html.HiddenFor(model => model.Id)
+      <fieldset>
+        <!-- begin row -->
+        <!--订单号-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label"><span class="required">@Html.DisplayNameFor(model => model.OrderNo)</span></label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.OrderNo)"
+                   name="@Html.NameFor(model => model.OrderNo)"
+                   value="@Html.ValueFor(model => model.OrderNo)"
+                   tabindex="0" required
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.OrderNo)',
+								 required:true,
+                                 validType: 'length[0,128]'
+                                 " />
+          </div>
+        </div>
+        <!--状态-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Status)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.Status)"
+                   name="@Html.NameFor(model => model.Status)"
+                   value="@Html.ValueFor(model => model.Status)"
+                   tabindex="1"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Status)',
+								 required:false,readonly:true, validType: 'length[0,10]'
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--客户编码-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label"><span class="required">@Html.DisplayNameFor(model => model.CustomerId)</span></label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.CustomerId)"
+                   name="@Html.NameFor(model => model.CustomerId)"
+                   value="@Html.ValueFor(model => model.CustomerId)"
+                   tabindex="2" required
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.CustomerId)',
+								 required:true,
+                                 validType: 'length[0,10]'
+                                 " />
+          </div>
+        </div>
+        <!--客户简称-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.CustomerName)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.CustomerName)"
+                   name="@Html.NameFor(model => model.CustomerName)"
+                   value="@Html.ValueFor(model => model.CustomerName)"
+                   tabindex="3"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.CustomerName)',
+								 required:false,
+                                 validType: 'length[0,128]'
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--计划项目号-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.ProjectNo)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.ProjectNo)"
+                   name="@Html.NameFor(model => model.ProjectNo)"
+                   value="@Html.ValueFor(model => model.ProjectNo)"
+                   tabindex="4"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.ProjectNo)',
+								 required:false,
+                                 validType: 'length[0,32]'
+                                 " />
+          </div>
+        </div>
+        <!--提货单号-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.PickNo)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.PickNo)"
+                   name="@Html.NameFor(model => model.PickNo)"
+                   value="@Html.ValueFor(model => model.PickNo)"
+                   tabindex="5"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.PickNo)',
+								 required:false,
+                                 validType: 'length[0,32]'
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--配送日期-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label"><span class="required">@Html.DisplayNameFor(model => model.ShippedDate)</span></label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.ShippedDate)"
+                   name="@Html.NameFor(model => model.ShippedDate)"
+                   value="@Html.ValueFor(model => model.ShippedDate)"
+                   tabindex="6" required
+                   class="easyui-datebox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.ShippedDate)',
+								 required:true,
+								 formatter:dateformatter" />
+          </div>
+        </div>
+        <!--起运地-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Original)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.Original)"
+                   name="@Html.NameFor(model => model.Original)"
+                   value="@Html.ValueFor(model => model.Original)"
+                   tabindex="7"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Original)',
+								 required:false,
+                                 validType: 'length[0,38]'
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--送货区域-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Destination)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.Destination)"
+                   name="@Html.NameFor(model => model.Destination)"
+                   value="@Html.ValueFor(model => model.Destination)"
+                   tabindex="8"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Destination)',
+								 required:false,
+                                 validType: 'length[0,38]'
+                                 " />
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <!--定单抬头文本信息-->
+        <div class="form-group  col-md-12">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Remark)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.Remark)"
+                   name="@Html.NameFor(model => model.Remark)"
+                   value="@Html.ValueFor(model => model.Remark)"
+                   tabindex="9"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Remark)',
+								 required:false,multiline:true, validType: 'length[0,2000]'
+                                 " />
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <!--end row-->
+        <!-- begin row -->
+        <!--物料编码-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.ProductNo)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.ProductNo)"
+                   name="@Html.NameFor(model => model.ProductNo)"
+                   value="@Html.ValueFor(model => model.ProductNo)"
+                   tabindex="10"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.ProductNo)',
+								 required:false,
+                                 validType: 'length[0,38]'
+                                 " />
+          </div>
+        </div>
+        <!--批次-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.LotNo)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.LotNo)"
+                   name="@Html.NameFor(model => model.LotNo)"
+                   value="@Html.ValueFor(model => model.LotNo)"
+                   tabindex="11"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.LotNo)',
+								 required:false,
+                                 validType: 'length[0,38]'
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--交货数量-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label"><span class="required">@Html.DisplayNameFor(model => model.Qty)</span></label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.Qty)"
+                   name="@Html.NameFor(model => model.Qty)"
+                   value="@Html.ValueFor(model => model.Qty)"
+                   tabindex="12"
+                   class="easyui-numberspinner"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Qty)',
+								 required:true,formatter:numberformatter,
+                                 precision:2,
+
+                                 " />
+
+          </div>
+        </div>
+        <!--重货(kg)-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Weight)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.Weight)"
+                   name="@Html.NameFor(model => model.Weight)"
+                   value="@Html.ValueFor(model => model.Weight)"
+                   tabindex="13"
+                   class="easyui-numberspinner"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Weight)',
+								 required:false,formatter:numberformatter,
+                                 precision:2,
+
+                                 " />
+
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--体积（m3)-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Cube)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.Cube)"
+                   name="@Html.NameFor(model => model.Cube)"
+                   value="@Html.ValueFor(model => model.Cube)"
+                   tabindex="14"
+                   class="easyui-numberspinner"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Cube)',
+								 required:false,formatter:numberformatter,
+                                 precision:2,
+
+                                 " />
+
+          </div>
+        </div>
+        <!--运价-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.SPrice)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.SPrice)"
+                   name="@Html.NameFor(model => model.SPrice)"
+                   value="@Html.ValueFor(model => model.SPrice)"
+                   tabindex="15"
+                   class="easyui-numberspinner"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.SPrice)',
+								 required:false,formatter:numberformatter,
+                                 precision:2,
+
+                                 " />
+
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--运费（元）-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.SAmount)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.SAmount)"
+                   name="@Html.NameFor(model => model.SAmount)"
+                   value="@Html.ValueFor(model => model.SAmount)"
+                   tabindex="16"
+                   class="easyui-numberspinner"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.SAmount)',
+								 required:false,formatter:numberformatter,
+                                 precision:2,
+
+                                 " />
+
+          </div>
+        </div>
+        <!--搬运单价-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.CPrice)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.CPrice)"
+                   name="@Html.NameFor(model => model.CPrice)"
+                   value="@Html.ValueFor(model => model.CPrice)"
+                   tabindex="17"
+                   class="easyui-numberspinner"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.CPrice)',
+								 required:false,formatter:numberformatter,
+                                 precision:2,
+
+                                 " />
+
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--搬运费（元）-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.CAmount)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.CAmount)"
+                   name="@Html.NameFor(model => model.CAmount)"
+                   value="@Html.ValueFor(model => model.CAmount)"
+                   tabindex="18"
+                   class="easyui-numberspinner"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.CAmount)',
+								 required:false,formatter:numberformatter,
+                                 precision:2,
+
+                                 " />
+
+          </div>
+        </div>
+        <!--备注-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Way)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.Way)"
+                   name="@Html.NameFor(model => model.Way)"
+                   value="@Html.ValueFor(model => model.Way)"
+                   tabindex="19"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Way)',
+								 required:false,
+                                 validType: 'length[0,128]'
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--销售雇员-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Sales)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.Sales)"
+                   name="@Html.NameFor(model => model.Sales)"
+                   value="@Html.ValueFor(model => model.Sales)"
+                   tabindex="20"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Sales)',
+								 required:false,
+                                 validType: 'length[0,32]'
+                                 " />
+          </div>
+        </div>
+        <!--销售小组-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.SalesGroup)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.SalesGroup)"
+                   name="@Html.NameFor(model => model.SalesGroup)"
+                   value="@Html.ValueFor(model => model.SalesGroup)"
+                   tabindex="21"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.SalesGroup)',
+								 required:false,
+                                 validType: 'length[0,32]'
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--备注1-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Remark1)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.Remark1)"
+                   name="@Html.NameFor(model => model.Remark1)"
+                   value="@Html.ValueFor(model => model.Remark1)"
+                   tabindex="22"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Remark1)',
+								 required:false,
+                                 validType: 'length[0,256]'
+                                 " />
+          </div>
+        </div>
+        <!--备注2-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Remark2)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.Remark2)"
+                   name="@Html.NameFor(model => model.Remark2)"
+                   value="@Html.ValueFor(model => model.Remark2)"
+                   tabindex="23"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Remark2)',
+								 required:false,
+                                 validType: 'length[0,256]'
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--特殊标志-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label"><span class="required">@Html.DisplayNameFor(model => model.Flag)</span></label>
+          <div class="col-md-10">
+            <label class="checkbox-inline">
+              <input id="@Html.IdFor(model => model.Flag)"
+                     name="@Html.NameFor(model => model.Flag)"
+                     value="true" @(Model.Flag ? "checked=\"checked\"" : "")
+                     data-unchecked-value="false"
+                     tabindex="24"
+                     class="checkbox style-0"
+                     type="checkbox" />
+              <span> @Html.DisplayNameFor(model => model.Flag)</span>
+            </label>
+          </div>
+        </div>
+        <!--司机-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Driver)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.Driver)"
+                   name="@Html.NameFor(model => model.Driver)"
+                   value="@Html.ValueFor(model => model.Driver)"
+                   tabindex="25"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Driver)',
+								 required:false,
+                                 validType: 'length[0,32]'
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+        <!-- begin row -->
+        <!--车牌-->
+        <div class="form-group  col-md-6">
+          <label class="col-md-2 control-label">@Html.DisplayNameFor(model => model.Transport)</label>
+          <div class="col-md-10">
+            <input id="@Html.IdFor(model => model.Transport)"
+                   name="@Html.NameFor(model => model.Transport)"
+                   value="@Html.ValueFor(model => model.Transport)"
+                   tabindex="26"
+                   class="easyui-textbox"
+                   style="width:100%"
+                   type="text"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.Transport)',
+								 required:false,
+                                 validType: 'length[0,32]'
+                                 " />
+          </div>
+        </div>
+        <!--end row-->
+      </fieldset>
+    </form>
+
+    <!--end form表单界面-->
+    <!--========================================================================================-->
+  </div>
+  <!--end window body -->
+</div>
+<div id="windowfooter" style="padding:5px;">&nbsp;</div>
+<!-- 弹出窗体form表单 -->
+<!-- 弹出编辑对话框 -->
+<!--begin popup detailview javascript block -->
+<script type="text/javascript">
+  //判断新增编辑状态
+  var MODELSTATE = 'Added';
+  var waybillid = null;
+  function openwaybilldetailwindow(data, state) {
+    MODELSTATE = state;
+    initwaybilldetailview();
+    waybillid = (data.Id || 0);
+    $('#waybilldetailwindow').window('open');
+    $('#waybill_form').form('reset');
+    $('#waybill_form').form('load', data);
+  }
+  //删除当前记录
+  function deletewaybillitem() {
+    $.messager.confirm('确认', '你确定要删除该记录?', result => {
+      if (result) {
+        const url = `/Waybills/Delete/${waybillid}`;
+        $.get(url).done(res => {
+          if (res.success) {
+            toastr.success("删除成功");
+            $dg.datagrid('reload');
+            $('#waybilldetailwindow').window('close');
+          } else {
+            $.messager.alert('错误', res.err, 'error');
+          }
+        });
+      }
+    });
+  }
+  //async 保存数据
+  async function savewaybillitem() {
+    const $waybillform = $('#waybill_form');
+    if ($waybillform.form('enableValidation').form('validate')) {
+      let waybill = $waybillform.serializeJSON();
+      let url = '/Waybills/Edit';
+      //判断是新增或是修改方法
+      if (MODELSTATE === 'Added') {
+        url = '/Waybills/Create';
+      }
+      var token = $('input[name="__RequestVerificationToken"]', $waybillform).val();
+      $.messager.progress({ title: '请等待', msg: '正在保存数据...', interval: 200 });
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: {
+          __RequestVerificationToken: token,
+          waybill: waybill
+        },
+        dataType: 'json',
+        contentType: 'application/x-www-form-urlencoded; charset=utf-8'
+      })
+        .done(response => {
+          $.messager.progress('close');
+          if (response.success) {
+            hook = false;
+            $waybillform.form('disableValidation');
+            $dg.datagrid('reload');
+            $('#waybilldetailwindow').window("close");
+            toastr.success("保存成功");
+          } else {
+            $.messager.alert("错误", response.err, "error");
+          }
+        })
+        .fail((jqXHR, textStatus, errorThrown) => {
+          $.messager.progress('close');
+          $.messager.alert('异常', `${jqXHR.status}: ${jqXHR.statusText} `, 'error');
+        });
+    }
+  }
+  //关闭窗口
+  function closewaybilldetailwindow() {
+    $('#waybilldetailwindow').window('close');
+  }
+  //todo
+  function todo() {
+    console.log('todo.....');
+  }
+  //判断是否有没有保存的记录
+  function waybillhasmodified() {
+    return hook;
+
+  }
+
+
+  function initwaybilldetailview() {
+    //判断是否显示功能按钮
+    if (MODELSTATE === 'Added') {
+      $('#deleteitem-btn-group').hide();
+    } else {
+      $('#deleteitem-btn-group').show();
+    }
+
+    //回车光标移动到下个输入控件
+    //如果是枚举类型需要把numberbox改成combobox
+    //交货数量
+    $('#Qty').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //重货(kg)
+    $('#Weight').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //体积（m3)
+    $('#Cube').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //运价
+    $('#SPrice').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //运费（元）
+    $('#SAmount').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //搬运单价
+    $('#CPrice').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //搬运费（元）
+    $('#CAmount').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //日期类型 配送日期
+    $('#ShippedDate').datebox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+  }
+</script>
+

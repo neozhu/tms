@@ -1,0 +1,135 @@
+﻿﻿@model WebApp.Models.StandardCost
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin standardcost form  -->
+<form id="standardcost_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+ <fieldset>
+     <div class="row">
+			              <!--起始地-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.ORIGINAL)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.ORIGINAL)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--目的地-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.DESTINATION)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.DESTINATION)
+            </label>
+            </section>
+ 		 
+	    
+			  			<!--标准里程(千米)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.STDKM)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.STDKM)
+			    </label>
+            </section>
+		 
+	    
+			              <!--车辆类型(厢式车（默认）/平板车/轿车/面包车/高栏车/飞翼车等)-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CarType) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CarType)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--额定载重(吨)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.STDLOADWEIGHT)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.STDLOADWEIGHT)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--标准油耗(升)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.STDOIL)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.STDOIL)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--标准运费-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.STDCOST)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.STDCOST)
+			    </label>
+            </section>
+		 
+	    
+			              <!--说明-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DESCRIPTION) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.DESCRIPTION)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--备注-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Notes) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Notes)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--LOTTABLE1-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LOTTABLE1) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.LOTTABLE1)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--LOTTABLE2-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LOTTABLE2) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.LOTTABLE2)
+            </label>
+            </section>
+ 		 
+	    
+			  			<!--LOTTABLE3-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.LOTTABLE3)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.LOTTABLE3)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+	    
+</fieldset>
+</form>
+<!-- end standardcost form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+
+

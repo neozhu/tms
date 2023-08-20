@@ -1,0 +1,466 @@
+﻿@model WebApp.Models.SHIPORDERDETAIL
+@{  ViewBag.Title = "派车单明细 | Edit";} 
+<!-- MAIN CONTENT -->
+<div id="content">
+     <!-- quick navigation bar -->
+     <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-table fa-fw "></i>
+                业务操作
+                <span>
+                    >
+                    派车单明细
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+
+        </div>
+     </div>
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <!-- row -->
+        <div class="row">
+     <!-- NEW WIDGET START -->
+    <article class="col-sm-12 col-md-12 col-lg-12">
+
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-deletebutton="false">
+            <!-- widget options:
+            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+            data-widget-colorbutton="false"
+            data-widget-editbutton="false"
+            data-widget-togglebutton="false"
+            data-widget-deletebutton="false"
+            data-widget-fullscreenbutton="false"
+            data-widget-custombutton="false"
+            data-widget-collapsed="true"
+            data-widget-sortable="false"
+            -->
+            <header>
+                <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                <h2> 派车单明细 </h2>
+
+            </header>
+
+            <!-- widget div-->
+            <div>
+
+                <!-- widget edit box -->
+                <div class="jarviswidget-editbox">
+                    <!-- This area used as dropdown edit box -->
+
+                </div>
+                <!-- end widget edit box -->
+
+                <!-- widget content -->
+                <div class="widget-body">
+                    <div class="widget-body-toolbar">
+                        <div class="row">
+                            <div class="col-sm-8  ">
+                                <div class="btn-group">
+                                    <a href="javascript:saveitem()" class="btn btn-sm btn-primary"> <i class="fa fa-floppy-o"></i> @Html.L("Save") </a>
+                                </div>
+                                <div class="btn-group" style="display:none">
+                                    <a href="javascript:todo()" class="btn btn-sm btn-primary"> <i class="fa fa-print"></i> ToDo </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 text-align-right">
+                                <div class="btn-group">
+                                    <a href="/SHIPORDERDETAILs/Index" class="btn btn-sm btn-success"> <i class="fa fa-chevron-left"></i> @Html.L("GoBack") </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="body-content">
+                             @Html.Partial("EditForm")
+                    </div>		 
+                 </div>
+                 <!-- end widget content -->
+                 </div>
+            <!-- end widget div -->
+
+        </div>
+        <!-- end widget -->
+
+
+    </article>
+    <!-- WIDGET END -->
+  
+ 
+</div>
+ 
+</section>
+</div>
+<!-- END MAIN CONTENT -->
+
+@section Scripts {
+    <script type="text/javascript">
+        var shiporderdetailid=@Model.ID;
+	    var $editform = $('#shiporderdetail_form');
+        //保存
+        function saveitem() {
+            if ($editform.valid()) {
+                var shiporderdetail = $editform.serializeJSON();
+                var token = $('input[name="__RequestVerificationToken"]', $editform).val();
+                 $.ajax({
+                    type: "POST",
+                    url: "/SHIPORDERDETAILs/EditAsync",
+                    data: {
+                        __RequestVerificationToken: token,
+                        shiporderdetail:shiporderdetail
+                    },
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                })
+                .done(response => {
+                    if (response.success) {
+                         toastr.success('保存成功'); 
+                        window.location.href = "/SHIPORDERDETAILs/Index";
+                    } else {
+                        $.messager.alert("错误", response.err, "error");
+                    }
+                    })
+                .fail((jqXHR, textStatus, errorThrown) => {
+                        $.messager.alert("异常",   errorThrown,"error");
+                    });
+            }
+        }
+        //ToDo
+        function todo() {
+        }
+
+     /********************************
+     *
+     * pageSetUp() is needed whenever you load a page.
+     * It initializes and checks for all basic elements of the page
+     * and makes rendering easier.
+     *
+     */
+     //pageSetUp();
+     /********************************
+     *
+     * pagefunction() $editform 校验规则
+     *
+     */
+     var pagefunction = function () {
+            var errorClass = 'has-error';
+            var successClass = 'has-success';
+            var errorElement = 'em';
+            $editform.validate({
+                 errorElement: errorElement,
+      errorPlacement: function (error, element) {
+         // Add the `help-block` class to the error element
+         error.addClass("help-block no-margin");
+         if (element.prop("type") === "checkbox") {
+          error.insertAfter(element.parent("label"));
+         } else if (element.prop("type") === "date" || element.prop("type") === "datetime" ) {
+          error.insertAfter(element.parent(".input-group"));
+         } else {
+          error.insertAfter(element);
+         }
+       },
+       highlight: function (element, errorClass, validClass) {
+        $(element).parents("div").addClass("has-error").removeClass("has-success");
+       },
+       unhighlight: function (element, errorClass, validClass) {
+        $(element).parents("div").addClass("has-success").removeClass("has-error");
+       },
+                // Rules for form validation
+                rules: {
+                    SHIPORDERKEY:{
+                            required:true,
+                            rangelength: [0, 20],
+                    },
+                    EXTERNSHIPORDERKEY:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    ORDERLINENUMBER:{
+                            required:true,
+                            rangelength: [0, 6],
+                    },
+                    STATUS:{
+                            required:false,
+                            rangelength: [0, 3],
+                    },
+                    SUPPLIERCODE:{
+                            required:false,
+                            rangelength: [0, 20],
+                    },
+                    SUPPLIERNAME:{
+                            required:false,
+                            rangelength: [0, 80],
+                    },
+                    LOTTABLE3:{
+                            required:false,
+                            rangelength: [0, 80],
+                    },
+                    CONSIGNEEADDRESS:{
+                            required:false,
+                            rangelength: [0, 180],
+                    },
+                    SKU:{
+                            required:true,
+                            rangelength: [6, 30],
+                    },
+                    SKUTYPE:{
+                            required:true,
+                            rangelength: [0, 10],
+                    },
+                    SKUNAME:{
+                            required:false,
+                            rangelength: [0, 80],
+                    },
+                    ORIGINALQTY:{
+                            required:true,
+                            number: true,
+                    },
+                    SHIPPEDQTY:{
+                            required:true,
+                            number: true,
+                    },
+                    UMO:{
+                            required:true,
+                            rangelength: [0, 10],
+                    },
+                    PACKKEY:{
+                            required:false,
+                            rangelength: [0, 10],
+                    },
+                    CASECNT:{
+                            required:true,
+                            number: true,
+                    },
+                    GROSSWGT:{
+                            required:true,
+                            number: true,
+                    },
+                    NETWGT:{
+                            required:true,
+                            number: true,
+                    },
+                    CUBE:{
+                            required:true,
+                            number: true,
+                    },
+                    NOTES:{
+                            required:false,
+                            rangelength: [0, 180],
+                    },
+                    SALER:{
+                            required:false,
+                    },
+                    SALESORG:{
+                            required:false,
+                    },
+                    CHECKEDCOST1:{
+                            required:true,
+                    },
+                    COST1:{
+                            required:true,
+                            number: true,
+                    },
+                    CHECKEDCOST2:{
+                            required:true,
+                    },
+                    COST2:{
+                            required:true,
+                            number: true,
+                    },
+                    CHECKEDCOST3:{
+                            required:true,
+                    },
+                    FLOOR:{
+                            required:true,
+                            digits: true,
+                    },
+                    COST3:{
+                            required:true,
+                            number: true,
+                    },
+                    CHECKEDCOST4:{
+                            required:true,
+                    },
+                    COST4:{
+                            required:true,
+                            number: true,
+                    },
+                    CHECKEDCOST5:{
+                            required:true,
+                    },
+                    COST5:{
+                            required:true,
+                            number: true,
+                    },
+                    CHECKEDCOST6:{
+                            required:true,
+                    },
+                    COST6:{
+                            required:true,
+                            number: true,
+                    },
+                    CHECKEDCOST7:{
+                            required:true,
+                    },
+                    COST7:{
+                            required:true,
+                            number: true,
+                    },
+                    CHECKEDCOST8:{
+                            required:true,
+                    },
+                    COST8:{
+                            required:true,
+                            number: true,
+                    },
+                    ORDERKEY:{
+                            required:true,
+                            rangelength: [0, 20],
+                    },
+                    LOTTABLE2:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    EXTERNORDERKEY:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    FLAG1:{
+                            required:true,
+                    },
+                    FLAG2:{
+                            required:true,
+                    },
+                    NOTES1:{
+                            required:false,
+                            rangelength: [0, 180],
+                    },
+                    REQUESTEDSHIPDATE:{
+                            required:false,
+                            date: true,
+                    },
+                    DELIVERYDATE:{
+                            required:false,
+                            date: true,
+                    },
+                    ACTUALSHIPDATE:{
+                            required:false,
+                            date: true,
+                    },
+                    ACTUALDELIVERYDATE:{
+                            required:false,
+                            date: true,
+                    },
+                    WHSEID:{
+                            required:true,
+                            rangelength: [0, 20],
+                    },
+                    STORERKEY:{
+                            required:true,
+                            rangelength: [0, 50],
+                    },
+                    LOTTABLE1:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    EXTERNLINENO:{
+                            required:false,
+                            rangelength: [0, 20],
+                    },
+                    TYPE:{
+                            required:false,
+                            rangelength: [0, 10],
+                    },
+                    ORIGINAL:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    DESTINATION:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    SHPTYPE:{
+                            required:true,
+                            rangelength: [0, 1],
+                    },
+                    COMPANYCODE:{
+                            required:false,
+                            rangelength: [0, 20],
+                    },
+                    LOTTABLE4:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    LOTTABLE5:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    LOTTABLE6:{
+                            required:false,
+                            number: true,
+                    },
+                    LOTTABLE7:{
+                            required:false,
+                            number: true,
+                    },
+                    LOTTABLE8:{
+                            required:false,
+                            date: true,
+                    },
+                    LOTTABLE9:{
+                            required:false,
+                            date: true,
+                    },
+                    LOTTABLE10:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    SHIPORDERID:{
+                            required:true,
+                            digits: true,
+                    },
+                },
+                // Messages for form validation
+                messages:{
+                
+                },
+                submitHandler:  (form) => {
+                      //调用保存方法
+                      saveitem();
+                      return false;
+                    //$(form).ajaxSubmit({
+                    //    success: function () {
+                    //        console.log('ajaxSubmit success');
+                    //   }
+                    //});
+                },
+                // Do not change code below
+                errorPlacement: (error, element) => {
+                    error.insertAfter(element.parent());
+                }
+
+            });
+        }
+        pagefunction();
+  </script>
+   <!-- 初始化from -->
+ <script type="text/javascript">
+    
+    function initFormData(id) {
+            //$('#shiporderdetail_form').form('load', data);
+            
+    }
+
+
+   var shiporderdetailid=@Model.ID;
+    $(function(){
+        initFormData(shiporderdetailid);
+    });
+ </script>
+
+
+}
+ 

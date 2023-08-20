@@ -1,0 +1,136 @@
+﻿﻿@model WebApp.Models.Document
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin document form  -->
+<form id="document_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+ <fieldset>
+     <div class="row">
+			              <!--业务单号-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.OrderKey)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.OrderKey)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--文件名-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.FileName)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.FileName)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--文件类型-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.FileType) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.FileType)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--保存路径-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Path) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Path)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--URL-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Url) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Url)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--文件MD5-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.MD5) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.MD5)
+            </label>
+            </section>
+ 		 
+	    
+			  			<!--文件大小-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Size)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.Size)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--图片宽度-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Width) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.Width)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--图片高度-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Height) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.Height)
+			    </label>
+            </section>
+		 
+	    
+			              <!--描述-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Description) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Description)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--上传用户-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.User) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.User)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--上传时间-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.UploadDateTime)</span> </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.UploadDateTime)
+			    </label>
+            </section>
+			  		 
+	   </div>
+	    
+	    
+</fieldset>
+</form>
+<!-- end document form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+
+

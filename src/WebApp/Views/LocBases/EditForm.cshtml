@@ -1,0 +1,84 @@
+﻿﻿@model WebApp.Models.LocBase
+<!-- begin master section -->
+<div  class="main-form">
+<!--begin locbase form  -->
+<form id="locbase_form" method="post" novalidate="novalidate" >
+@Html.AntiForgeryToken()
+   @Html.HiddenFor(x=>x.Id)
+ <fieldset>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--名称-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Name)</span> </label>
+			@Html.EditorFor(x => x.Name, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Name) } })
+      
+         </div>
+
+        <!--描述-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Description) </label>
+			@Html.EditorFor(x => x.Description, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Description) } })
+      
+         </div>
+
+		<!--经度-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Longitude)</span> </label>
+            @Html.EditorFor(x => x.Longitude, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.Longitude) } })
+
+        </div>
+
+		<!--纬度-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Latitude)</span> </label>
+            @Html.EditorFor(x => x.Latitude, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.Latitude) } })
+
+        </div>
+
+		<!--预警半径-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Radius)</span> </label>
+            @Html.EditorFor(x => x.Radius, new { htmlAttributes = new { @class = "form-control",@type="number", placeholder = Html.DisplayNameFor(x => x.Radius) } })
+
+        </div>
+
+        <!--围栏ID-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Gid) </label>
+			@Html.EditorFor(x => x.Gid, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Gid) } })
+      
+         </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+		
+      <!--是否启用-->
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+              <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Enable)</span> </label>
+              <div class="checkbox  no-margin">
+              <label>
+                 <input id="@Html.IdFor(model => model.Enable)"
+                       name="@Html.NameFor(model => model.Enable)"
+                       value="true" @(Model.Enable ? "checked=\"checked\"" : "")
+                       class="checkbox style-0"
+                       tabindex="6"
+                       type="checkbox" />
+                <span>@Html.DisplayNameFor(model => model.Enable)</span>
+              </label>
+            </div>
+      </div>
+	    
+   </div>
+  </div>
+</fieldset>
+</form>
+<!-- end locbase form  -->
+</div>
+
+<!-- end master section -->
+<!--========================================================================================-->
+

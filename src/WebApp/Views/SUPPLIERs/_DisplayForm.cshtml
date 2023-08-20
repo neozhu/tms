@@ -1,0 +1,108 @@
+﻿﻿@model WebApp.Models.SUPPLIER
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin supplier form  -->
+<form id="supplier_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.ID)" 
+                       name="@Html.NameFor(model => model.ID)" 
+                       value="@Html.ValueFor(model => model.ID)" />
+ <fieldset>
+     <div class="row">
+			              <!--供应商代码-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.SUPPLIERCODE)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.SUPPLIERCODE)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--供应商名称-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.SUPPLIERNAME)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.SUPPLIERNAME)
+            </label>
+            </section>
+ 		 
+	    
+			  			  <!--是否禁用-->
+              <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.ISDISABLED)</span> </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.ISDISABLED)
+            </label>
+            </section>
+		 
+	    
+			              <!--默认提货地址-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.ADDRESS1) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.ADDRESS1)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--默认收货地址-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.ADDRESS2) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.ADDRESS2)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--联系人-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CONTACT) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CONTACT)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--推送手机号码-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.PHONENUMBER) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.PHONENUMBER)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--邮件地址-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.EMAIL) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.EMAIL)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--备注-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.NOTES) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.NOTES)
+            </label>
+            </section>
+ 		 
+	    
+   </div>
+	    
+</fieldset>
+</form>
+<!-- end supplier form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+
+

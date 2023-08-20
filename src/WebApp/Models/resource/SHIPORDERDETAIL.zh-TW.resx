@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+// <copyright file="SHIPORDERDETAILMetadata.cs" company="neozhu/MVC5-Scaffolder">
+// Copyright (c) 2019 All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date>8/12/2019 8:47:45 AM </date>
+// <summary>Class representing a Metadata entity </summary>
+  -->
+<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ID" xml:space="preserve">
+    <value>ID</value>
+   </data> 
+  <data name="SHIPORDERKEY" xml:space="preserve">
+    <value>运单号</value>
+   </data> 
+  <data name="EXTERNSHIPORDERKEY" xml:space="preserve">
+    <value>对账单号</value>
+   </data> 
+  <data name="ORDERLINENUMBER" xml:space="preserve">
+    <value>行号</value>
+   </data> 
+  <data name="STATUS" xml:space="preserve">
+    <value>状态</value>
+   </data> 
+  <data name="SUPPLIERCODE" xml:space="preserve">
+    <value>客户代码</value>
+   </data> 
+  <data name="SUPPLIERNAME" xml:space="preserve">
+    <value>客户名称</value>
+   </data> 
+  <data name="LOTTABLE3" xml:space="preserve">
+    <value>提货地址</value>
+   </data> 
+  <data name="CONSIGNEEADDRESS" xml:space="preserve">
+    <value>收货地址</value>
+   </data> 
+  <data name="SKU" xml:space="preserve">
+    <value>物料编码</value>
+   </data> 
+  <data name="SKUTYPE" xml:space="preserve">
+    <value>物料类型(洁具/瓷砖)</value>
+   </data> 
+  <data name="SKUNAME" xml:space="preserve">
+    <value>物料名称</value>
+   </data> 
+  <data name="ORIGINALQTY" xml:space="preserve">
+    <value>交货数量</value>
+   </data> 
+  <data name="SHIPPEDQTY" xml:space="preserve">
+    <value>已发运数量</value>
+   </data> 
+  <data name="UMO" xml:space="preserve">
+    <value>单位</value>
+   </data> 
+  <data name="PACKKEY" xml:space="preserve">
+    <value>包装</value>
+   </data> 
+  <data name="CASECNT" xml:space="preserve">
+    <value>交货件数</value>
+   </data> 
+  <data name="GROSSWGT" xml:space="preserve">
+    <value>毛重(KG)</value>
+   </data> 
+  <data name="NETWGT" xml:space="preserve">
+    <value>净重(KG)</value>
+   </data> 
+  <data name="CUBE" xml:space="preserve">
+    <value>体积(M)</value>
+   </data> 
+  <data name="NOTES" xml:space="preserve">
+    <value>备注</value>
+   </data> 
+  <data name="SALER" xml:space="preserve">
+    <value>销售雇员</value>
+   </data> 
+  <data name="SALESORG" xml:space="preserve">
+    <value>销售组</value>
+   </data> 
+  <data name="CHECKEDCOST1" xml:space="preserve">
+    <value>是否计算运费</value>
+   </data> 
+  <data name="COST1" xml:space="preserve">
+    <value>运费(RMB)</value>
+   </data> 
+  <data name="CHECKEDCOST2" xml:space="preserve">
+    <value>是否送货上门</value>
+   </data> 
+  <data name="COST2" xml:space="preserve">
+    <value>送货费(RMB)</value>
+   </data> 
+  <data name="CHECKEDCOST3" xml:space="preserve">
+    <value>是否上楼</value>
+   </data> 
+  <data name="FLOOR" xml:space="preserve">
+    <value>楼层</value>
+   </data> 
+  <data name="COST3" xml:space="preserve">
+    <value>搬运费(RMB)</value>
+   </data> 
+  <data name="CHECKEDCOST4" xml:space="preserve">
+    <value>是否加急</value>
+   </data> 
+  <data name="COST4" xml:space="preserve">
+    <value>加急费(RMB)</value>
+   </data> 
+  <data name="CHECKEDCOST5" xml:space="preserve">
+    <value>是否专车</value>
+   </data> 
+  <data name="COST5" xml:space="preserve">
+    <value>专车费(RMB)</value>
+   </data> 
+  <data name="CHECKEDCOST6" xml:space="preserve">
+    <value>是否其它服务1</value>
+   </data> 
+  <data name="COST6" xml:space="preserve">
+    <value>其它服务费1(RMB)</value>
+   </data> 
+  <data name="CHECKEDCOST7" xml:space="preserve">
+    <value>是否其它服务2</value>
+   </data> 
+  <data name="COST7" xml:space="preserve">
+    <value>其它服务费2(RMB)</value>
+   </data> 
+  <data name="CHECKEDCOST8" xml:space="preserve">
+    <value>是否其它服务3</value>
+   </data> 
+  <data name="COST8" xml:space="preserve">
+    <value>其它服务费3(RMB)</value>
+   </data> 
+  <data name="ORDERKEY" xml:space="preserve">
+    <value>订单号</value>
+   </data> 
+  <data name="LOTTABLE2" xml:space="preserve">
+    <value>批次号</value>
+   </data> 
+  <data name="EXTERNORDERKEY" xml:space="preserve">
+    <value>提货单号</value>
+   </data> 
+  <data name="FLAG1" xml:space="preserve">
+    <value>结算标志</value>
+   </data> 
+  <data name="FLAG2" xml:space="preserve">
+    <value>其它标志</value>
+   </data> 
+  <data name="NOTES1" xml:space="preserve">
+    <value>备注2</value>
+   </data> 
+  <data name="REQUESTEDSHIPDATE" xml:space="preserve">
+    <value>要求配送日期</value>
+   </data> 
+  <data name="DELIVERYDATE" xml:space="preserve">
+    <value>要求到货时间</value>
+   </data> 
+  <data name="ACTUALSHIPDATE" xml:space="preserve">
+    <value>实际配送日期</value>
+   </data> 
+  <data name="ACTUALDELIVERYDATE" xml:space="preserve">
+    <value>实际到货时间</value>
+   </data> 
+  <data name="WHSEID" xml:space="preserve">
+    <value>仓库号</value>
+   </data> 
+  <data name="STORERKEY" xml:space="preserve">
+    <value>货主</value>
+   </data> 
+  <data name="LOTTABLE1" xml:space="preserve">
+    <value>上传用户</value>
+   </data> 
+  <data name="EXTERNLINENO" xml:space="preserve">
+    <value>外部行项号</value>
+   </data> 
+  <data name="TYPE" xml:space="preserve">
+    <value>订单类型(普通/急货/专车)</value>
+   </data> 
+  <data name="ORIGINAL" xml:space="preserve">
+    <value>起始地</value>
+   </data> 
+  <data name="DESTINATION" xml:space="preserve">
+    <value>目的地</value>
+   </data> 
+  <data name="SHPTYPE" xml:space="preserve">
+    <value>运输方式(整车/零担)</value>
+   </data> 
+  <data name="COMPANYCODE" xml:space="preserve">
+    <value>所属公司</value>
+   </data> 
+  <data name="LOTTABLE4" xml:space="preserve">
+    <value>LOTTABLE4</value>
+   </data> 
+  <data name="LOTTABLE5" xml:space="preserve">
+    <value>LOTTABLE5</value>
+   </data> 
+  <data name="LOTTABLE6" xml:space="preserve">
+    <value>LOTTABLE6</value>
+   </data> 
+  <data name="LOTTABLE7" xml:space="preserve">
+    <value>LOTTABLE7</value>
+   </data> 
+  <data name="LOTTABLE8" xml:space="preserve">
+    <value>LOTTABLE7</value>
+   </data> 
+  <data name="LOTTABLE9" xml:space="preserve">
+    <value>LOTTABLE9</value>
+   </data> 
+  <data name="LOTTABLE10" xml:space="preserve">
+    <value>LOTTABLE10</value>
+   </data> 
+  <data name="SHIPORDERID" xml:space="preserve">
+    <value>运单ID</value>
+   </data> 
+</root>

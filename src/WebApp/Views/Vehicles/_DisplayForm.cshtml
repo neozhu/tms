@@ -1,0 +1,715 @@
+﻿﻿@model WebApp.Models.Vehicle
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin vehicle form  -->
+<form id="vehicle_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+ <fieldset>
+     <div class="row">
+			              <!--车牌号-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.PlateNumber)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.PlateNumber)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--派车单号-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.ShipOrderNo) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.ShipOrderNo)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--调度人员-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.InputUser) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.InputUser)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--车辆状态(停用/启用/维修/在途/预定)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Status)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Status)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--车辆类型(厢式车（默认）/平板车/轿车/面包车/高栏车/飞翼车等)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.CarType)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CarType)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--所属承运人代码-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CarrierCode) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CarrierCode)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--所属承运人-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CarrierName) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CarrierName)
+            </label>
+            </section>
+ 		 
+	    
+			  			<!--车长(米)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.VehLongSize)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.VehLongSize)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--额定载重(吨)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.StdLoadWeight)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.StdLoadWeight)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--运输车型(吨,尺等等),收费吨位-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.FeeLoadWeight)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.FeeLoadWeight)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--额定体积(立方米)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.StdLoadVolume)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.StdLoadVolume)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--车厢尺寸(尺)-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.CarriageSize)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.CarriageSize)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			              <!--GPS设备编号-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.GPSDeviceId)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.GPSDeviceId)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--主驾司机-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Driver)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Driver)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--主驾司机电话-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.DriverPhone)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.DriverPhone)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--副驾司机-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.AssistantDriver) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.AssistantDriver)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--副驾司机电话-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.AssistantDriverPhone) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.AssistantDriverPhone)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--海关编号-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CustomsNo) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CustomsNo)
+            </label>
+            </section>
+ 		 
+	    
+			  			<!--总行驶里程-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.RoadKM) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.RoadKM)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--行驶时间-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.RoadHours) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.RoadHours)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			              <!--车主-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Owner) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Owner)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--联系人电话-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.OwnerContactPhone) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.OwnerContactPhone)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--品牌-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Brand) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Brand)
+            </label>
+            </section>
+ 		 
+	    
+			  			<!--额定转速-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.RPM) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.RPM)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			              <!--购买日期-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.PurchasedDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.PurchasedDate)
+			    </label>
+            </section>
+			  		 
+	    
+			  			<!--购买金额-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.PurchasedAmount) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.PurchasedAmount)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--车厢长(米)-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.VehLong) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.VehLong)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--车厢宽(米)-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.VehWide) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.VehWide)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--车厢高(米)-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.VehHigh) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.VehHigh)
+			    </label>
+            </section>
+		 
+	    
+			              <!--车架号-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.VIN) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.VIN)
+            </label>
+            </section>
+ 		 
+	    
+			  			<!--使用年限-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.ServiceLife) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.ServiceLife)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--保养公里数-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.MaintainKM) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.MaintainKM)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			              <!--下次保养日期-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.MaintainDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.MaintainDate)
+			    </label>
+            </section>
+			  		 
+	    
+			  			<!--保养周期(月)-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.MaintainMonth) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.MaintainMonth)
+			    </label>
+            </section>
+		 
+	    
+			  			  <!--车辆尾板-->
+              <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.ExistVehTailBoard)</span> </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.ExistVehTailBoard)
+            </label>
+            </section>
+		 
+	    
+			              <!--尾板品牌-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.VehTailBoardBrand) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.VehTailBoardBrand)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--尾板厂家-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.VehTailBoardFactory) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.VehTailBoardFactory)
+            </label>
+            </section>
+ 		 
+	    
+			  			<!--尾板使用年限-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.VehTailBoardLife) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.VehTailBoardLife)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--尾板价值-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.VehTailBoardAmount) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.VehTailBoardAmount)
+			    </label>
+            </section>
+		 
+	    
+			              <!--尾板GPS设备编号-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.VehTailBoardGPSDeviceId) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.VehTailBoardGPSDeviceId)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--型号代码-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DrLicenseModel) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.DrLicenseModel)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--使用性质-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DrLicenseUseNature) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.DrLicenseUseNature)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--品牌-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DrLicenseBrand) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.DrLicenseBrand)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--识别代码-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DrLicenseDevId) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.DrLicenseDevId)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--发动机号-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DrLicenseEngineId) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.DrLicenseEngineId)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--注册日期-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DrLicenseRegistrationDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.DrLicenseRegistrationDate)
+			    </label>
+            </section>
+			  		 
+	    
+			              <!--发证日期-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DrLicensePubDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.DrLicensePubDate)
+			    </label>
+            </section>
+			  		 
+	    
+			  			<!--额定人数-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DrLicenseRatedUsers) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.DrLicenseRatedUsers)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--车辆重量(吨)-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DrLicenseVehWeight) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.DrLicenseVehWeight)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--整备重量(吨)-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DrLicenseDevWeight) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.DrLicenseDevWeight)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--净重(吨)-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DrLicenseNetWeight) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.DrLicenseNetWeight)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--净空(立方)-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DrLicenseNetVolume) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.DrLicenseNetVolume)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--外限宽(米)-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DrLicenseVehWide) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.DrLicenseVehWide)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--外限高(米)-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DrLicenseVehHigh) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.DrLicenseVehHigh)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--外限长(米)-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DrLicenseVehLong) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.DrLicenseVehLong)
+			    </label>
+            </section>
+		 
+	    
+			              <!--强制报废日期-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.DrLicenseScrapedDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.DrLicenseScrapedDate)
+			    </label>
+            </section>
+			  		 
+	   </div>
+	    
+     <div class="row">
+			              <!--文管子号-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LoLicenseManageId) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.LoLicenseManageId)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--运营许可证号-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LoLicenseId) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.LoLicenseId)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--经营范围-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LoLicenseBusinessScope) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.LoLicenseBusinessScope)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--发证日期-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LoLicensePubDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.LoLicensePubDate)
+			    </label>
+            </section>
+			  		 
+	   </div>
+	    
+     <div class="row">
+			              <!--二级有效期-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LoLicenseValidDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.LoLicenseValidDate)
+			    </label>
+            </section>
+			  		 
+	    
+			              <!--年检日期-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LoLicenseCheckDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.LoLicenseCheckDate)
+			    </label>
+            </section>
+			  		 
+	    
+			              <!--注册地-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LoLicensePlace) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.LoLicensePlace)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--交强险保单-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.InsTrafficPolicyId) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.InsTrafficPolicyId)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--保险公司-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.InsTrafficPolicyCompany) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.InsTrafficPolicyCompany)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--交强险保单有效期-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.InsTrafficPolicyVaildateDate) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.InsTrafficPolicyVaildateDate)
+            </label>
+            </section>
+ 		 
+	    
+			  			<!--交强险保额-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.InsTrafficPolicyAmount) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.InsTrafficPolicyAmount)
+			    </label>
+            </section>
+		 
+	    
+			              <!--第三者保单号-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.InsThirdPartyId) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.InsThirdPartyId)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--第三者保单有效期-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.InsThirdPartyVaildateDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.InsThirdPartyVaildateDate)
+			    </label>
+            </section>
+			  		 
+	    
+			  			<!--第三者保单额-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.InsThirdPartyAmount) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.InsThirdPartyAmount)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--物流责任险保额-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.InsThirdPartyLogisticsAmount) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.InsThirdPartyLogisticsAmount)
+			    </label>
+            </section>
+		 
+	    
+			              <!--物流责任险有效期-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.InsThirdPartyLogisticsVaildateDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.InsThirdPartyLogisticsVaildateDate)
+			    </label>
+            </section>
+			  		 
+	   </div>
+	    
+	    
+</fieldset>
+</form>
+<!-- end vehicle form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+
+

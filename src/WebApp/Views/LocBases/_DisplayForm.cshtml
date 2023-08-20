@@ -1,0 +1,88 @@
+﻿﻿@model WebApp.Models.LocBase
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin locbase form  -->
+<form id="locbase_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+ <fieldset>
+     <div class="row">
+			              <!--名称-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Name)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Name)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--描述-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Description) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Description)
+            </label>
+            </section>
+ 		 
+	    
+			  			<!--经度-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Longitude)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.Longitude)
+			    </label>
+            </section>
+		 
+	    
+			  			<!--纬度-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Latitude)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.Latitude)
+			    </label>
+            </section>
+		 
+	   </div>
+	    
+     <div class="row">
+			  			<!--预警半径-->
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Radius)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.Radius)
+			    </label>
+            </section>
+		 
+	    
+			              <!--围栏ID-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Gid) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Gid)
+            </label>
+            </section>
+ 		 
+	    
+			  			  <!--是否启用-->
+              <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Enable)</span> </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.Enable)
+            </label>
+            </section>
+		 
+	    
+   </div>
+	    
+</fieldset>
+</form>
+<!-- end locbase form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+
+

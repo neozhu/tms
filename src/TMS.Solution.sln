@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrameworkLibrary", "FrameworkLibrary", "{844E600E-FC13-4A4D-948E-E72A8D12A13E}"
+	ProjectSection(SolutionItems) = preProject
+		FrameworkLibrary\PublicPara.CodeText.Data.dll = FrameworkLibrary\PublicPara.CodeText.Data.dll
+		FrameworkLibrary\Repository.Pattern.dll = FrameworkLibrary\Repository.Pattern.dll
+		FrameworkLibrary\Repository.Pattern.Ef6.dll = FrameworkLibrary\Repository.Pattern.Ef6.dll
+		FrameworkLibrary\Service.Pattern.dll = FrameworkLibrary\Service.Pattern.dll
+		FrameworkLibrary\SqlHelper2.dll = FrameworkLibrary\SqlHelper2.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{2F110D4F-4198-4FAA-85C9-F9746A7430FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{BDBD18FD-EDB6-488B-B7A9-984970CA7CEE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDBD18FD-EDB6-488B-B7A9-984970CA7CEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDBD18FD-EDB6-488B-B7A9-984970CA7CEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDBD18FD-EDB6-488B-B7A9-984970CA7CEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDBD18FD-EDB6-488B-B7A9-984970CA7CEE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BDBD18FD-EDB6-488B-B7A9-984970CA7CEE} = {2F110D4F-4198-4FAA-85C9-F9746A7430FC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2906466D-0EA4-4623-BF75-11574831AE55}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://neozhu.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = WebApp\\WebApp.csproj
+		SccProjectTopLevelParentUniqueName1 = DP.TMS.Solution.sln
+		SccProjectName1 = WebApp
+		SccLocalPath1 = WebApp
+	EndGlobalSection
+EndGlobal
